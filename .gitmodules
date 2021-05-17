@@ -1,0 +1,9 @@
+[submodule "Hubie/Deps/glfw"]
+	path = Hubie/Deps/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "Hubie/Deps/imgui"]
+	path = Hubie/Deps/imgui
+	url = https://github.com/ocornut/imgui.git
+[submodule "Hubie/Deps/spdlog"]
+	path = Hubie/Deps/spdlog
+	url = https://github.com/gabime/spdlog.git
