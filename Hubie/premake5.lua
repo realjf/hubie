@@ -35,6 +35,9 @@ project "Hubie"
         staticruntime "on"
         systemversion "latest"
 
+        pchheader "hbpch.h"
+        pchsource "src/hbpch.cpp"
+
     filter "configurations:Debug"
 		symbols "On"
 		runtime "Debug"
