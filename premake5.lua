@@ -18,18 +18,18 @@ else
     end
 end
 
-workspace( settings.workspace_name )
+workspace ( settings.workspace_name )
 location "build"
 startproject "Sandbox"
 
     targetdir ("bin/%{outputdir}/")
-    objdir("bin-int/%{outputdir}/obj/")
+    objdir ("bin-int/%{outputdir}/obj/")
 
     if Arch == "arm" then
         architecture = "ARM"
     elseif Arch == "x64" then
         architecture = "x86_64"
-    elseif Arch = "x86" then
+    elseif Arch == "x86" then
         architecture = "x86"
     end
 

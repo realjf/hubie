@@ -35,3 +35,17 @@ project "Hubie"
         staticruntime "on"
         systemversion "latest"
 
+    filter "configurations:Debug"
+		symbols "On"
+		runtime "Debug"
+		optimize "Off"
+
+	filter "configurations:Release"
+		optimize "Speed"
+		symbols "On"
+		runtime "Release"
+
+	filter "configurations:Production"
+		symbols "Off"
+		optimize "Full"
+		runtime "Release"
