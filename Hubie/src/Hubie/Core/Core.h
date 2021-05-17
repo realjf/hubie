@@ -4,6 +4,8 @@
 
 #ifndef HB_PLATFORM_WINDOWS
 #include <signal.h>
+#else
+#include <Windows.h>
 #endif // !HB_PLATFORM_WINDOWS
 
 #include <stdint.h>

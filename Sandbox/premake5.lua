@@ -1,5 +1,9 @@
 IncludeDir = {}
-
+IncludeDir["GLFW"] = "../Hubie/Deps/glfw/include/"
+IncludeDir["Glad"] = "../Hubie/Deps/glad/include/"
+IncludeDir["ImGui"] = "../Hubie/Deps/imgui/"
+IncludeDir["spdlog"] = "../Hubie/Deps/spdlog/include"
+IncludeDir["stb"] = "../Hubie/Deps/stb"
 
 project "Sandbox"
     kind "WindowedApp"
@@ -14,6 +18,15 @@ project "Sandbox"
         "src/**.h",
         "src/**.cpp"
     }
+
+    sysincludedirs
+	{
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.stb}",
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.spdlog}",
+	}
 
     filter "system:windows"
         systemversion "latest"

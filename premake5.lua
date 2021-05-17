@@ -28,7 +28,7 @@ startproject "Sandbox"
     if Arch == "arm" then
         architecture = "ARM"
     elseif Arch == "x64" then
-        architecture = "x86_64"
+        architecture = "x64"
     elseif Arch == "x86" then
         architecture = "x86"
     end

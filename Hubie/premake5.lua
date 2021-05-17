@@ -1,14 +1,13 @@
 IncludeDir = {}
-IncludeDir["GLFW"] = "Deps/glfw/include/"
-IncludeDir["Glad"] = "Deps/glad/include/"
-IncludeDir["ImGui"] = "Deps/imgui/"
-IncludeDir["spdlog"] = "Deps/spdlog/include"
-IncludeDir["glm"] = "Deps/glm"
+IncludeDir["GLFW"] = "./Deps/glfw/include/"
+IncludeDir["Glad"] = "./Deps/glad/include/"
+IncludeDir["ImGui"] = "./Deps/imgui/"
+IncludeDir["spdlog"] = "./Deps/spdlog/include"
+IncludeDir["glm"] = "./Deps/glm"
 
 project "Hubie"
     kind "StaticLib"
     language "C++"
-    editandcontinue "Off"
     cppdialect "C++17"
 	staticruntime "on"
 
