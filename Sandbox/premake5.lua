@@ -4,6 +4,7 @@ IncludeDir["Glad"] = "../Hubie/Deps/glad/include/"
 IncludeDir["ImGui"] = "../Hubie/Deps/imgui/"
 IncludeDir["spdlog"] = "../Hubie/Deps/spdlog/include"
 IncludeDir["stb"] = "../Hubie/Deps/stb"
+IncludeDir["Hubie"] = "../Hubie/src"
 
 project "Sandbox"
     kind "WindowedApp"
@@ -26,7 +27,15 @@ project "Sandbox"
 		"%{IncludeDir.stb}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.spdlog}",
+        "%{IncludeDir.Hubie}"
 	}
+
+    links
+    {
+        "Hubie",
+        "imgui",
+        "spdlog"
+    }
 
     filter "system:windows"
         systemversion "latest"
