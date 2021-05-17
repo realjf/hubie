@@ -2,12 +2,18 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Deps/glfw/include/"
 IncludeDir["Glad"] = "Deps/glad/include/"
 IncludeDir["ImGui"] = "Deps/imgui/"
-IncludeDir["spdlog"] = "External/spdlog/include"
+IncludeDir["spdlog"] = "Deps/spdlog/include"
+IncludeDir["glm"] = "Deps/glm"
 
 project "Hubie"
     kind "StaticLib"
     language "C++"
+    editandcontinue "Off"
+    cppdialect "C++17"
+	staticruntime "on"
 
+    pchheader "hbpch.h"
+    pchsource "src/hbpch.cpp"
 
     files
     {
@@ -21,12 +27,15 @@ project "Hubie"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.spdlog}",
+        "%{IncludeDir.glm}",
         "%{IncludeDir.ImGui}"
     }
 
     links
     {
-        "imgui",
+        "GLFW",
+        "Glad",
+        "ImGui",
         "spdlog"
     }
 
@@ -35,20 +44,32 @@ project "Hubie"
         staticruntime "on"
         systemversion "latest"
 
-        pchheader "hbpch.h"
-        pchsource "src/hbpch.cpp"
+        links
+        {
+            "opengl32.lib"
+        }
+
+        defines
+        {
+            "HB_PLATFORM_WINDOWS",
+            "GLFW_INCLUDE_NONE",
+            "HB_BUILD_DLL"
+        }
 
     filter "configurations:Debug"
+        defines { "HB_DEBUG" }
 		symbols "On"
 		runtime "Debug"
 		optimize "Off"
 
 	filter "configurations:Release"
+        defines { "HB_RELEASE" }
 		optimize "Speed"
 		symbols "On"
 		runtime "Release"
 
 	filter "configurations:Production"
+        defines { "HB_PRODUCTION" }
 		symbols "Off"
 		optimize "Full"
 		runtime "Release"

@@ -23,3 +23,16 @@ newoption
         {"arm64", "arm64"}
     }
 }
+
+newaction
+{
+	trigger     = "clean",
+	description = "clean the software",
+	execute     = function ()
+		print("clean the build...")
+		os.rmdir("./build")
+		os.rmdir("./bin")
+		os.rmdir("./bin-int")
+		print("done.")
+	end
+}

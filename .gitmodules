@@ -7,3 +7,6 @@
 [submodule "Hubie/Deps/spdlog"]
 	path = Hubie/Deps/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "Hubie/Deps/glm"]
+	path = Hubie/Deps/glm
+	url = https://github.com/g-truc/glm.git
