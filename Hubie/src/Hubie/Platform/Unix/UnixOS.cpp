@@ -4,4 +4,14 @@
 namespace Hubie
 {
 
+	void UnixOS::Init()
+	{
+
+	}
+
+	void UnixOS::Run()
+	{
+
+	}
+
 }

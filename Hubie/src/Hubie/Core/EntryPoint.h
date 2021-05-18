@@ -13,8 +13,16 @@
 
 #include <windows.h>
 
-int WinMain()
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 {
+	auto windowsOS = new Hubie::WindowsOS();
+	Hubie::OS::SetInstance(windowsOS);
+
+	windowsOS->Init();
+
+	windowsOS->Run();
+	delete windowsOS;
+
 
 }
 
@@ -22,12 +30,19 @@ int WinMain()
 
 #elif defined(HB_PLATFORM_LINUX)
 
-#include "Core/CoreSystem.h"
-#include "Platform/Unix/UnixOS.h"
+#include "CoreSystem.h"
+#include "Hubie/Platform/Unix/UnixOS.h"
 
 int main(int argc, char** argv)
 {
 	Hubie::Log::Init();
+
+	auto unixOS = new Hubie::UnixOS();
+	Hubie::OS::SetInstance(unixOS);
+	unixOS->Init();
+
+	unixOS->Run();
+	delete unixOS;
 	
 }
 

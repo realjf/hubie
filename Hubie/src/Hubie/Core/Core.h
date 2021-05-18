@@ -39,4 +39,8 @@
     #define HB_CORE_ASSERT(x, ...)
 #endif
 
+#define NONCOPYABLE(type_identifier)                  \
+    type_identifier(const type_identifier&) = delete; \
+    type_identifier& operator=(const type_identifier&) = delete;
+
 
