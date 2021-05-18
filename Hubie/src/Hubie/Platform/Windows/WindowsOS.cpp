@@ -3,12 +3,12 @@
 
 namespace Hubie
 {
-	void Hubie::WindowsOS::Init()
+	void WindowsOS::Init()
 	{
 
 	}
 
-	void Hubie::WindowsOS::Run()
+	void WindowsOS::Run()
 	{
 
 	}
