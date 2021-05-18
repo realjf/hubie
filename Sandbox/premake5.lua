@@ -42,12 +42,29 @@ project "Sandbox"
         "spdlog"
     }
 
+    defines
+    {
+        "HB_ENGINE",
+        "HB_DYNAMIC"
+    }
+
     filter "system:windows"
         systemversion "latest"
 
         defines
         {
-            "HB_PLATFORM_WINDOWS"
+            "HB_PLATFORM_WINDOWS",
+            "_CRT_SECURE_NO_WARNINGS"
+        }
+
+    filter "system:linux"
+        cppdialect "C++17"
+        systemversion "latest"
+
+        defines
+        {
+            "HB_PLATFORM_LINUX",
+            "HB_PLATFORM_UNIX"
         }
 
     filter "configurations:Debug"
