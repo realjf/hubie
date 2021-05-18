@@ -20,6 +20,11 @@ project "Sandbox"
         "src/**.cpp"
     }
 
+    includedirs
+    {
+        "../Hubie/src"
+    }
+
     sysincludedirs
 	{
 		"%{IncludeDir.GLFW}",

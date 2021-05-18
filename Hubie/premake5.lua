@@ -4,6 +4,7 @@ IncludeDir["Glad"] = "./Deps/glad/include/"
 IncludeDir["ImGui"] = "./Deps/imgui/"
 IncludeDir["spdlog"] = "./Deps/spdlog/include"
 IncludeDir["glm"] = "./Deps/glm"
+IncludeDir["Hubie"] = "src"
 
 project "Hubie"
     kind "StaticLib"
@@ -21,20 +22,24 @@ project "Hubie"
         "src/**.cpp"
     }
 
+    includedirs
+    {
+        "src/"
+    }
+
     sysincludedirs
     {
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.Hubie}"
     }
 
     links
     {
-        "GLFW",
-        "Glad",
-        "ImGui",
+        "imgui",
         "spdlog"
     }
 

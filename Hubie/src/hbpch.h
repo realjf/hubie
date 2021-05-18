@@ -1,5 +1,4 @@
-#ifndef __HBPCH_H__
-#define __HBPCH_H__
+#pragma once
 
 #include <algorithm>
 #include <iostream>
@@ -7,11 +6,12 @@
 #include <functional>
 #include <vector>
 #include <utility>
+#include <string>
 
 #include "Hubie/Core/Log.h"
 #include "Hubie/Core/Core.h"
 
-#endif
+
 
 
 

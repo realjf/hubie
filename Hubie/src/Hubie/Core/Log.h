@@ -1,5 +1,4 @@
-#ifndef __LOG_H__
-#define __LOG_H__
+#pragma once
 
 #include "Core.h"
 
@@ -21,10 +20,9 @@ namespace Hubie
     };
 }
 
-#define HB_LOG_TRACE(...) SPDLOG_LOGGER_CALL(::Hubie::Log::GetCoreLogger(), spdlog::level::level_enum::trace, __VA_ARGS__)
-#define HB_LOG_INFO(...) SPDLOG_LOGGER_CALL(::Hubie::Log::GetCoreLogger(), spdlog::level::level_enum::info, __VA_ARGS__)
-#define HB_LOG_WARN(...) SPDLOG_LOGGER_CALL(::Hubie::Log::GetCoreLogger(), spdlog::level::level_enum::warn, __VA_ARGS__)
-#define HB_LOG_ERROR(...) SPDLOG_LOGGER_CALL(::Hubie::Log::GetCoreLogger(), spdlog::level::level_enum::err, __VA_ARGS__)
-#define HB_LOG_CRITICAL(...) SPDLOG_LOGGER_CALL(::Hubie::Log::GetCoreLogger(), spdlog::level::level_enum::critical, __VA_ARGS__)
+#define HB_TRACE(...) SPDLOG_LOGGER_CALL(::Hubie::Log::GetCoreLogger(), spdlog::level::level_enum::trace, __VA_ARGS__)
+#define HB_INFO(...) SPDLOG_LOGGER_CALL(::Hubie::Log::GetCoreLogger(), spdlog::level::level_enum::info, __VA_ARGS__)
+#define HB_WARN(...) SPDLOG_LOGGER_CALL(::Hubie::Log::GetCoreLogger(), spdlog::level::level_enum::warn, __VA_ARGS__)
+#define HB_ERROR(...) SPDLOG_LOGGER_CALL(::Hubie::Log::GetCoreLogger(), spdlog::level::level_enum::err, __VA_ARGS__)
+#define HB_CRITICAL(...) SPDLOG_LOGGER_CALL(::Hubie::Log::GetCoreLogger(), spdlog::level::level_enum::critical, __VA_ARGS__)
 
-#endif

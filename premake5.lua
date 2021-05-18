@@ -42,6 +42,11 @@ startproject "Sandbox"
         "Production",
     }
 
+    platforms
+    {
+        "x64"
+    }
+
     include "Hubie/premake5"
     include "Sandbox/premake5"
     -- include "Editor/premake5"

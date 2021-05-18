@@ -1,5 +1,4 @@
-#ifndef __CORE_H__
-#define __CORE_H__
+#pragma once
 
 
 #ifndef HB_PLATFORM_WINDOWS
@@ -40,4 +39,4 @@
     #define HB_CORE_ASSERT(x, ...)
 #endif
 
-#endif
+
