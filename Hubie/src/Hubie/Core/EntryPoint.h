@@ -15,7 +15,7 @@
 
 extern Hubie::Application* Hubie::CreateApplication();
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	if (!Hubie::Internal::CoreSystem::Init(0, nullptr))
 		return 0;
