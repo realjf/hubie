@@ -138,7 +138,7 @@ namespace Hubie::InputCode
 		Menu = 348
 	};
 
-	enum class MouseKey
+	enum MouseKey
 	{
 		ButtonLeft = 0,
 		ButtonMiddle = 1,

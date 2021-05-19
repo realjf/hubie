@@ -17,7 +17,9 @@ extern Hubie::Application* Hubie::CreateApplication();
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 {
-	Hubie::Log::Init();
+	if (!Hubie::Internal::CoreSystem::Init(0, nullptr))
+		return 0;
+
 	HB_INFO("hello world");
 
 	auto windowsOS = new Hubie::WindowsOS();
@@ -25,9 +27,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
 	windowsOS->Init();
 
+	Hubie::CreateApplication();
+
 	windowsOS->Run();
 	delete windowsOS;
 
+	Hubie::Internal::CoreSystem::Shutdown();
 }
 
 
@@ -41,7 +46,7 @@ extern Hubie::Application* Hubie::CreateApplication();
 
 int main(int argc, char** argv)
 {
-	Hubie::Log::Init();
+	Hubie::Debug::Log::Init();
 
 	auto unixOS = new Hubie::UnixOS();
 	Hubie::OS::SetInstance(unixOS);
