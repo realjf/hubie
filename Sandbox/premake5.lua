@@ -51,7 +51,7 @@ project "Sandbox"
         "box2d",
         "imgui",
         "SpirvCross",
-        -- "spdlog",
+        "spdlog",
         "meshoptimizer"
     }
 
