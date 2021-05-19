@@ -38,8 +38,6 @@ project "Sandbox"
     links
     {
         "Hubie",
-        "imgui",
-        "spdlog"
     }
 
     defines

@@ -47,6 +47,22 @@ startproject "Sandbox"
         "x64"
     }
 
+    group "Deps"
+        require("Hubie/Deps/SPIRVCross_premake5")
+
+        require("Hubie/Deps/spdlog_premake5")
+
+        require("Hubie/Deps/imgui_premake5")
+
+        require("Hubie/Deps/meshoptimizer_premake5")
+
+        if not os.istarget(premake.IOS) and not os.istarget(premake.ANDROID) then
+            require("Hubie/Deps/GLFW_premake5")
+        end
+
+    filter {}
+    group ""
+
     include "Hubie/premake5"
     include "Sandbox/premake5"
     -- include "Editor/premake5"

@@ -1,9 +1,6 @@
 [submodule "Hubie/Deps/glfw"]
 	path = Hubie/Deps/glfw
 	url = https://github.com/glfw/glfw.git
-[submodule "Hubie/Deps/imgui"]
-	path = Hubie/Deps/imgui
-	url = https://github.com/ocornut/imgui.git
 [submodule "Hubie/Deps/spdlog"]
 	path = Hubie/Deps/spdlog
 	url = https://github.com/gabime/spdlog.git
@@ -13,3 +10,12 @@
 [submodule "Hubie/Deps/stb"]
 	path = Hubie/Deps/stb
 	url = https://github.com/nothings/stb.git
+[submodule "Hubie/Deps/SPIRV-Cross"]
+	path = Hubie/Deps/SPIRV-Cross
+	url = https://github.com/KhronosGroup/SPIRV-Cross.git
+[submodule "Hubie/Deps/OpenFBX"]
+	path = Hubie/Deps/OpenFBX
+	url = https://github.com/nem0/OpenFBX.git
+[submodule "Hubie/Deps/meshoptimizer"]
+	path = Hubie/Deps/meshoptimizer
+	url = https://github.com/zeux/meshoptimizer.git

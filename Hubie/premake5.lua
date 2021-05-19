@@ -39,8 +39,6 @@ project "Hubie"
 
     links
     {
-        "imgui",
-        "spdlog"
     }
 
     filter "system:windows"
