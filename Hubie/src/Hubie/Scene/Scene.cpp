@@ -36,7 +36,7 @@ namespace Hubie
 
 	bool Scene::OnWindowResize(WindowResizeEvent& e)
 	{
-
+		return false;
 	}
 
 }

@@ -7,6 +7,8 @@ IncludeDir["Box2D"] = "./Deps/box2d/include"
 IncludeDir["SpirvCross"] = "./Deps/SPIRV-Cross"
 IncludeDir["spdlog"] = "./Deps/spdlog/include"
 IncludeDir["cereal"] = "./Deps/cereal/include"
+IncludeDir["entt"] = "./Deps/entt/src"
+IncludeDir["sol2"] = "./Deps/sol2/include"
 IncludeDir["glm"] = "./Deps/glm"
 IncludeDir["Hubie"] = "src"
 
@@ -28,7 +30,9 @@ project "Hubie"
 
     includedirs
     {
-        "src/"
+        "src/",
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.sol2}",
     }
 
     sysincludedirs
@@ -68,7 +72,7 @@ project "Hubie"
 
         links
         {
-            "opengl32.lib"
+            "glfw"
         }
 
         defines
