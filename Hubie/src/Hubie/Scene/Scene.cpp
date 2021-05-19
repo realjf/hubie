@@ -4,7 +4,7 @@
 namespace Hubie
 {
 
-	Scene::Scene(CONST std::string& SceneName)
+	Scene::Scene(const std::string& SceneName)
 	{
 
 	}

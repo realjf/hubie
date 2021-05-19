@@ -10,7 +10,7 @@
 #include <stdint.h>
 
 
-#ifdef HB_PLATFORM_WINDOWS
+#if defined(HB_PLATFORM_WINDOWS)
 
     #ifdef HB_DYNAMIC
         #ifdef HB_ENGINE
@@ -23,20 +23,57 @@
     #endif
     
     #define HB_HIDDEN
+
 #else
-#define LUMOS_EXPORT __attribute__((visibility("default")))
-#define LUMOS_HIDDEN __attribute__((visibility("hidden")))
+#define HB_EXPORT __attribute__((visibility("default")))
+#define HB_HIDDEN __attribute__((visibility("hidden")))
 #endif
 
 
 #define BIT(x) (1 << x)
 
-#ifdef HB_ENABLE_ASSERTS
-    #define HB_ASSERT(x, ...) { if(!(x)) {HB_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }}
-    #define HB_CORE_ASSERT(x, ...) { if(!(x)){ HB_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }}
+#if HB_PLATFORM_WINDOWS
+#define HB_BREAK() __debugbreak();
 #else
-    #define HB_ASSERT(x, ...)
-    #define HB_CORE_ASSERT(x, ...)
+#define HB_BREAK() raise(SIGTRAP);
+#endif
+
+#ifdef HB_DEBUG
+#define HB_ENABLE_ASSERTS
+#endif
+
+#ifdef HB_ENABLE_ASSERTS
+#define HB_ASSERT_NO_MESSAGE(condition)        \
+    {                                             \
+        if(!(condition))                          \
+        {                                         \
+            HB_ERROR("Assertion Failed!"); \
+            HB_BREAK();                        \
+        }                                         \
+    }
+
+#define HB_ASSERT_MESSAGE(condition, ...)                        \
+    {                                                               \
+        if(!(condition))                                            \
+        {                                                           \
+            HB_ERROR("Assertion Failed : {0}", __VA_ARGS__); \
+            HB_BREAK();                                          \
+        }                                                           \
+    }
+
+#define HB_CLIENT_ASSERT HB_ASSERT_MESSAGE
+#define HB_CORE_ASSERT HB_ASSERT_MESSAGE
+#else
+#define HB_CLIENT_ASSERT(...)
+#define HB_CORE_ASSERT(...)
+#define HB_ASSERT_NO_MESSAGE(...)
+#define HB_ASSERT_MESSAGE(condition)
+#endif
+
+#ifdef HB_ENGINE
+#define HB_ASSERT HB_CORE_ASSERT
+#else
+#define HB_ASSERT HB_CLIENT_ASSERT
 #endif
 
 #define NONCOPYABLE(type_identifier)                  \

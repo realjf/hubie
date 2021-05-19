@@ -16,7 +16,7 @@ public:
 
 	}
 
-	void Init()
+	void Init() override
 	{
 
 	}

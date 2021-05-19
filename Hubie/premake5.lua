@@ -91,6 +91,13 @@ project "Hubie"
             "HB_PLATFORM_UNIX",
         }
 
+        buildoptions
+		{
+			"-fpermissive",
+			"-fPIC",
+			"-Wignored-attributes",
+			"-Wno-psabi"
+		}
 
         links
         {

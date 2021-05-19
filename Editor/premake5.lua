@@ -86,11 +86,23 @@ project "HubieEditor"
             "HB_PLATFORM_UNIX",
         }
 
+        buildoptions
+		{
+			"-fpermissive",
+			"-Wattributes",
+			"-fPIC",
+			"-Wignored-attributes",
+			"-Wno-psabi"
+		}
+
         links
         {
             "glfw"
         }
 
+        links { "X11", "pthread", "dl", "atomic", "stdc++fs"}
+
+        
     filter "configurations:Debug"
         defines { "HB_DEBUG", "_DEBUG" }
         symbols "On"

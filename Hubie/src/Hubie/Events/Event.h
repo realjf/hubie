@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Hubie/Core/Core.h"
+#include <iostream>
+#include <string>
+#include <utility>
 
 namespace Hubie
 {

@@ -4,7 +4,6 @@
 #include "Hubie/Core/Application.h"
 
 
-#include <Windows.h>
 
 extern Hubie::Application* Hubie::CreateApplication();
 

@@ -20,7 +20,7 @@ namespace Hubie
 	class HB_EXPORT Scene
 	{
 	public:
-		explicit Scene(CONST std::string& SceneName);
+		explicit Scene(const std::string& SceneName);
 		virtual ~Scene();
 
 		virtual void OnInit();
