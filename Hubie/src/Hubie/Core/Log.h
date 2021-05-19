@@ -2,6 +2,12 @@
 
 #include "Core.h"
 
+#ifdef HB_PLATFORM_WINDOWS
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#endif
+
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/sinks/stdout_color_sinks.h>

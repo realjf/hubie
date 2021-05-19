@@ -6,6 +6,7 @@ IncludeDir["stb"] = "./Deps/stb/"
 IncludeDir["Box2D"] = "./Deps/box2d/include"
 IncludeDir["SpirvCross"] = "./Deps/SPIRV-Cross"
 IncludeDir["spdlog"] = "./Deps/spdlog/include"
+IncludeDir["cereal"] = "./Deps/cereal/include"
 IncludeDir["glm"] = "./Deps/glm"
 IncludeDir["Hubie"] = "src"
 
@@ -40,6 +41,7 @@ project "Hubie"
         "%{IncludeDir.Box2D}",
         "%{IncludeDir.stb}",
         "%{IncludeDir.SpirvCross}",
+        "%{IncludeDir.cereal}",
         "%{IncludeDir.Hubie}"
     }
 
@@ -56,6 +58,7 @@ project "Hubie"
     {
         "HB_ENGINE",
         "HB_DYNAMIC",
+        "SPDLOG_COMPILED_LIB"
     }
 
     filter "system:windows"
@@ -71,8 +74,7 @@ project "Hubie"
         defines
         {
             "HB_PLATFORM_WINDOWS",
-            "GLFW_INCLUDE_NONE",
-            "HB_BUILD_DLL"
+            "_CRT_SECURE_NO_WARNINGS"
         }
 
     filter "system:linux"

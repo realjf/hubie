@@ -25,3 +25,15 @@
 [submodule "Hubie/Deps/box2d"]
 	path = Hubie/Deps/box2d
 	url = https://github.com/erincatto/box2d.git
+[submodule "Hubie/Deps/cereal"]
+	path = Hubie/Deps/cereal
+	url = https://github.com/USCiLab/cereal.git
+[submodule "Hubie/Deps/entt"]
+	path = Hubie/Deps/entt
+	url = https://github.com/skypjack/entt.git
+[submodule "Hubie/Deps/sol2"]
+	path = Hubie/Deps/sol2
+	url = https://github.com/ThePhD/sol2.git
+[submodule "Hubie/Deps/tracy"]
+	path = Hubie/Deps/tracy
+	url = https://github.com/wolfpld/tracy.git

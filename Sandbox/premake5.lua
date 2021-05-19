@@ -6,6 +6,9 @@ IncludeDir["spdlog"] = "../Hubie/Deps/spdlog/include"
 IncludeDir["stb"] = "../Hubie/Deps/stb"
 IncludeDir["SpirvCross"] = "../Hubie/Deps/SPIRV-Cross"
 IncludeDir["Box2D"] = "../Hubie/Deps/box2d/include/"
+IncludeDir["cereal"] = "../Hubie/Deps/cereal/include"
+IncludeDir["entt"] = "../Hubie/Deps/entt/src/"
+IncludeDir["sol2"] = "../Hubie/Deps/sol2/include/"
 IncludeDir["Hubie"] = "../Hubie/src"
 
 project "Sandbox"
@@ -36,6 +39,9 @@ project "Sandbox"
 		"%{IncludeDir.spdlog}",
         "%{IncludeDir.Box2D}",
         "%{IncludeDir.SpirvCross}",
+        "%{IncludeDir.cereal}",
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.sol2}",
         "%{IncludeDir.Hubie}"
 	}
 
@@ -45,7 +51,7 @@ project "Sandbox"
         "box2d",
         "imgui",
         "SpirvCross",
-        "spdlog",
+        -- "spdlog",
         "meshoptimizer"
     }
 

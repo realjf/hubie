@@ -13,8 +13,13 @@
 
 #include <windows.h>
 
+extern Hubie::Application* Hubie::CreateApplication();
+
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 {
+	Hubie::Log::Init();
+	HB_INFO("hello world");
+
 	auto windowsOS = new Hubie::WindowsOS();
 	Hubie::OS::SetInstance(windowsOS);
 
@@ -22,7 +27,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
 	windowsOS->Run();
 	delete windowsOS;
-
 
 }
 
@@ -32,6 +36,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
 #include "CoreSystem.h"
 #include "Hubie/Platform/Unix/UnixOS.h"
+
+extern Hubie::Application* Hubie::CreateApplication();
 
 int main(int argc, char** argv)
 {

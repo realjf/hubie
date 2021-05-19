@@ -4,6 +4,11 @@ project "spdlog"
     cppdialect "C++17"
     staticruntime "On"
 
+    disablewarnings {
+		"4251",
+		"4275",
+	}
+
     defines
     {
         "SPDLOG_COMPILED_LIB"
