@@ -4,6 +4,8 @@ IncludeDir["Glad"] = "../Hubie/Deps/glad/include/"
 IncludeDir["ImGui"] = "../Hubie/Deps/imgui/"
 IncludeDir["spdlog"] = "../Hubie/Deps/spdlog/include"
 IncludeDir["stb"] = "../Hubie/Deps/stb"
+IncludeDir["SpirvCross"] = "../Hubie/Deps/SPIRV-Cross"
+IncludeDir["Box2D"] = "../Hubie/Deps/box2d/include/"
 IncludeDir["Hubie"] = "../Hubie/src"
 
 project "Sandbox"
@@ -32,18 +34,24 @@ project "Sandbox"
 		"%{IncludeDir.stb}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.spdlog}",
+        "%{IncludeDir.Box2D}",
+        "%{IncludeDir.SpirvCross}",
         "%{IncludeDir.Hubie}"
 	}
 
     links
     {
         "Hubie",
+        "box2d",
+        "imgui",
+        "SpirvCross",
+        "spdlog",
+        "meshoptimizer"
     }
 
     defines
     {
-        "HB_ENGINE",
-        "HB_DYNAMIC"
+        "SPDLOG_COMPILED_LIB"
     }
 
     filter "system:windows"

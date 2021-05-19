@@ -2,6 +2,9 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "./Deps/glfw/include/"
 IncludeDir["Glad"] = "./Deps/glad/include/"
 IncludeDir["ImGui"] = "./Deps/imgui/"
+IncludeDir["stb"] = "./Deps/stb/"
+IncludeDir["Box2D"] = "./Deps/box2d/include"
+IncludeDir["SpirvCross"] = "./Deps/SPIRV-Cross"
 IncludeDir["spdlog"] = "./Deps/spdlog/include"
 IncludeDir["glm"] = "./Deps/glm"
 IncludeDir["Hubie"] = "src"
@@ -34,11 +37,25 @@ project "Hubie"
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.ImGui}",
+        "%{IncludeDir.Box2D}",
+        "%{IncludeDir.stb}",
+        "%{IncludeDir.SpirvCross}",
         "%{IncludeDir.Hubie}"
     }
 
     links
     {
+        "box2d",
+        "imgui",
+        "SpirvCross",
+        "spdlog",
+        "meshoptimizer"
+    }
+
+    defines
+    {
+        "HB_ENGINE",
+        "HB_DYNAMIC",
     }
 
     filter "system:windows"
@@ -57,6 +74,27 @@ project "Hubie"
             "GLFW_INCLUDE_NONE",
             "HB_BUILD_DLL"
         }
+
+    filter "system:linux"
+        cppdialect "C++17"
+        systemversion "latest"
+
+        defines
+        {
+            "HB_PLATFORM_LINUX",
+            "HB_PLATFORM_UNIX",
+        }
+
+
+        links
+        {
+            "glfw",
+            "X11",
+            "pthread"
+        }
+
+        pchheader "../Hubie/src/hbpch.h"
+        pchsource "../Hubie/src/hbpch.cpp"
 
     filter "configurations:Debug"
         defines { "HB_DEBUG" }

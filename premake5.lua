@@ -48,6 +48,8 @@ startproject "Sandbox"
     }
 
     group "Deps"
+        require("Hubie/Deps/box2d_premake5")
+
         require("Hubie/Deps/SPIRVCross_premake5")
 
         require("Hubie/Deps/spdlog_premake5")

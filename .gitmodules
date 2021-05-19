@@ -19,3 +19,9 @@
 [submodule "Hubie/Deps/meshoptimizer"]
 	path = Hubie/Deps/meshoptimizer
 	url = https://github.com/zeux/meshoptimizer.git
+[submodule "Hubie/Deps/imgui"]
+	path = Hubie/Deps/imgui
+	url = https://github.com/realjf/imgui.git
+[submodule "Hubie/Deps/box2d"]
+	path = Hubie/Deps/box2d
+	url = https://github.com/erincatto/box2d.git
