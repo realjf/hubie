@@ -1,4 +1,3 @@
-#pragma once
 
 #if defined(HB_PLATFORM_WINDOWS)
 
