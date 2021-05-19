@@ -46,15 +46,19 @@ extern Hubie::Application* Hubie::CreateApplication();
 
 int main(int argc, char** argv)
 {
-	Hubie::Debug::Log::Init();
+	if (!Hubie::Internal::CoreSystem::Init(0, nullptr))
+		return 0;
 
 	auto unixOS = new Hubie::UnixOS();
 	Hubie::OS::SetInstance(unixOS);
 	unixOS->Init();
 
+	Hubie::CreateApplication();
+
 	unixOS->Run();
 	delete unixOS;
-	
+
+	Hubie::Internal::CoreSystem::Shutdown();
 }
 
 
