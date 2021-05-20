@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Hubie/Core/Core.h"
+
 #define MAX_MIPS 11
 
 namespace Hubie
