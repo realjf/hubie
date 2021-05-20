@@ -2,12 +2,36 @@
 
 #include "Hubie/Core/Core.h"
 #include "Hubie/Scene/SceneManager.h"
+#include "Hubie/Scene/SystemManager.h"
 #include "Hubie/Events/ApplicationEvent.h"
 #include "Hubie/Utilities/TimeStep.h"
 #include "Hubie/Core/Reference.h"
 
 namespace Hubie
 {
+	class Timer;
+	class Window;
+	struct WindowProperties;
+	class AudioManager;
+	class SystemManager;
+	class Editor;
+	class Scene;
+	class Event;
+	class WindowCloseEvent;
+	class WindowResizeEvent;
+	class ImGuiManager;
+
+	namespace Graphics
+	{
+		class RenderGraph;
+		enum class RenderAPI : uint32_t;
+	}
+
+	namespace Maths
+	{
+		class Vector2;
+	}
+
 	enum class AppState
 	{
 		Running,
