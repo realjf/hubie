@@ -18,10 +18,11 @@ public:
 
 	void Init() override
 	{
-
+		Application::Init();
+		Application::SetEditorState(EditorState::Play);
 	}
 
-	void OnImGui()
+	void OnImGui() override
 	{
 
 	}

@@ -1,6 +1,10 @@
 #include "hbpch.h"
 #include "Application.h"
 
+#include "Engine.h"
+
+#include <imgui.h>
+
 namespace Hubie
 {
 	Application* Application::s_Instance = nullptr;
@@ -8,11 +12,14 @@ namespace Hubie
 	Application::Application()
 	{
 		s_Instance = this;
+
+		ImGui::CreateContext();
+		ImGui::StyleColorsDark();
 	}
 
 	Application::~Application()
 	{
-
+		ImGui::DestroyContext();
 	}
 
 	void Application::Run()
@@ -27,9 +34,26 @@ namespace Hubie
 	bool Application::OnFrame()
 	{
 
+		auto& stats = Engine::Get().Statistics();
+		auto& ts = Engine::GetTimeStep();
+
+		{
+			ImGuiIO& io = ImGui::GetIO();
+			io.DeltaTime = ts.GetSeconds();
+
+			stats.FrameTime = ts.GetMillis();
+		}
+
 		if (m_CurrentState == AppState::Closing)
 			return false;
 		
+		{
+			ImGui::NewFrame();
+		}
+
+		{
+			OnUpdate(ts);
+		}
 
 		return m_CurrentState != AppState::Closing;
 	}
@@ -42,6 +66,11 @@ namespace Hubie
 	void Application::Init()
 	{
 
+	}
+
+	void Application::OnImGui()
+	{
+		
 	}
 
 	void Application::OnEvent(Event& e)

@@ -41,6 +41,27 @@ namespace Hubie
 		virtual void Init();
 		virtual void OnEvent(Event& e);
 		virtual void OnUpdate(const TimeStep& dt);
+		virtual void OnImGui();
+
+		inline AppState GetState() const
+		{
+			return m_CurrentState;
+		}
+
+		inline EditorState GetEditorState() const
+		{
+			return m_EditorState;
+		}
+
+		inline void SetAppState(AppState state)
+		{
+			m_CurrentState = state;
+		}
+
+		inline void SetEditorState(EditorState state)
+		{
+			m_EditorState = state;
+		}
 
 
 		static Application& Get()
@@ -56,10 +77,25 @@ namespace Hubie
 		}
 
 	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+
+
+		uint32_t Width, Height;
+		bool Fullscreen;
+		bool VSync;
+		bool Borderless = false;
+		bool ShowConsole = true;
+		std::string Title;
+		int RenderAPI;
+		std::string FilePath;
+
+
+
 		static Application* s_Instance;
 
 		AppState m_CurrentState = AppState::Loading;
 		EditorState m_EditorState = EditorState::Preview;
+		AppType m_AppType = AppType::Editor;
 
 		NONCOPYABLE(Application);
 	};

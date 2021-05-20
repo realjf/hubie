@@ -2,6 +2,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "../Hubie/Deps/glfw/include/"
 IncludeDir["Glad"] = "../Hubie/Deps/glad/include/"
 IncludeDir["ImGui"] = "../Hubie/Deps/imgui/"
+IncludeDir["ImGui2"] = "../Hubie/Deps/imgui/backends"
 IncludeDir["spdlog"] = "../Hubie/Deps/spdlog/include"
 IncludeDir["stb"] = "../Hubie/Deps/stb"
 IncludeDir["SpirvCross"] = "../Hubie/Deps/SPIRV-Cross"
@@ -34,6 +35,7 @@ project "HubieEditor"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.stb}",
 		"%{IncludeDir.ImGui}",
+        "%{IncludeDir.ImGui2}",
 		"%{IncludeDir.spdlog}",
         "%{IncludeDir.Box2D}",
         "%{IncludeDir.SpirvCross}",
