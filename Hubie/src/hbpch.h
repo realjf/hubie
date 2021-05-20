@@ -10,6 +10,7 @@
 
 #include "Hubie/Core/Log.h"
 #include "Hubie/Core/Core.h"
+#include "Hubie/Core/Profiler.h"
 
 
 
