@@ -2,7 +2,7 @@
 
 #include "Hubie/Core/OS/Window.h"
 
-struct GLFWWindow;
+struct GLFWwindow;
 
 namespace Hubie
 {

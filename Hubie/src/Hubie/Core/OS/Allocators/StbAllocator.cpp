@@ -2,7 +2,7 @@
 #include "StbAllocator.h"
 
 #define STB_LEAKCHECK_IMPLEMENTATION
-#include <stb/stb_leakcheck.h>
+#include <stb_leakcheck.h>
 
 namespace Hubie
 {
