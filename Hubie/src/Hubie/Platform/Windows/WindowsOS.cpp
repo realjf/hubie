@@ -1,6 +1,8 @@
 #include "hbpch.h"
 #include "WindowsOS.h"
 
+
+#include "WindowsWindow.h"
 #include "Hubie/Core/Application.h"
 
 
@@ -11,7 +13,11 @@ namespace Hubie
 {
 	void WindowsOS::Init()
 	{
-		
+#ifdef HB_USE_GLFW_WINDOWS
+		GLFWWindow::MakeDefault();
+#else
+		WindowsWindow::MakeDefault();
+#endif
 	}
 
 	void WindowsOS::Run()

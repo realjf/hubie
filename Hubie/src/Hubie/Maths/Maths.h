@@ -71,14 +71,14 @@ namespace Hubie
 		template <typename T>
 		static const float* ValuePointer(const T& t)
 		{
-			LUMOS_ASSERT(false, "Unimplemented Value Pointer");
+			HB_ASSERT(false, "Unimplemented Value Pointer");
 			return nullptr;
 		}
 
 		template <typename T>
 		static float* ValuePointer(T& t)
 		{
-			LUMOS_ASSERT(false, "Unimplemented Value Pointer");
+			HB_ASSERT(false, "Unimplemented Value Pointer");
 			return nullptr;
 		}
 	}

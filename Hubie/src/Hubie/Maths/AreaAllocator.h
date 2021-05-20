@@ -1,7 +1,7 @@
 #pragma once
 #include "Rect.h"
 
-namespace Lumos::Maths
+namespace Hubie::Maths
 {
 	/// Rectangular area allocator.
 	class AreaAllocator

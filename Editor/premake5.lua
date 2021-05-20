@@ -27,13 +27,13 @@ project "HubieEditor"
         "../Hubie/src",
         "%{IncludeDir.entt}",
         "%{IncludeDir.sol2}",
+        "%{IncludeDir.stb}",
     }
 
     sysincludedirs
 	{
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}",
-		"%{IncludeDir.stb}",
+		"%{IncludeDir.Glad}",	
 		"%{IncludeDir.ImGui}",
         "%{IncludeDir.ImGui2}",
 		"%{IncludeDir.spdlog}",

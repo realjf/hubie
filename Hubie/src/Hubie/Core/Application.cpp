@@ -10,7 +10,14 @@ namespace Hubie
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
+		: m_Frames(0)
+		, m_Updates(0)
+		, m_SceneViewWidth(800)
+		, m_SceneViewHeight(600)
 	{
+		HB_PROFILE_FUNCTION();
+		HB_ASSERT(!s_Instance, "Application already exists!");
+
 		s_Instance = this;
 
 		ImGui::CreateContext();

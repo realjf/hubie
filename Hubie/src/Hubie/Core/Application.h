@@ -4,6 +4,7 @@
 #include "Hubie/Scene/SceneManager.h"
 #include "Hubie/Events/ApplicationEvent.h"
 #include "Hubie/Utilities/TimeStep.h"
+#include "Hubie/Core/Reference.h"
 
 namespace Hubie
 {
@@ -42,6 +43,12 @@ namespace Hubie
 		virtual void OnEvent(Event& e);
 		virtual void OnUpdate(const TimeStep& dt);
 		virtual void OnImGui();
+
+
+		Window* GetWindow() const
+		{
+			return m_Window.get();
+		}
 
 		inline AppState GetState() const
 		{
@@ -89,7 +96,20 @@ namespace Hubie
 		int RenderAPI;
 		std::string FilePath;
 
+		uint32_t m_Frames = 0;
+		uint32_t m_Updates = 0;
+		float m_SecondTimer = 0.0f;
+		bool m_Minimized = false;
+		bool m_SceneActive = true;
 
+		uint32_t m_SceneViewWidth = 0;
+		uint32_t m_SceneViewHeight = 0;
+		bool m_SceneViewSizeUpdated = false;
+
+
+		UniqueRef<Window> m_Window;
+		UniqueRef<SceneManager> m_SceneManager;
+		
 
 		static Application* s_Instance;
 

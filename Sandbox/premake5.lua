@@ -31,13 +31,13 @@ project "Sandbox"
         "../Hubie/src",
         "%{IncludeDir.entt}",
         "%{IncludeDir.sol2}",
+        "%{IncludeDir.stb}",
     }
 
     sysincludedirs
 	{
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.stb}",
 		"%{IncludeDir.ImGui}",
         "%{IncludeDir.ImGui2}",
 		"%{IncludeDir.spdlog}",

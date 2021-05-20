@@ -5,7 +5,7 @@ namespace Hubie::Maths
 {
 	inline Vector3 ClipEdgeZ(const Vector3& v0, const Vector3& v1, float clipZ)
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		return Vector3(
 			v1.x + (v0.x - v1.x) * ((clipZ - v1.z) / (v0.z - v1.z)),
 			v1.y + (v0.y - v1.y) * ((clipZ - v1.z) / (v0.z - v1.z)),
@@ -14,7 +14,7 @@ namespace Hubie::Maths
 
 	void ProjectAndMergeEdge(Vector3 v0, Vector3 v1, Rect& rect, const Matrix4& projection)
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		// Check if both vertices behind near plane
 		if (v0.z < M_MIN_NEARCLIP && v1.z < M_MIN_NEARCLIP)
 			return;
@@ -39,7 +39,7 @@ namespace Hubie::Maths
 
 	Frustum& Frustum::operator=(const Frustum& rhs) noexcept
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		for (unsigned i = 0; i < NUM_FRUSTUM_PLANES; ++i)
 			planes_[i] = rhs.planes_[i];
 		for (unsigned i = 0; i < NUM_FRUSTUM_VERTICES; ++i)
@@ -50,7 +50,7 @@ namespace Hubie::Maths
 
 	void Frustum::Define(float fov, float aspectRatio, float zoom, float nearZ, float farZ, const Matrix3x4& transform)
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		nearZ = Max(nearZ, 0.0f);
 		farZ = Max(farZ, nearZ);
 		float halfViewSize = tanf(fov * M_DEGTORAD_2) / zoom;
@@ -68,7 +68,7 @@ namespace Hubie::Maths
 
 	void Frustum::Define(const Vector3& lNear, const Vector3& lFar, const Matrix3x4& transform)
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		vertices_[0] = transform * lNear;
 		vertices_[1] = transform * Vector3(lNear.x, -lNear.y, lNear.z);
 		vertices_[2] = transform * Vector3(-lNear.x, -lNear.y, lNear.z);
@@ -83,7 +83,7 @@ namespace Hubie::Maths
 
 	void Frustum::Define(const BoundingBox& box, const Matrix3x4& transform)
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		vertices_[0] = transform * Vector3(box.max_.x, box.max_.y, box.min_.z);
 		vertices_[1] = transform * Vector3(box.max_.x, box.min_.y, box.min_.z);
 		vertices_[2] = transform * Vector3(box.min_.x, box.min_.y, box.min_.z);
@@ -98,7 +98,7 @@ namespace Hubie::Maths
 
 	void Frustum::Define(const Matrix4& projection)
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		Matrix4 projInverse = projection.Inverse();
 
 		bool zeroOne = Matrix4::IsDepthZeroOne();
@@ -117,7 +117,7 @@ namespace Hubie::Maths
 
 	void Frustum::DefineOrtho(float orthoSize, float aspectRatio, float zoom, float nearZ, float farZ, const Matrix3x4& transform)
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		nearZ = Max(nearZ, 0.0f);
 		farZ = Max(farZ, nearZ);
 		float halfViewSize = orthoSize * 0.5f / zoom;
@@ -133,7 +133,7 @@ namespace Hubie::Maths
 
 	void Frustum::DefineSplit(const Matrix4& projection, float lNear, float lFar)
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		Matrix4 projInverse = projection.Inverse();
 
 		// Figure out depth values for near & far
@@ -156,7 +156,7 @@ namespace Hubie::Maths
 
 	void Frustum::Transform(const Matrix3& transform)
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		for (auto& vertice : vertices_)
 			vertice = transform * vertice;
 
@@ -165,7 +165,7 @@ namespace Hubie::Maths
 
 	void Frustum::Transform(const Matrix3x4& transform)
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		for (auto& vertice : vertices_)
 			vertice = transform * vertice;
 
@@ -174,7 +174,7 @@ namespace Hubie::Maths
 
 	Frustum Frustum::Transformed(const Matrix3& transform) const
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		Frustum transformed;
 		for (unsigned i = 0; i < NUM_FRUSTUM_VERTICES; ++i)
 			transformed.vertices_[i] = transform * vertices_[i];
@@ -185,7 +185,7 @@ namespace Hubie::Maths
 
 	Frustum Frustum::Transformed(const Matrix3x4& transform) const
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		Frustum transformed;
 		for (unsigned i = 0; i < NUM_FRUSTUM_VERTICES; ++i)
 			transformed.vertices_[i] = transform * vertices_[i];
@@ -196,7 +196,7 @@ namespace Hubie::Maths
 
 	Rect Frustum::Projected(const Matrix4& projection) const
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		Rect rect;
 
 		ProjectAndMergeEdge(vertices_[0], vertices_[4], rect, projection);
@@ -213,7 +213,7 @@ namespace Hubie::Maths
 
 	void Frustum::UpdatePlanes()
 	{
-		LUMOS_PROFILE_FUNCTION();
+		HB_PROFILE_FUNCTION();
 		planes_[PLANE_NEAR].Define(vertices_[2], vertices_[1], vertices_[0]);
 		planes_[PLANE_LEFT].Define(vertices_[3], vertices_[7], vertices_[6]);
 		planes_[PLANE_RIGHT].Define(vertices_[1], vertices_[5], vertices_[4]);

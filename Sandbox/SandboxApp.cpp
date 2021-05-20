@@ -7,13 +7,16 @@ using namespace Hubie;
 class Game : public Application
 {
 public:
-	explicit Game() {}
+	explicit Game() 
+	{
+
+	}
 
 	~Game() {}
 
-	void OnEvent()
+	void OnEvent(Event& e) override
 	{
-
+		Application::OnEvent(e);
 	}
 
 	void Init() override
@@ -24,7 +27,10 @@ public:
 
 	void OnImGui() override
 	{
-
+		ImGui::Begin("Metrics");
+		ImGui::Text("FPS : %.2f", (float)Hubie::Engine::Get().Statistics().FramesPerSecond);
+		ImGui::End();
+		Application::OnImGui();
 	}
 };
 

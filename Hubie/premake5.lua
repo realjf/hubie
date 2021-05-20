@@ -34,6 +34,7 @@ project "Hubie"
         "src/",
         "%{IncludeDir.entt}",
         "%{IncludeDir.sol2}",
+        "%{IncludeDir.stb}",
     }
 
     sysincludedirs
@@ -45,7 +46,6 @@ project "Hubie"
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.ImGui2}",
         "%{IncludeDir.Box2D}",
-        "%{IncludeDir.stb}",
         "%{IncludeDir.SpirvCross}",
         "%{IncludeDir.cereal}",
         "%{IncludeDir.Hubie}"
