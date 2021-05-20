@@ -2,16 +2,16 @@
 #include "GraphicsContext.h"
 
 #ifdef HB_RENDER_API_OPENGL
-#include "Platform/OpenGL/GLContext.h"
-#include "Platform/OpenGL/GLFunctions.h"
+#include "Hubie/Platform/OpenGL/GLContext.h"
+#include "Hubie/Platform/OpenGL/GLFunctions.h"
 #endif
 #ifdef HB_RENDER_API_VULKAN
-#include "Platform/Vulkan/VKContext.h"
-#include "Platform/Vulkan/VKFunctions.h"
+#include "Hubie/Platform/Vulkan/VKContext.h"
+#include "Hubie/Platform/Vulkan/VKFunctions.h"
 #endif
 #ifdef HB_RENDER_API_DIRECT3D
-#include "Graphics/DirectX/DXContext.h"
-#include "Graphics/DirectX/DXFunctions.h"
+#include "Hubie/Graphics/DirectX/DXContext.h"
+#include "Hubie/Graphics/DirectX/DXFunctions.h"
 #endif
 
 namespace Hubie
