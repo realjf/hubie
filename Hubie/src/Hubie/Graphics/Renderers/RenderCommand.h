@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Hubie/Core/Core.h"
 #include "Hubie/Graphics/Mesh.h"
 #include "Hubie/Graphics/API/Shader.h"
 

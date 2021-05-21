@@ -10,13 +10,17 @@ IncludeDir["spdlog"] = "./Deps/spdlog/include"
 IncludeDir["cereal"] = "./Deps/cereal/include"
 IncludeDir["entt"] = "./Deps/entt/src"
 IncludeDir["sol2"] = "./Deps/sol2/include"
-IncludeDir["openfbx"] = "./Deps/OpenFBX/src"
-IncludeDir["tinygltf"] = "./Deps/tinygltf"
-IncludeDir["tinyobjloader"] = "./Deps/tinyobjloader"
-IncludeDir["meshoptimizer"] = "./Deps/meshoptimizer/src"
-IncludeDir["volk"] = "./Deps/volk"
-IncludeDir["glm"] = "./Deps/glm"
 IncludeDir["Hubie"] = "src"
+
+IncludeDir2 = {}
+IncludeDir2["deps"] = "./Deps"
+IncludeDir2["openFBX"] = "./Deps/OpenFBX/src"
+IncludeDir2["tinygltf"] = "./Deps/tinygltf"
+IncludeDir2["tinyobjloader"] = "./Deps/tinyobjloader"
+IncludeDir2["meshoptimizer"] = "./Deps/meshoptimizer/src"
+IncludeDir2["volk"] = "./Deps/volk"
+IncludeDir2["glm"] = "./Deps/glm"
+
 
 project "Hubie"
     kind "StaticLib"
@@ -34,25 +38,24 @@ project "Hubie"
         "src/**.cpp"
     }
 
-    includedirs
-    {
+    includedirs {
         "src/",
         "%{IncludeDir.entt}",
         "%{IncludeDir.sol2}",
         "%{IncludeDir.stb}",
-        "%{IncludeDir.openfbx}",
-        "%{IncludeDir.tinygltf}",
-        "%{IncludeDir.tinyobjloader}",
-        "%{IncludeDir.meshoptimizer}",
-        "%{IncludeDir.volk}",
+        "%{IncludeDir2.openFBX}",
+        "%{IncludeDir2.deps}",
+        "%{IncludeDir2.volk}",
+        "%{IncludeDir2.tinygltf}",
+        "%{IncludeDir2.tinyobjloader}",
+        "%{IncludeDir2.meshoptimizer}",
+        "%{IncludeDir2.glm}",
     }
 
-    sysincludedirs
-    {
+    sysincludedirs {
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.spdlog}",
-        "%{IncludeDir.glm}",
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.ImGui2}",
         "%{IncludeDir.Box2D}",

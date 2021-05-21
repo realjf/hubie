@@ -11,7 +11,7 @@
 #include "Hubie/Core/Application.h"
 #include "Hubie/Core/StringUtilities.h"
 
-#include <ofbx.h>
+#include <OpenFBX/src/ofbx.h>
 
 const uint32_t MAX_PATH_LENGTH = 260;
 

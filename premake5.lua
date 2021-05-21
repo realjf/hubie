@@ -28,7 +28,7 @@ startproject "Sandbox"
     if Arch == "arm" then
         architecture = "ARM"
     elseif Arch == "x64" then
-        architecture = "x64"
+        architecture = "x86_x64"
     elseif Arch == "x86" then
         architecture = "x86"
     end
@@ -44,7 +44,7 @@ startproject "Sandbox"
 
     platforms
     {
-        "x64"
+        "Win64"
     }
 
     group "Deps"

@@ -27,8 +27,8 @@
 #include "Hubie/Graphics/API/Pipeline.h"
 #include "Hubie/Graphics/API/GraphicsContext.h"
 #include "Hubie/Graphics/Environment.h"
-#include "Embedded/BRDFTexture.inl"
-#include "Utilities/AssetManager.h"
+#include "Hubie/Embedded/BRDFTexture.inl"
+#include "Hubie/Utilities/AssetManager.h"
 
 #include <imgui/imgui.h>
 

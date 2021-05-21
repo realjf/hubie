@@ -12,6 +12,16 @@ IncludeDir["entt"] = "../Hubie/Deps/entt/src"
 IncludeDir["sol2"] = "../Hubie/Deps/sol2/include"
 IncludeDir["Hubie"] = "../Hubie/src"
 
+IncludeDir2 = {}
+IncludeDir2["deps"] = "../Hubie/Deps"
+IncludeDir2["openFBX"] = "../Hubie/Deps/OpenFBX/src"
+IncludeDir2["tinygltf"] = "../Hubie/Deps/tinygltf"
+IncludeDir2["tinyobjloader"] = "../Hubie/Deps/tinyobjloader"
+IncludeDir2["meshoptimizer"] = "../Hubie/Deps/meshoptimizer/src"
+IncludeDir2["volk"] = "../Hubie/Deps/volk"
+IncludeDir2["glm"] = "../Hubie/Deps/glm"
+
+
 project "Sandbox"
     kind "WindowedApp"
     language "C++"
@@ -32,6 +42,13 @@ project "Sandbox"
         "%{IncludeDir.entt}",
         "%{IncludeDir.sol2}",
         "%{IncludeDir.stb}",
+        "%{IncludeDir2.openFBX}",
+        "%{IncludeDir2.deps}",
+        "%{IncludeDir2.volk}",
+        "%{IncludeDir2.tinygltf}",
+        "%{IncludeDir2.tinyobjloader}",
+        "%{IncludeDir2.meshoptimizer}",
+        "%{IncludeDir2.glm}",
     }
 
     sysincludedirs

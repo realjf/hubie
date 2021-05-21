@@ -16,7 +16,7 @@
 #ifdef HB_DIST
 #define TINYGLTF_NOEXCEPTION
 #endif
-#include <tiny_gltf.h>
+#include <tinygltf/tiny_gltf.h>
 
 namespace Hubie::Graphics
 {

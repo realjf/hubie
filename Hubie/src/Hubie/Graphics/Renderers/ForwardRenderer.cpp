@@ -20,7 +20,7 @@
 #include "Hubie/Maths/Maths.h"
 #include "Hubie/Maths/Transform.h"
 
-#include "Embedded/CheckerBoardTextureArray.inl"
+#include "Hubie/Embedded/CheckerBoardTextureArray.inl"
 
 #include "Hubie/Core/Application.h"
 #include "RenderGraph.h"

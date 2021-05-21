@@ -4,7 +4,7 @@
 #include "Hubie/Graphics/Renderers/IRenderer.h"
 #include "Hubie/Graphics/Renderers/DebugRenderer.h"
 
-#include "Events/ApplicationEvent.h"
+#include "Hubie/Events/ApplicationEvent.h"
 
 namespace Hubie::Graphics
 {
