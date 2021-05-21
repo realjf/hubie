@@ -43,3 +43,6 @@
 [submodule "Hubie/Deps/tinyobjloader"]
 	path = Hubie/Deps/tinyobjloader
 	url = https://github.com/tinyobjloader/tinyobjloader.git
+[submodule "Hubie/Deps/volk"]
+	path = Hubie/Deps/volk
+	url = https://github.com/zeux/volk.git

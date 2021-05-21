@@ -14,6 +14,7 @@ IncludeDir["openfbx"] = "./Deps/OpenFBX/src"
 IncludeDir["tinygltf"] = "./Deps/tinygltf"
 IncludeDir["tinyobjloader"] = "./Deps/tinyobjloader"
 IncludeDir["meshoptimizer"] = "./Deps/meshoptimizer/src"
+IncludeDir["volk"] = "./Deps/volk"
 IncludeDir["glm"] = "./Deps/glm"
 IncludeDir["Hubie"] = "src"
 
@@ -43,6 +44,7 @@ project "Hubie"
         "%{IncludeDir.tinygltf}",
         "%{IncludeDir.tinyobjloader}",
         "%{IncludeDir.meshoptimizer}",
+        "%{IncludeDir.volk}",
     }
 
     sysincludedirs
