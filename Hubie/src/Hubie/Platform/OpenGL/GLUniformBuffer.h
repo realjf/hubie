@@ -1,7 +1,7 @@
 #pragma once
-#include "Graphics/API/UniformBuffer.h"
+#include "Hubie/Graphics/API/UniformBuffer.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

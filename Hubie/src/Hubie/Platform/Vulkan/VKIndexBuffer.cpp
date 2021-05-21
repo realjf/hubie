@@ -3,7 +3,7 @@
 #include "VKVertexBuffer.h"
 #include "VKCommandBuffer.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -54,7 +54,7 @@ namespace Lumos
 
         void* VKIndexBuffer::GetPointerInternal()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(!m_MappedBuffer)
             {
                 VKBuffer::Map();
@@ -66,7 +66,7 @@ namespace Lumos
 
         void VKIndexBuffer::ReleasePointer()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(m_MappedBuffer)
             {
                 VKBuffer::Flush(m_Size);

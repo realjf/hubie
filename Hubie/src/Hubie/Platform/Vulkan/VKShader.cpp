@@ -6,9 +6,9 @@
 #include "VKPipeline.h"
 #include "VKCommandBuffer.h"
 
-#include "Core/OS/FileSystem.h"
-#include "Core/VFS.h"
-#include "Core/StringUtilities.h"
+#include "Hubie/Core/OS/FileSystem.h"
+#include "Hubie/Core/VFS.h"
+#include "Hubie/Core/StringUtilities.h"
 
 #include <spirv_cross.hpp>
 
@@ -20,7 +20,7 @@
 #define SHADER_LOG(x)
 #endif
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -31,7 +31,7 @@ namespace Lumos
             using namespace spirv_cross;
             if(type.basetype == SPIRType::Struct || type.basetype == SPIRType::Sampler)
             {
-                LUMOS_LOG_WARN("Tried to convert a structure or SPIR sampler into a VkFormat enum value!");
+                HB_WARN("Tried to convert a structure or SPIR sampler into a VkFormat enum value!");
                 return VK_FORMAT_UNDEFINED;
             }
             else if(type.basetype == SPIRType::Image || type.basetype == SPIRType::SampledImage)
@@ -85,7 +85,7 @@ namespace Lumos
                 case spv::ImageFormatRgba32ui:
                     return VK_FORMAT_R32G32B32A32_UINT;
                 default:
-                    LUMOS_LOG_WARN("Failed to convert an image format to a VkFormat enum.");
+                    HB_WARN("Failed to convert an image format to a VkFormat enum.");
                     return VK_FORMAT_UNDEFINED;
                 }
             }
@@ -147,7 +147,7 @@ namespace Lumos
                 }
                 else
                 {
-                    LUMOS_LOG_WARN("Invalid type width for conversion of SPIR-Type to VkFormat enum value!");
+                    HB_WARN("Invalid type width for conversion of SPIR-Type to VkFormat enum value!");
                     return VK_FORMAT_UNDEFINED;
                 }
             }
@@ -209,7 +209,7 @@ namespace Lumos
                 }
                 else
                 {
-                    LUMOS_LOG_WARN("Invalid type width for conversion of SPIR-Type to VkFormat enum value!");
+                    HB_WARN("Invalid type width for conversion of SPIR-Type to VkFormat enum value!");
                     return VK_FORMAT_UNDEFINED;
                 }
             }
@@ -271,7 +271,7 @@ namespace Lumos
                 }
                 else
                 {
-                    LUMOS_LOG_WARN("Invalid type width for conversion of SPIR-Type to VkFormat enum value!");
+                    HB_WARN("Invalid type width for conversion of SPIR-Type to VkFormat enum value!");
                     return VK_FORMAT_UNDEFINED;
                 }
             }
@@ -333,13 +333,13 @@ namespace Lumos
                 }
                 else
                 {
-                    LUMOS_LOG_WARN("Invalid type width for conversion to a VkFormat enum");
+                    HB_WARN("Invalid type width for conversion to a VkFormat enum");
                     return VK_FORMAT_UNDEFINED;
                 }
             }
             else
             {
-                LUMOS_LOG_WARN("Vector size in vertex input attributes isn't explicitly supported for parsing from SPIRType->VkFormat");
+                HB_WARN("Vector size in vertex input attributes isn't explicitly supported for parsing from SPIRType->VkFormat");
                 return VK_FORMAT_UNDEFINED;
             }
         }
@@ -370,7 +370,7 @@ namespace Lumos
             case VK_FORMAT_R32G32B32A32_UINT:
                 return sizeof(Maths::IntVector4); //Need uintvec?
             default:
-                LUMOS_LOG_ERROR("Unsupported Format {0}", format);
+                HB_ERROR("Unsupported Format {0}", format);
                 return 0;
             }
 
@@ -400,7 +400,7 @@ namespace Lumos
 
         bool VKShader::Init()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             uint32_t currentShaderStage = 0;
             m_StageCount = 0;
 
@@ -418,7 +418,7 @@ namespace Lumos
             for(uint32_t i = 0; i < m_StageCount; i++)
                 m_ShaderStages[i] = VkPipelineShaderStageCreateInfo();
 
-            LUMOS_LOG_INFO("Loading Shader : {0}", m_Name);
+            HB_INFO("Loading Shader : {0}", m_Name);
 
             for(auto& file : files)
             {
@@ -462,7 +462,7 @@ namespace Lumos
                     uint32_t binding = comp.get_decoration(u.id, spv::DecorationBinding);
                     auto& type = comp.get_type(u.type_id);
 
-                    SHADER_LOG(LUMOS_LOG_INFO("Found UBO {0} at set = {1}, binding = {2}", u.name.c_str(), set, binding));
+                    SHADER_LOG(HB_INFO("Found UBO {0} at set = {1}, binding = {2}", u.name.c_str(), set, binding));
                     m_DescriptorLayoutInfo.push_back({ Graphics::DescriptorType::UNIFORM_BUFFER, file.first, binding, set, type.array.size() ? uint32_t(type.array[0]) : 1 });
                 }
 
@@ -480,11 +480,11 @@ namespace Lumos
                     uint32_t size = 0;
                     for(auto& range : ranges)
                     {
-                        SHADER_LOG(LUMOS_LOG_INFO("Accessing Member {0} offset {1}, size {2}", range.index, range.offset, range.range));
+                        SHADER_LOG(HB_INFO("Accessing Member {0} offset {1}, size {2}", range.index, range.offset, range.range));
                         size += uint32_t(range.range);
                     }
 
-                    SHADER_LOG(LUMOS_LOG_INFO("Found Push Constant {0} at set = {1}, binding = {2}", u.name.c_str(), set, binding, type.array.size() ? uint32_t(type.array[0]) : 1));
+                    SHADER_LOG(HB_INFO("Found Push Constant {0} at set = {1}, binding = {2}", u.name.c_str(), set, binding, type.array.size() ? uint32_t(type.array[0]) : 1));
 
                     m_PushConstants.push_back({ size, file.first });
                     m_PushConstants.back().data = new uint8_t[size];
@@ -496,7 +496,7 @@ namespace Lumos
                     uint32_t binding = comp.get_decoration(u.id, spv::DecorationBinding);
 
                     auto& type = comp.get_type(u.type_id);
-                    SHADER_LOG(LUMOS_LOG_INFO("Found Sampled Image {0} at set = {1}, binding = {2}", u.name.c_str(), set, binding));
+                    SHADER_LOG(HB_INFO("Found Sampled Image {0} at set = {1}, binding = {2}", u.name.c_str(), set, binding));
 
                     m_DescriptorLayoutInfo.push_back({ Graphics::DescriptorType::IMAGE_SAMPLER, file.first, binding, set, type.array.size() ? uint32_t(type.array[0]) : 1 });
                 }
@@ -518,7 +518,7 @@ namespace Lumos
 
         void VKShader::Unload() const
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             for(uint32_t i = 0; i < m_StageCount; i++)
             {
                 vkDestroyShaderModule(VKDevice::Get().GetDevice(), m_ShaderStages[i].module, nullptr);
@@ -527,7 +527,7 @@ namespace Lumos
 
         void VKShader::BindPushConstants(Graphics::CommandBuffer* cmdBuffer, Graphics::Pipeline* pipeline)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             uint32_t index = 0;
             for(auto& pc : m_PushConstants)
             {
@@ -617,7 +617,7 @@ namespace Lumos
         Shader* VKShader::CreateFuncVulkan(const std::string& filepath)
         {
             std::string physicalPath;
-            Lumos::VFS::Get()->ResolvePhysicalPath(filepath, physicalPath, false);
+            Hubie::VFS::Get()->ResolvePhysicalPath(filepath, physicalPath, false);
             return new VKShader(physicalPath);
         }
 

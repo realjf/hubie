@@ -16,7 +16,7 @@
 #include "VKUniformBuffer.h"
 #include "VKVertexBuffer.h"
 
-void Lumos::Graphics::Vulkan::MakeDefault()
+void Hubie::Graphics::Vulkan::MakeDefault()
 {
     VKCommandBuffer::MakeDefault();
     VKContext::MakeDefault();

@@ -4,7 +4,7 @@
 #include "VKSwapchain.h"
 #include "VKCommandPool.h"
 #include "VKCommandBuffer.h"
-#include "Core/Version.h"
+#include "Hubie/Core/Version.h"
 
 #include <imgui/imgui.h>
 
@@ -12,7 +12,7 @@
 #define VK_LAYER_LUNARG_ASSISTENT_LAYER_NAME "VK_LAYER_LUNARG_assistant_layer"
 #define VK_LAYER_RENDERDOC_CAPTURE_NAME "VK_LAYER_RENDERDOC_Capture"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -28,7 +28,7 @@ namespace Lumos
             extensions.push_back("VK_KHR_surface");
 
 #if 0
-#if defined(TRACY_ENABLE) && defined(LUMOS_PLATFORM_WINDOWS)
+#if defined(TRACY_ENABLE) && defined(HB_PLATFORM_WINDOWS)
             extensions.push_back("VK_EXT_calibrated_timestamps");
 #endif
 #endif
@@ -114,7 +114,7 @@ namespace Lumos
 
         void VKContext::Init()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             CreateInstance();
 
             VKDevice::Get().Init();
@@ -130,7 +130,7 @@ namespace Lumos
 
         void VKContext::OnResize(uint32_t width, uint32_t height)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_Width = width;
             m_Height = height;
 
@@ -160,28 +160,28 @@ namespace Lumos
 
             if(flags & VK_DEBUG_REPORT_ERROR_BIT_EXT)
             {
-                LUMOS_LOG_WARN("[VULKAN] - ERROR : [{0}] Code {1}  : {2}", pLayerPrefix, msgCode, pMsg);
+                HB_WARN("[VULKAN] - ERROR : [{0}] Code {1}  : {2}", pLayerPrefix, msgCode, pMsg);
             };
             // Warnings may hint at unexpected / non-spec API usage
             if(flags & VK_DEBUG_REPORT_WARNING_BIT_EXT)
             {
-                LUMOS_LOG_WARN("[VULKAN] - WARNING : [{0}] Code {1}  : {2}", pLayerPrefix, msgCode, pMsg);
+                HB_WARN("[VULKAN] - WARNING : [{0}] Code {1}  : {2}", pLayerPrefix, msgCode, pMsg);
             };
             // May indicate sub-optimal usage of the API
             if(flags & VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT)
             {
-                LUMOS_LOG_WARN("[VULKAN] - PERFORMANCE : [{0}] Code {1}  : {2}", pLayerPrefix, msgCode, pMsg);
+                HB_WARN("[VULKAN] - PERFORMANCE : [{0}] Code {1}  : {2}", pLayerPrefix, msgCode, pMsg);
             };
             // Informal messages that may become handy during debugging
             if(flags & VK_DEBUG_REPORT_INFORMATION_BIT_EXT)
             {
-                LUMOS_LOG_WARN("[VULKAN] - INFO : [{0}] Code {1}  : {2}", pLayerPrefix, msgCode, pMsg);
+                HB_WARN("[VULKAN] - INFO : [{0}] Code {1}  : {2}", pLayerPrefix, msgCode, pMsg);
             }
             // Diagnostic info from the Vulkan loader and layers
             // Usually not helpful in terms of API usage, but may help to debug layer and loader problems
             if(flags & VK_DEBUG_REPORT_DEBUG_BIT_EXT)
             {
-                LUMOS_LOG_INFO("[VULKAN] - DEBUG : [{0}] Code {1}  : {2}", pLayerPrefix, msgCode, pMsg);
+                HB_INFO("[VULKAN] - DEBUG : [{0}] Code {1}  : {2}", pLayerPrefix, msgCode, pMsg);
             }
 
             return VK_FALSE;
@@ -254,25 +254,25 @@ namespace Lumos
 
         void VKContext::CreateInstance()
         {
-            LUMOS_PROFILE_FUNCTION();
-#ifndef LUMOS_PLATFORM_IOS
+            HB_PROFILE_FUNCTION();
+#ifndef HB_PLATFORM_IOS
             if(volkInitialize() != VK_SUCCESS)
             {
-                LUMOS_LOG_CRITICAL("volkInitialize failed");
+                HB_CRITICAL("volkInitialize failed");
             }
 
             if(volkGetInstanceVersion() == 0)
             {
-                LUMOS_LOG_CRITICAL("Could not find loader");
+                HB_CRITICAL("Could not find loader");
             }
 #endif
 
             VkApplicationInfo appInfo = {};
             appInfo.pApplicationName = "Sandbox";
             appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-            appInfo.pEngineName = "Lumos";
-            appInfo.engineVersion = VK_MAKE_VERSION(LumosVersion.major, LumosVersion.minor, LumosVersion.patch);
-#if defined(LUMOS_PLATFORM_MACOS) || defined(LUMOS_PLATFORM_IOS)
+            appInfo.pEngineName = "Hubie";
+            appInfo.engineVersion = VK_MAKE_VERSION(HubieVersion.major, HubieVersion.minor, HubieVersion.patch);
+#if defined(HB_PLATFORM_MACOS) || defined(HB_PLATFORM_IOS)
             appInfo.apiVersion = VK_API_VERSION_1_1;
 #else
             appInfo.apiVersion = VK_API_VERSION_1_1;
@@ -286,12 +286,12 @@ namespace Lumos
 
             if(EnableValidationLayers && !CheckValidationLayerSupport(m_InstanceLayerNames))
             {
-                LUMOS_LOG_CRITICAL("[VULKAN] Validation layers requested, but not available!");
+                HB_CRITICAL("[VULKAN] Validation layers requested, but not available!");
             }
 
             if(!CheckExtensionSupport(m_InstanceExtensionNames))
             {
-                LUMOS_LOG_CRITICAL("[VULKAN] Extensions requested are not available!");
+                HB_CRITICAL("[VULKAN] Extensions requested are not available!");
             }
 
             createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
@@ -305,16 +305,16 @@ namespace Lumos
             VkResult createResult = vkCreateInstance(&createInfo, nullptr, &m_VkInstance);
             if(createResult != VK_SUCCESS)
             {
-                LUMOS_LOG_CRITICAL("[VULKAN] Failed to create instance!");
+                HB_CRITICAL("[VULKAN] Failed to create instance!");
             }
-#ifndef LUMOS_PLATFORM_IOS
+#ifndef HB_PLATFORM_IOS
             volkLoadInstance(m_VkInstance);
 #endif
         }
 
         void VKContext::SetupDebugCallback()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(!EnableValidationLayers)
                 return;
 
@@ -327,7 +327,7 @@ namespace Lumos
             VkResult result = CreateDebugReportCallbackEXT(m_VkInstance, &createInfo, nullptr, &m_DebugCallback);
             if(result != VK_SUCCESS)
             {
-                LUMOS_LOG_CRITICAL("[VULKAN] Failed to set up debug callback!");
+                HB_CRITICAL("[VULKAN] Failed to set up debug callback!");
             }
         }
 
@@ -377,7 +377,7 @@ namespace Lumos
 
         void VKContext::OnImGui()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             ImGui::TextUnformatted("Vulkan Info");
 
             if(ImGui::TreeNode("Instance"))
@@ -537,7 +537,7 @@ namespace Lumos
 #ifdef USE_VMA_ALLOCATOR
         void VKContext::DebugDrawVmaMemory(VmaStatInfo& info, bool indent)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(indent)
                 ImGui::Indent();
 

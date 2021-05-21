@@ -4,7 +4,7 @@
 
 #include "GL.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -26,19 +26,19 @@ namespace Lumos
             : m_Usage(usage)
             , m_Size(0)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glGenBuffers(1, &m_Handle));
         }
 
         GLVertexBuffer::~GLVertexBuffer()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glDeleteBuffers(1, &m_Handle));
         }
 
         void GLVertexBuffer::Resize(uint32_t size)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_Size = size;
 
             GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
@@ -47,7 +47,7 @@ namespace Lumos
 
         void GLVertexBuffer::SetData(uint32_t size, const void* data)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_Size = size;
             GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
             GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, BufferUsageToOpenGL(m_Usage)));
@@ -55,7 +55,7 @@ namespace Lumos
 
         void GLVertexBuffer::SetDataSub(uint32_t size, const void* data, uint32_t offset)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_Size = size;
             GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
             GLCall(glBufferSubData(GL_ARRAY_BUFFER, offset, size, data));
@@ -63,7 +63,7 @@ namespace Lumos
 
         void* GLVertexBuffer::GetPointerInternal()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             void* result = nullptr;
             if(!m_Mapped)
             {
@@ -72,7 +72,7 @@ namespace Lumos
             }
             else
             {
-                LUMOS_LOG_WARN("Vertex buffer already mapped");
+                HB_WARN("Vertex buffer already mapped");
             }
 
             return result;
@@ -80,7 +80,7 @@ namespace Lumos
 
         void GLVertexBuffer::ReleasePointer()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(m_Mapped)
             {
                 GLCall(glUnmapBuffer(GL_ARRAY_BUFFER));
@@ -90,14 +90,14 @@ namespace Lumos
 
         void GLVertexBuffer::Bind(CommandBuffer* commandBuffer, Pipeline* pipeline)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
             ((GLPipeline*)pipeline)->BindVertexArray();
         }
 
         void GLVertexBuffer::Unbind()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
         }
 

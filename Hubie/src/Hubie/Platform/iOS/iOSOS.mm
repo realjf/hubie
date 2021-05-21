@@ -1,21 +1,21 @@
 #include "iOSOS.h"
 #include "iOSWindow.h"
 #include "iOSKeyCodes.h"
-#include "Core/VFS.h"
-#include "Core/OS/Input.h"
-#include "Core/CoreSystem.h"
-#include "Core/Application.h"
+#include "Hubie/Core/VFS.h"
+#include "Hubie/Core/OS/Input.h"
+#include "Hubie/Core/CoreSystem.h"
+#include "Hubie/Core/Application.h"
 
-#ifdef LUMOS_RENDER_API_VULKAN
+#ifdef HB_RENDER_API_VULKAN
 #import <QuartzCore/CAMetalLayer.h>
 #import <MetalKit/MetalKit.h>
 #else
-#define LUMOS_RENDER_API_OPENGL
+#define HB_RENDER_API_OPENGL
 #import <GLKit/GLKit.h>
 #endif
 
-#ifdef LUMOS_RENDER_API_VULKAN
-#include "Platform/Vulkan/VKDevice.h"
+#ifdef HB_RENDER_API_VULKAN
+#include "Hubie/Platform/Vulkan/VKDevice.h"
 #endif
 
 #include <sys/sysctl.h>
@@ -27,7 +27,7 @@
 
 #define MAX_SIMULTANEOUS_TOUCHES 10
 
-namespace Lumos
+namespace Hubie
 {
 static iOSOS* os = nullptr;
 
@@ -41,24 +41,24 @@ static iOSOS* os = nullptr;
 
     void iOSOS::Init()
     {
-        Lumos::Internal::CoreSystem::Init(false);
+        Hubie::Internal::CoreSystem::Init(false);
 
         std::string root = GetAssetPath();
-        Lumos::VFS::Get()->Mount("CoreShaders", root + "Shaders");
+        Hubie::VFS::Get()->Mount("CoreShaders", root + "Shaders");
 
-       // Lumos::VFS::Get()->Mount("Shaders", root + "shaders");
-        Lumos::VFS::Get()->Mount("Meshes", root + "Meshes");
-        Lumos::VFS::Get()->Mount("Textures", root + "Textures");
-        Lumos::VFS::Get()->Mount("Scripts", root + "Scripts");
-        Lumos::VFS::Get()->Mount("Scenes", root + "Scenes");
+       // Hubie::VFS::Get()->Mount("Shaders", root + "shaders");
+        Hubie::VFS::Get()->Mount("Meshes", root + "Meshes");
+        Hubie::VFS::Get()->Mount("Textures", root + "Textures");
+        Hubie::VFS::Get()->Mount("Scripts", root + "Scripts");
+        Hubie::VFS::Get()->Mount("Scenes", root + "Scenes");
         
-        LUMOS_LOG_INFO("Device : {0}",GetModelName());
+        HB_INFO("Device : {0}",GetModelName());
         
         iOSWindow::MakeDefault();
 
         s_Instance = this;
 
-        auto app = Lumos::CreateApplication();
+        auto app = Hubie::CreateApplication();
         app->Init();
     }
 
@@ -71,7 +71,7 @@ static iOSOS* os = nullptr;
     {
         Application::Get().Quit();
         Application::Release();
-	    Lumos::Internal::CoreSystem::Shutdown();
+	    Hubie::Internal::CoreSystem::Shutdown();
     }
     
     std::string iOSOS::GetAssetPath()
@@ -81,7 +81,7 @@ static iOSOS* os = nullptr;
     
     void iOSOS::OnKeyPressed(char keycode, bool down)
     {
-        ((iOSWindow*)Application::Get().GetWindow())->OnKeyEvent((Lumos::InputCode::Key)Lumos::iOSKeyCodes::iOSKeyToLumos(keycode), down);
+        ((iOSWindow*)Application::Get().GetWindow())->OnKeyEvent((Hubie::InputCode::Key)Hubie::iOSKeyCodes::iOSKeyToHubie(keycode), down);
     }
 
     void iOSOS::OnScreenPressed(uint32_t x, uint32_t y, uint32_t count, bool down)
@@ -192,9 +192,9 @@ static iOSOS* os = nullptr;
     }
 }
 
-#pragma mark - LumosView
+#pragma mark - HubieView
 
-@protocol LumosView
+@protocol HubieView
 
 @property(nonatomic, readonly) int drawableWidth;
 @property(nonatomic, readonly) int drawableHeight;
@@ -204,9 +204,9 @@ static iOSOS* os = nullptr;
 
 @end
 
-#pragma mark - LumosMetalView
+#pragma mark - HubieMetalView
 
-@interface LumosMetalView : MTKView <LumosView, MTKViewDelegate>
+@interface HubieMetalView : MTKView <HubieView, MTKViewDelegate>
 
 @property(nonatomic, assign) int drawableWidth;
 @property(nonatomic, assign) int drawableHeight;
@@ -214,7 +214,7 @@ static iOSOS* os = nullptr;
 
 @end
 
-@implementation LumosMetalView
+@implementation HubieMetalView
 
 @dynamic animating;
 
@@ -261,10 +261,10 @@ static iOSOS* os = nullptr;
         self.drawableWidth = newDrawableWidth;
         self.drawableHeight = newDrawableHeight;
         
-        Lumos::os->OnScreenResize(self.drawableWidth, self.drawableHeight);
+        Hubie::os->OnScreenResize(self.drawableWidth, self.drawableHeight);
     }
         
-    Lumos::os->OnFrame();
+    Hubie::os->OnFrame();
 }
     
 
@@ -278,16 +278,16 @@ static iOSOS* os = nullptr;
 
 @end
 
-@interface LumosAppDelegate : UIResponder <UIApplicationDelegate>
+@interface HubieAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property(nonatomic, strong) UIWindow *window;
 @property(nonatomic, assign) BOOL active;
 
 @end
 
-#pragma mark - LumosViewController
+#pragma mark - HubieViewController
 
-@interface LumosViewController : UIViewController<UIKeyInput, UITextInputTraits> {
+@interface HubieViewController : UIViewController<UIKeyInput, UITextInputTraits> {
     const void *activeTouches[MAX_SIMULTANEOUS_TOUCHES];
 }
 
@@ -298,7 +298,7 @@ static iOSOS* os = nullptr;
 
 @end
 
-@implementation LumosViewController
+@implementation HubieViewController
 
 - (id)init {
     if ((self = [super init])) {
@@ -322,8 +322,8 @@ static iOSOS* os = nullptr;
     return UIRectEdgeNone;//_Display->uiChrome == UserInterfaceChromeFullscreen ? UIRectEdgeBottom : UIRectEdgeNone;
 }
 
-- (UIView<LumosView> *)lumosView {
-    return (UIView<LumosView> *)self.view;
+- (UIView<HubieView> *)lumosView {
+    return (UIView<HubieView> *)self.view;
 }
 
 - (void)loadView
@@ -332,11 +332,11 @@ static iOSOS* os = nullptr;
     CGRect frame = delegate.window.bounds;
     
     CGFloat scale = [UIScreen mainScreen].nativeScale;
-    UIView<LumosView> *lumosView = nil;
+    UIView<HubieView> *lumosView = nil;
         
     if (self.metalDevice)
     {
-        lumosView = [[[LumosMetalView alloc] initWithFrame:frame
+        lumosView = [[[HubieMetalView alloc] initWithFrame:frame
                                             contentScaleFactor:scale
                                                    device:self.metalDevice
                                               ] autorelease ];
@@ -346,16 +346,16 @@ static iOSOS* os = nullptr;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     
-    Lumos::os->SetIOSView((__bridge void *)lumosView);
-    Lumos::os->SetWindowSize(frame.size.width * scale, frame.size.height * scale);
-    Lumos::os->Init();
+    Hubie::os->SetIOSView((__bridge void *)lumosView);
+    Hubie::os->SetWindowSize(frame.size.width * scale, frame.size.height * scale);
+    Hubie::os->Init();
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    auto *delegate = (LumosAppDelegate*)UIApplication.sharedApplication.delegate;
+    auto *delegate = (HubieAppDelegate*)UIApplication.sharedApplication.delegate;
     self.lumosView.animating = delegate.active;
         
 #if TARGET_OS_IOS
@@ -449,16 +449,16 @@ typedef enum {
         switch(phase)
         {
             case TouchPhaseCancelled:
-                Lumos::iOSOS::Get()->OnScreenPressed(currLocation.x, currLocation.y, (uint32_t)index, false);
+                Hubie::iOSOS::Get()->OnScreenPressed(currLocation.x, currLocation.y, (uint32_t)index, false);
                 break;
             case TouchPhaseBegan:
-                Lumos::iOSOS::Get()->OnScreenPressed(currLocation.x, currLocation.y, (uint32_t)index, true);
+                Hubie::iOSOS::Get()->OnScreenPressed(currLocation.x, currLocation.y, (uint32_t)index, true);
                 break;
             case TouchPhaseEnded:
-                Lumos::iOSOS::Get()->OnScreenPressed(currLocation.x, currLocation.y, (uint32_t)index, false);
+                Hubie::iOSOS::Get()->OnScreenPressed(currLocation.x, currLocation.y, (uint32_t)index, false);
                 break;
             case TouchPhaseMoved:
-                Lumos::iOSOS::Get()->OnMouseMovedEvent(currLocation.x, currLocation.y);
+                Hubie::iOSOS::Get()->OnMouseMovedEvent(currLocation.x, currLocation.y);
                 break;
         }
 
@@ -515,11 +515,11 @@ typedef enum {
 }
 
 - (void)insertText:(NSString *)text {
-    //Lumos::iOSOS::Get()->OnKeyPressed(text.UTF8String, false);
+    //Hubie::iOSOS::Get()->OnKeyPressed(text.UTF8String, false);
 }
 
 - (void)deleteBackward {
-    Lumos::iOSOS::Get()->OnKeyPressed('d', false);
+    Hubie::iOSOS::Get()->OnKeyPressed('d', false);
 }
 
 - (BOOL)canBecomeFirstResponder {
@@ -553,7 +553,7 @@ typedef enum {
 }
 
 - (void)keyPressed:(UIKeyCommand *)keyCommand {
-    Lumos::iOSOS::Get()->OnKeyPressed('d', true);
+    Hubie::iOSOS::Get()->OnKeyPressed('d', true);
 }
 
 // Toggle the display of the virtual keyboard
@@ -574,12 +574,12 @@ typedef enum {
 
 // Handle keyboard input
 -(void) handleKeyboardInput: (unichar) keycode {
-    Lumos::iOSOS::Get()->OnKeyPressed(keycode, true);
+    Hubie::iOSOS::Get()->OnKeyPressed(keycode, true);
 }
 
 -( void )layoutSubviews
 {
-    Lumos::iOSOS::Get()->OnScreenResize(self.view.bounds.size.width * self.view.contentScaleFactor, self.view.bounds.size.height * self.view.contentScaleFactor);
+    Hubie::iOSOS::Get()->OnScreenResize(self.view.bounds.size.width * self.view.contentScaleFactor, self.view.bounds.size.height * self.view.contentScaleFactor);
 }
 
 - (BOOL)hasNotch
@@ -602,14 +602,14 @@ typedef enum {
 
 @end
 
-@implementation LumosAppDelegate
+@implementation HubieAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     _active = YES;
     
-    Lumos::iOSOS::Create();
-    Lumos::os = (Lumos::iOSOS*)Lumos::iOSOS::Instance();
+    Hubie::iOSOS::Create();
+    Hubie::os = (Hubie::iOSOS*)Hubie::iOSOS::Instance();
     
     self.window = [[[UIWindow alloc] init] autorelease];
     
@@ -628,7 +628,7 @@ typedef enum {
                                       self.window.frame.size.height - safeAreaInsets.top - safeAreaInsets.bottom);
     self.window.frame = safeAreaFrame;
 
-    self.window.rootViewController = [[[LumosViewController alloc] init] autorelease];
+    self.window.rootViewController = [[[HubieViewController alloc] init] autorelease];
     [self.window makeKeyAndVisible];
         
     return YES;
@@ -638,7 +638,7 @@ typedef enum {
     if (_active != active) {
         _active = active;
         
-        LumosViewController *vc = (LumosViewController *)[self.window rootViewController];
+        HubieViewController *vc = (HubieViewController *)[self.window rootViewController];
         //if (vc.Display && vc.Display->focusFunc) {
             //vc.Display->focusFunc(vc.Display, _active);
         //}
@@ -676,7 +676,7 @@ CGRect ComputeSafeArea(UIView* view)
     self.active = NO;
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    Lumos::Input::Get().SetWindowFocus(false);
+    Hubie::Input::Get().SetWindowFocus(false);
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -684,29 +684,29 @@ CGRect ComputeSafeArea(UIView* view)
     self.active = NO;
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    Lumos::Input::Get().SetWindowFocus(false);
+    Hubie::Input::Get().SetWindowFocus(false);
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     self.active = YES;
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    Lumos::Input::Get().SetWindowFocus(true);
+    Hubie::Input::Get().SetWindowFocus(true);
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     self.active = YES;
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    Lumos::Input::Get().SetWindowFocus(true);
+    Hubie::Input::Get().SetWindowFocus(true);
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     self.active = NO;
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    ((Lumos::iOSOS*)Lumos::iOSOS::Instance())->OnQuit();
-    Lumos::iOSOS::Release();
+    ((Hubie::iOSOS*)Hubie::iOSOS::Instance())->OnQuit();
+    Hubie::iOSOS::Release();
 }
 
 
@@ -725,6 +725,6 @@ CGRect ComputeSafeArea(UIView* view)
 int main(int argc, char * argv[])
 {
 	@autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([LumosAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([HubieAppDelegate class]));
     }
 }

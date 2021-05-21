@@ -1,7 +1,7 @@
 #include "Precompiled.h"
 #include "VKRenderDevice.h"
 
-namespace Lumos::Graphics
+namespace Hubie::Graphics
 {
     void VKRenderDevice::Init()
     {

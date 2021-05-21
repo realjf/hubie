@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Audio/SoundNode.h"
+#include "Hubie/Audio/SoundNode.h"
 
 #include <AL/al.h>
 
 #define NUM_STREAM_BUFFERS 3
 
-namespace Lumos
+namespace Hubie
 {
     class ALSoundNode : public SoundNode
     {

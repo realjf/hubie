@@ -7,11 +7,11 @@
         VkResult res = (f);                                                                                                                   \
         if(res != VK_SUCCESS)                                                                                                                 \
         {                                                                                                                                     \
-            LUMOS_LOG_ERROR("[VULKAN] : VkResult is {0} in {1} at line {2}", Lumos::Graphics::VKTools::ErrorString(res), __FILE__, __LINE__); \
+            HB_ERROR("[VULKAN] : VkResult is {0} in {1} at line {2}", Hubie::Graphics::VKTools::ErrorString(res), __FILE__, __LINE__); \
         }                                                                                                                                     \
     }
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -58,9 +58,9 @@ namespace Lumos
             VkSamplerAddressMode TextureWrapToVK(const TextureWrap format);
             VkFilter TextureFilterToVK(const TextureFilter filter);
             VkShaderStageFlagBits ShaderTypeToVK(const ShaderType& shaderName);
-            VkFormat FormatToVK(Lumos::Graphics::Format format);
-            VkPolygonMode PolygonModeToVk(Lumos::Graphics::PolygonMode mode);
-            VkPrimitiveTopology DrawTypeToVk(Lumos::Graphics::DrawType type);
+            VkFormat FormatToVK(Hubie::Graphics::Format format);
+            VkPolygonMode PolygonModeToVk(Hubie::Graphics::PolygonMode mode);
+            VkPrimitiveTopology DrawTypeToVk(Hubie::Graphics::DrawType type);
 
             VkImageMemoryBarrier ImageBarrier(VkImage image, VkAccessFlags srcAccessMask, VkAccessFlags dstAccessMask, VkImageLayout oldLayout, VkImageLayout newLayout, VkImageAspectFlags aspectMask = VK_IMAGE_ASPECT_COLOR_BIT);
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Graphics/API/Shader.h"
+#include "Hubie/Graphics/API/Shader.h"
 #include "GLDebug.h"
 #include "GLShaderUniform.h"
 #include "GLShaderResource.h"
@@ -8,7 +8,7 @@
 
 #include <spirv_glsl.hpp>
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -133,7 +133,7 @@ namespace Lumos
 
             PushConstant* GetPushConstant(uint32_t index) override
             {
-                LUMOS_ASSERT(index < m_PushConstants.size(), "Push constants out of bounds");
+                HB_ASSERT(index < m_PushConstants.size(), "Push constants out of bounds");
                 return &m_PushConstants[index];
             }
             std::vector<PushConstant>& GetPushConstants() override { return m_PushConstants; }

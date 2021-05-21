@@ -28,7 +28,7 @@
 #include "Hubie/Maths/Frustum.h"
 #include "Hubie/Maths/BoundingBox.h"
 #include "Hubie/Maths/Sphere.h"
-#include "Audio/SoundNode.h"
+#include "Hubie/Audio/SoundNode.h"
 
 namespace Hubie
 {

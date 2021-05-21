@@ -3,11 +3,11 @@
 #include "ALSound.h"
 #include "ALManager.h"
 
-#include "Core/Application.h"
+#include "Hubie/Core/Application.h"
 
-#include "Graphics/Camera/Camera.h"
+#include "Hubie/Graphics/Camera/Camera.h"
 
-namespace Lumos
+namespace Hubie
 {
     ALSoundNode::ALSoundNode()
     {

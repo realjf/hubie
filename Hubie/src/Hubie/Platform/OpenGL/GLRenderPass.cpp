@@ -1,10 +1,10 @@
 #include "Precompiled.h"
 #include "GLRenderPass.h"
-#include "Graphics/API/Renderer.h"
+#include "Hubie/Graphics/API/Renderer.h"
 #include "GLFramebuffer.h"
 #include "GLDebug.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

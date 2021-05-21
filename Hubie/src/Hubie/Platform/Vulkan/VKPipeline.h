@@ -1,9 +1,9 @@
 #pragma once
 #include "VK.h"
-#include "Graphics/API/Pipeline.h"
+#include "Hubie/Graphics/API/Pipeline.h"
 #include "VKDescriptorSet.h"
 
-namespace Lumos
+namespace Hubie
 {
     class Shader;
 

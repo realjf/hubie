@@ -1,10 +1,10 @@
 #include "Precompiled.h"
 #include "GLSwapchain.h"
-#include "Graphics/API/Framebuffer.h"
+#include "Hubie/Graphics/API/Framebuffer.h"
 #include "GLTexture.h"
-#include "Core/OS/Window.h"
+#include "Hubie/Core/OS/Window.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

@@ -7,7 +7,7 @@
 #include "VKTools.h"
 #include "VKContext.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -25,13 +25,13 @@ namespace Lumos
         VKRenderpass::~VKRenderpass()
         {
             delete[] m_ClearValue;
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             vkDestroyRenderPass(VKDevice::Get().GetDevice(), m_RenderPass, VK_NULL_HANDLE);
         }
 
         VkAttachmentDescription GetAttachmentDescription(AttachmentInfo info, bool clear = true)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             VkAttachmentDescription attachment = {};
             if(info.textureType == TextureType::COLOUR)
             {
@@ -50,7 +50,7 @@ namespace Lumos
             }
             else
             {
-                LUMOS_LOG_CRITICAL("[VULKAN] - Unsupported TextureType - {0}", static_cast<int>(info.textureType));
+                HB_CRITICAL("[VULKAN] - Unsupported TextureType - {0}", static_cast<int>(info.textureType));
                 return attachment;
             }
 
@@ -77,7 +77,7 @@ namespace Lumos
 
         bool VKRenderpass::Init(const RenderPassInfo& renderpassCI)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             VkSubpassDependency dependency = {};
             dependency.srcSubpass = VK_SUBPASS_EXTERNAL;
             dependency.dstSubpass = 0;
@@ -149,7 +149,7 @@ namespace Lumos
 
         VkSubpassContents SubPassContentsToVK(SubPassContents contents)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             switch(contents)
             {
             case INLINE:
@@ -168,7 +168,7 @@ namespace Lumos
         {
             commandBuffer->UpdateViewport(width, height);
 
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(!m_DepthOnly)
             {
                 for(int i = 0; i < m_ClearCount; i++)
@@ -202,7 +202,7 @@ namespace Lumos
 
         void VKRenderpass::EndRenderpass(CommandBuffer* commandBuffer)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             vkCmdEndRenderPass(static_cast<VKCommandBuffer*>(commandBuffer)->GetHandle());
         }
 

@@ -1,10 +1,10 @@
 #include "Precompiled.h"
 #include "GLFramebuffer.h"
 
-#include "Platform/OpenGL/GLDebug.h"
-#include "Graphics/API/Texture.h"
+#include "Hubie/Platform/OpenGL/GLDebug.h"
+#include "Hubie/Graphics/API/Texture.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -12,7 +12,7 @@ namespace Lumos
             : m_Width(0)
             , m_Height(0)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glGenFramebuffers(1, &m_Handle));
             GLCall(glBindFramebuffer(GL_FRAMEBUFFER, m_Handle));
             m_ColourAttachmentCount = 0;
@@ -20,7 +20,7 @@ namespace Lumos
 
         GLFramebuffer::GLFramebuffer(const FramebufferInfo& bufferInfo)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_ScreenFramebuffer = bufferInfo.screenFBO;
             m_Width = bufferInfo.width;
             m_Height = bufferInfo.height;
@@ -65,21 +65,21 @@ namespace Lumos
 
         GLFramebuffer::~GLFramebuffer()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(!m_ScreenFramebuffer)
                 GLCall(glDeleteFramebuffers(1, &m_Handle));
         }
 
         void GLFramebuffer::GenerateFramebuffer()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(!m_ScreenFramebuffer)
                 GLCall(glGenFramebuffers(1, &m_Handle));
         }
 
         void GLFramebuffer::Bind(uint32_t width, uint32_t height) const
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_ScreenFramebuffer ? 0 : m_Handle));
             GLCall(glViewport(0, 0, width, height));
 
@@ -89,13 +89,13 @@ namespace Lumos
 
         void GLFramebuffer::UnBind() const
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
         }
 
         GLenum GLFramebuffer::GetAttachmentPoint(Graphics::TextureFormat format)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(Graphics::Texture::IsDepthStencilFormat(format))
             {
                 return GL_DEPTH_STENCIL_ATTACHMENT;
@@ -118,13 +118,13 @@ namespace Lumos
 
         void GLFramebuffer::Bind() const
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glBindFramebuffer(GL_FRAMEBUFFER, m_ScreenFramebuffer ? 0 : m_Handle));
         }
 
         void GLFramebuffer::AddTextureAttachment(const Graphics::TextureFormat format, Texture* texture)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLenum attachment = GetAttachmentPoint(format);
 
             if(attachment != GL_DEPTH_ATTACHMENT && attachment != GL_STENCIL_ATTACHMENT && attachment != GL_DEPTH_STENCIL_ATTACHMENT)
@@ -136,7 +136,7 @@ namespace Lumos
 
         void GLFramebuffer::AddCubeTextureAttachment(const Graphics::TextureFormat format, const CubeFace face, TextureCube* texture)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             uint32_t faceID = 0;
 
             GLenum attachment = GetAttachmentPoint(format);
@@ -172,8 +172,8 @@ namespace Lumos
 
         void GLFramebuffer::AddShadowAttachment(Texture* texture)
         {
-            LUMOS_PROFILE_FUNCTION();
-#ifdef LUMOS_PLATFORM_MOBILE
+            HB_PROFILE_FUNCTION();
+#ifdef HB_PLATFORM_MOBILE
             GLCall(glFramebufferTextureLayer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, (GLuint)texture->GetHandle(), 0, 0));
 #else
             GLCall(glFramebufferTextureLayer(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, (GLuint)(size_t)texture->GetHandle(), 0, 0));
@@ -183,8 +183,8 @@ namespace Lumos
 
         void GLFramebuffer::AddTextureLayer(int index, Texture* texture)
         {
-            LUMOS_PROFILE_FUNCTION();
-#ifdef LUMOS_PLATFORM_MOBILE
+            HB_PROFILE_FUNCTION();
+#ifdef HB_PLATFORM_MOBILE
             GLCall(glFramebufferTextureLayer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, (GLuint)(size_t)texture->GetHandle(), 0, index));
 #else
             GLCall(glFramebufferTextureLayer(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, (GLuint)(size_t)texture->GetHandle(), 0, index));
@@ -193,11 +193,11 @@ namespace Lumos
 
         void GLFramebuffer::Validate()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             uint32_t status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
             if(status != GL_FRAMEBUFFER_COMPLETE)
             {
-                LUMOS_LOG_CRITICAL("Unable to create Framebuffer! StatusCode: {0}", status);
+                HB_CRITICAL("Unable to create Framebuffer! StatusCode: {0}", status);
             }
         }
 

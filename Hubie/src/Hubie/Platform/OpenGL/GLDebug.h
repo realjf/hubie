@@ -3,9 +3,9 @@
 #include "GLRenderer.h"
 #include "GL.h"
 
-namespace Lumos
+namespace Hubie
 {
-#ifdef LUMOS_DEBUG
+#ifdef HB_DEBUG
 #ifdef glDebugMessageCallback
 #define GL_DEBUD_CALLBACK 1
 #else
@@ -27,7 +27,7 @@ namespace Lumos
     GLClearError();                        \
     x;                                     \
     if(!GLLogCall(#x, __FILE__, __LINE__)) \
-        LUMOS_BREAK();
+        HB_BREAK();
 #else
 #define GLCall(x) x
 #endif

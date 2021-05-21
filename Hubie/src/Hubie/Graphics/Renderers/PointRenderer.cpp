@@ -289,12 +289,12 @@ namespace Hubie
         if(width == 0)
         {
             width = 1;
-            HB_LOG_CRITICAL("Width 0");
+            HB_CRITICAL("Width 0");
         }
         if(height == 0)
         {
             height = 1;
-            HB_LOG_CRITICAL("Height 0");
+            HB_CRITICAL("Height 0");
         }
         m_ScreenBufferWidth = width;
         m_ScreenBufferHeight = height;

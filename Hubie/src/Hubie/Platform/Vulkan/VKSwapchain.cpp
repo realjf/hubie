@@ -3,9 +3,9 @@
 #include "VKSwapchain.h"
 #include "VKTools.h"
 #include "VKFence.h"
-#include "Core/Application.h"
+#include "Hubie/Core/Application.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -44,7 +44,7 @@ namespace Lumos
 
         void VKSwapchain::Init(bool vsync, Window* windowHandle)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_VSyncEnabled = vsync;
 
             if(m_Surface == VK_NULL_HANDLE)
@@ -55,25 +55,25 @@ namespace Lumos
 
         FrameData& VKSwapchain::GetCurrentFrameData()
         {
-            LUMOS_ASSERT(m_CurrentBuffer < m_SwapchainBufferCount, "Incorrect swapchain buffer index");
+            HB_ASSERT(m_CurrentBuffer < m_SwapchainBufferCount, "Incorrect swapchain buffer index");
             return m_Frames[m_CurrentBuffer];
         }
 
         bool VKSwapchain::Init(bool vsync)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             FindImageFormatAndColourSpace();
 
             if(!m_Surface)
             {
-                LUMOS_LOG_CRITICAL("[VULKAN] Failed to create window surface!");
+                HB_CRITICAL("[VULKAN] Failed to create window surface!");
             }
 
             VkBool32 queueIndexSupported;
             vkGetPhysicalDeviceSurfaceSupportKHR(VKDevice::Get().GetPhysicalDevice()->GetVulkanPhysicalDevice(), VKDevice::Get().GetPhysicalDevice()->GetGraphicsQueueFamilyIndex(), m_Surface, &queueIndexSupported);
 
             if(queueIndexSupported == VK_FALSE)
-                LUMOS_LOG_ERROR("Present Queue not supported");
+                HB_ERROR("Present Queue not supported");
 
             // Swap chain
             VkSurfaceCapabilitiesKHR surfaceCapabilities;
@@ -196,16 +196,16 @@ namespace Lumos
 
         void VKSwapchain::AcquireNextImage()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
 
             uint32_t nextCmdBufferIndex = (m_CurrentBuffer + 1) % m_SwapchainBufferCount;
             {
-                LUMOS_PROFILE_SCOPE("vkAcquireNextImageKHR");
+                HB_PROFILE_SCOPE("vkAcquireNextImageKHR");
                 auto result = vkAcquireNextImageKHR(VKDevice::Get().GetDevice(), m_SwapChain, UINT64_MAX, m_Frames[nextCmdBufferIndex].PresentSemaphore, VK_NULL_HANDLE, &m_AcquireImageIndex);
 
                 if(result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
                 {
-                    LUMOS_LOG_INFO("Acquire Image result : {0}", result == VK_ERROR_OUT_OF_DATE_KHR ? "Out of Date" : "SubOptimal");
+                    HB_INFO("Acquire Image result : {0}", result == VK_ERROR_OUT_OF_DATE_KHR ? "Out of Date" : "SubOptimal");
 
                     if(result == VK_ERROR_OUT_OF_DATE_KHR)
                     {
@@ -216,7 +216,7 @@ namespace Lumos
                 }
                 else if(result != VK_SUCCESS)
                 {
-                    LUMOS_LOG_CRITICAL("[VULKAN] Failed to acquire swap chain image!");
+                    HB_CRITICAL("[VULKAN] Failed to acquire swap chain image!");
                 }
 
                 m_CurrentBuffer = nextCmdBufferIndex;
@@ -226,7 +226,7 @@ namespace Lumos
 
         void VKSwapchain::OnResize(uint32_t width, uint32_t height, bool forceResize, Window* windowHandle)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
 
             if(!forceResize && m_Width == width && m_Height == height)
                 return;
@@ -255,7 +255,7 @@ namespace Lumos
 
         void VKSwapchain::QueueSubmit()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             auto& frameData = GetCurrentFrameData();
             auto cmdBuffer = frameData.MainCommandBuffer->GetHandle();
             VkSubmitInfo submitInfo = {};
@@ -276,7 +276,7 @@ namespace Lumos
             frameData.RenderFence->Reset();
 
             {
-                LUMOS_PROFILE_SCOPE("vkQueueSubmit");
+                HB_PROFILE_SCOPE("vkQueueSubmit");
                 VK_CHECK_RESULT(vkQueueSubmit(VKDevice::Get().GetGraphicsQueue(), 1, &submitInfo, frameData.RenderFence->GetHandle()));
             }
 
@@ -291,7 +291,7 @@ namespace Lumos
 
         void VKSwapchain::Begin()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(GetCurrentFrameData().MainCommandBuffer->GetState() == CommandBufferState::Submitted)
                 GetCurrentFrameData().RenderFence->Wait();
             GetCurrentFrameData().MainCommandBuffer->BeginRecording();
@@ -299,13 +299,13 @@ namespace Lumos
 
         void VKSwapchain::End()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GetCurrentCommandBuffer()->EndRecording();
         }
 
         void VKSwapchain::Present()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
 
             auto& frameData = GetCurrentFrameData();
 
@@ -322,11 +322,11 @@ namespace Lumos
 
             if(error == VK_ERROR_OUT_OF_DATE_KHR)
             {
-                LUMOS_LOG_ERROR("[Vulkan] Swapchain out of date");
+                HB_ERROR("[Vulkan] Swapchain out of date");
             }
             else if(error == VK_SUBOPTIMAL_KHR)
             {
-                LUMOS_LOG_ERROR("[Vulkan] Swapchain suboptimal");
+                HB_ERROR("[Vulkan] Swapchain suboptimal");
             }
             else
             {
@@ -347,13 +347,13 @@ namespace Lumos
 
     void Graphics::VKSwapchain::FindImageFormatAndColourSpace()
     {
-        LUMOS_PROFILE_FUNCTION();
+        HB_PROFILE_FUNCTION();
         VkPhysicalDevice physicalDevice = VKDevice::Get().GetPhysicalDevice()->GetVulkanPhysicalDevice();
 
         // Get list of supported surface formats
         uint32_t formatCount;
         VK_CHECK_RESULT(vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, m_Surface, &formatCount, NULL));
-        LUMOS_ASSERT(formatCount > 0, "");
+        HB_ASSERT(formatCount > 0, "");
 
         std::vector<VkSurfaceFormatKHR> surfaceFormats(formatCount);
         VK_CHECK_RESULT(vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, m_Surface, &formatCount, surfaceFormats.data()));

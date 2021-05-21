@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Graphics/API/GraphicsContext.h"
+#include "Hubie/Graphics/API/GraphicsContext.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
-        class LUMOS_EXPORT GLContext : public GraphicsContext
+        class HB_EXPORT GLContext : public GraphicsContext
         {
         public:
             GLContext(const WindowProperties& properties, Window* window);

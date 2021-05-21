@@ -1,7 +1,7 @@
 #pragma once
-#include "Graphics/API/Swapchain.h"
+#include "Hubie/Graphics/API/Swapchain.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

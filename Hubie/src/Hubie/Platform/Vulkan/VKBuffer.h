@@ -6,7 +6,7 @@
 #include <vulkan/vk_mem_alloc.h>
 #endif
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

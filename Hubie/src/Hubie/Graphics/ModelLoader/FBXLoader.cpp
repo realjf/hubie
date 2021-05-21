@@ -148,7 +148,7 @@ namespace Hubie::Graphics
 
         if(data == nullptr)
         {
-            HB_LOG_WARN("Failed to load fbx file");
+            HB_WARN("Failed to load fbx file");
             return;
         }
         const bool ignoreGeometry = false;
@@ -160,7 +160,7 @@ namespace Hubie::Graphics
 
         if(!err.empty() || !scene)
         {
-            HB_LOG_CRITICAL(err);
+            HB_CRITICAL(err);
         }
 
         const ofbx::GlobalSettings* settings = scene->getGlobalSettings();

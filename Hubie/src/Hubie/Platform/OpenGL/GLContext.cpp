@@ -3,13 +3,13 @@
 
 #include "GL.h"
 #include "GLDebug.h"
-#ifndef LUMOS_PLATFORM_MOBILE
+#ifndef HB_PLATFORM_MOBILE
 #include <GLFW/glfw3.h>
 #endif
 
-#include "Maths/Matrix4.h"
+#include "Hubie/Maths/Matrix4.h"
 
-#ifdef LUMOS_PLATFORM_WINDOWS
+#ifdef HB_PLATFORM_WINDOWS
 #undef NOGDI
 #include <glad/glad_wgl.h>
 #include <Windows.h>
@@ -86,20 +86,20 @@ static std::string GetStringForSource(GLenum source)
     }
 }
 
-namespace Lumos
+namespace Hubie
 {
     static std::string GetStringForSeverity(GLenum severity)
     {
         switch(severity)
         {
         case GL_DEBUG_SEVERITY_HIGH:
-            LUMOS_ASSERT(0, "");
+            HB_ASSERT(0, "");
             return "High";
         case GL_DEBUG_SEVERITY_MEDIUM:
-            LUMOS_ASSERT(0, "");
+            HB_ASSERT(0, "");
             return "Medium";
         case GL_DEBUG_SEVERITY_LOW:
-            LUMOS_ASSERT(0, "");
+            HB_ASSERT(0, "");
             return "Low";
         case GL_DEBUG_SEVERITY_NOTIFICATION:
             return "Notification";
@@ -121,23 +121,23 @@ namespace Lumos
         if(!PrintMessage(type))
             return;
 
-        LUMOS_LOG_INFO(OPENGLLOG "Message: {0}", message);
-        LUMOS_LOG_INFO(OPENGLLOG "Type: {0}", GetStringForType(type));
-        LUMOS_LOG_INFO(OPENGLLOG "Source: {0}", GetStringForSource(source));
-        LUMOS_LOG_INFO(OPENGLLOG "ID: {0}", id);
-        LUMOS_LOG_INFO(OPENGLLOG "Severity: {0}", GetStringForSeverity(source));
+        HB_INFO(OPENGLLOG "Message: {0}", message);
+        HB_INFO(OPENGLLOG "Type: {0}", GetStringForType(type));
+        HB_INFO(OPENGLLOG "Source: {0}", GetStringForSource(source));
+        HB_INFO(OPENGLLOG "ID: {0}", id);
+        HB_INFO(OPENGLLOG "Severity: {0}", GetStringForSeverity(source));
     }
 }
 #endif
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
         GLContext::GLContext(const WindowProperties& properties, Window* window)
         {
 
-#if defined(LUMOS_PLATFORM_WINDOWS) && !defined(LUMOS_USE_GLFW_WINDOWS)
+#if defined(HB_PLATFORM_WINDOWS) && !defined(HB_USE_GLFW_WINDOWS)
             HDC hDc = GetDC(static_cast<HWND>(window->GetHandle()));
 
             HGLRC tempContext = wglCreateContext(hDc);
@@ -145,13 +145,13 @@ namespace Lumos
 
             if(!wglMakeCurrent(hDc, tempContext))
             {
-                LUMOS_LOG_ERROR("Failed to initialize OpenGL context");
+                HB_ERROR("Failed to initialize OpenGL context");
             }
 
             if(!gladLoadWGL(hDc))
-                LUMOS_LOG_ERROR("glad failed to load WGL!");
+                HB_ERROR("glad failed to load WGL!");
             if(!gladLoadGL())
-                LUMOS_LOG_ERROR("glad failed to load OpenGL!");
+                HB_ERROR("glad failed to load OpenGL!");
 
             const int contextAttribsList[] = {
                 WGL_CONTEXT_MAJOR_VERSION_ARB,
@@ -173,7 +173,7 @@ namespace Lumos
             HGLRC hrc = wglCreateContextAttribsARB(hDc, nullptr, contextAttribsList);
             if(hrc == nullptr)
             {
-                LUMOS_LOG_ERROR("Failed to create core OpenGL context");
+                HB_ERROR("Failed to create core OpenGL context");
             }
             else
             {
@@ -184,23 +184,23 @@ namespace Lumos
 #else
             if(!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
             {
-                LUMOS_LOG_ERROR("Failed to initialize OpenGL context");
+                HB_ERROR("Failed to initialize OpenGL context");
             }
 #endif
 
             glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 
-            LUMOS_LOG_INFO("----------------------------------");
-            LUMOS_LOG_INFO(OPENGLLOG);
-            LUMOS_LOG_INFO(glGetString(GL_VERSION));
-            LUMOS_LOG_INFO(glGetString(GL_VENDOR));
-            LUMOS_LOG_INFO(glGetString(GL_RENDERER));
-            LUMOS_LOG_INFO("----------------------------------");
+            HB_INFO("----------------------------------");
+            HB_INFO(OPENGLLOG);
+            HB_INFO(glGetString(GL_VERSION));
+            HB_INFO(glGetString(GL_VENDOR));
+            HB_INFO(glGetString(GL_RENDERER));
+            HB_INFO("----------------------------------");
 
-#if LUMOS_DEBUG
+#if HB_DEBUG
 #ifdef GL_DEBUD_CALLBACK
-#ifndef LUMOS_PLATFORM_MACOS
-            LUMOS_LOG_INFO(OPENGLLOG "Registering OpenGL debug callback");
+#ifndef HB_PLATFORM_MACOS
+            HB_INFO(OPENGLLOG "Registering OpenGL debug callback");
 
             glEnable(GL_DEBUG_OUTPUT);
             glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -213,7 +213,7 @@ namespace Lumos
                 &unusedIds,
                 true);
 #else
-            LUMOS_LOG_INFO(OPENGLLOG "glDebugMessageCallback not available");
+            HB_INFO(OPENGLLOG "glDebugMessageCallback not available");
 #endif
 #endif
 #endif

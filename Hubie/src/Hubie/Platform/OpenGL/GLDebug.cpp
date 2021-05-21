@@ -3,7 +3,7 @@
 
 #ifdef GL_DEBUG
 
-bool Lumos::GLLogCall(const char* function, const char* file, const int32_t line)
+bool Hubie::GLLogCall(const char* function, const char* file, const int32_t line)
 {
     GLenum err(glGetError());
     bool Error = true;
@@ -38,7 +38,7 @@ bool Lumos::GLLogCall(const char* function, const char* file, const int32_t line
     return Error;
 }
 
-void Lumos::GLClearError()
+void Hubie::GLClearError()
 {
     while(glGetError() != GL_NO_ERROR)
         ;

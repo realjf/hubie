@@ -1,15 +1,15 @@
 #pragma once
-#include "Core/Core.h"
-#include "Graphics/API/Framebuffer.h"
+#include "Hubie/Core/Core.h"
+#include "Hubie/Graphics/API/Framebuffer.h"
 #include "VK.h"
 #include "VKTexture.h"
 #include "VKRenderpass.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
-        class LUMOS_EXPORT VKFramebuffer : public Framebuffer
+        class HB_EXPORT VKFramebuffer : public Framebuffer
         {
         public:
             VKFramebuffer(const FramebufferInfo& frameBufferInfo);

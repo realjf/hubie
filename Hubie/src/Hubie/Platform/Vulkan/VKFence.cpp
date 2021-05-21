@@ -3,13 +3,13 @@
 #include "VKDevice.h"
 #include "VKTools.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
         VKFence::VKFence(bool createSignaled)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_Signaled = createSignaled;
 
             VkFenceCreateInfo fenceCreateInfo {};
@@ -26,7 +26,7 @@ namespace Lumos
 
         bool VKFence::IsSignaled()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(m_Signaled)
                 return true;
             else
@@ -37,7 +37,7 @@ namespace Lumos
 
         bool VKFence::CheckState()
         {
-            LUMOS_ASSERT(!m_Signaled, "Fence Signaled");
+            HB_ASSERT(!m_Signaled, "Fence Signaled");
 
             const VkResult result = vkGetFenceStatus(VKDevice::Get().GetDevice(), m_Handle);
             if(result == VK_SUCCESS)
@@ -51,8 +51,8 @@ namespace Lumos
 
         bool VKFence::Wait()
         {
-            LUMOS_PROFILE_FUNCTION();
-            LUMOS_ASSERT(!m_Signaled, "Fence Signaled");
+            HB_PROFILE_FUNCTION();
+            HB_ASSERT(!m_Signaled, "Fence Signaled");
 
             const VkResult result = vkWaitForFences(VKDevice::Get().GetDevice(), 1, &m_Handle, true, UINT32_MAX);
 
@@ -68,7 +68,7 @@ namespace Lumos
 
         void VKFence::Reset()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(m_Signaled)
                 VK_CHECK_RESULT(vkResetFences(VKDevice::Get().GetDevice(), 1, &m_Handle));
 
@@ -77,7 +77,7 @@ namespace Lumos
 
         void VKFence::WaitAndReset()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(!IsSignaled())
                 Wait();
 

@@ -5,15 +5,15 @@
 #include "VKDescriptorSet.h"
 #include "VKTools.h"
 #include "VKPipeline.h"
-#include "Core/Engine.h"
+#include "Hubie/Core/Engine.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
         void VKRenderer::InitInternal()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
 
             m_RendererTitle = "Vulkan";
         }
@@ -24,7 +24,7 @@ namespace Lumos
 
         void VKRenderer::PresentInternal(CommandBuffer* cmdBuffer)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
         }
 
         void VKRenderer::ClearRenderTarget(Graphics::Texture* texture, Graphics::CommandBuffer* cmdBuffer)
@@ -44,7 +44,7 @@ namespace Lumos
 
         void VKRenderer::ClearSwapchainImage() const
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
 
             auto m_Swapchain = VKContext::Get()->GetSwapchain();
             for(int i = 0; i < m_Swapchain->GetSwapchainBufferCount(); i++)
@@ -67,7 +67,7 @@ namespace Lumos
 
         void VKRenderer::OnResize(uint32_t width, uint32_t height)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(width == 0 || height == 0)
                 return;
 
@@ -85,14 +85,14 @@ namespace Lumos
 
         void VKRenderer::Begin()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             VKContext::Get()->GetSwapchain()->AcquireNextImage();
             VKContext::Get()->GetSwapchain()->Begin();
         }
 
         void VKRenderer::PresentInternal()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_Context = VKContext::Get();
 
             m_Context->GetSwapchain()->End();
@@ -107,7 +107,7 @@ namespace Lumos
 
         void VKRenderer::BindDescriptorSetsInternal(Graphics::Pipeline* pipeline, Graphics::CommandBuffer* cmdBuffer, uint32_t dynamicOffset, std::vector<Graphics::DescriptorSet*>& descriptorSets)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             uint32_t numDynamicDescriptorSets = 0;
             uint32_t numDesciptorSets = 0;
 
@@ -130,14 +130,14 @@ namespace Lumos
 
         void VKRenderer::DrawIndexedInternal(CommandBuffer* commandBuffer, DrawType type, uint32_t count, uint32_t start) const
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             Engine::Get().Statistics().NumDrawCalls++;
             vkCmdDrawIndexed(static_cast<VKCommandBuffer*>(commandBuffer)->GetHandle(), count, 1, 0, 0, 0);
         }
 
         void VKRenderer::DrawInternal(CommandBuffer* commandBuffer, DrawType type, uint32_t count, DataType datayType, void* indices) const
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             Engine::Get().Statistics().NumDrawCalls++;
             vkCmdDraw(static_cast<VKCommandBuffer*>(commandBuffer)->GetHandle(), count, 1, 0, 0);
         }

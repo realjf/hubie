@@ -1,7 +1,7 @@
 #include "Precompiled.h"
 #include "GLRenderDevice.h"
 
-namespace Lumos::Graphics
+namespace Hubie::Graphics
 {
     void GLRenderDevice::Init()
     {

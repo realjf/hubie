@@ -1,7 +1,7 @@
 #include "Precompiled.h"
 #include "GLShaderResource.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

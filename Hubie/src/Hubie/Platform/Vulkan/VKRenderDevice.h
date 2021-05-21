@@ -1,7 +1,7 @@
 #pragma once
-#include "Graphics/API/RenderDevice.h"
+#include "Hubie/Graphics/API/RenderDevice.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

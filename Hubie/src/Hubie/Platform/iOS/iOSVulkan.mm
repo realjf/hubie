@@ -1,7 +1,7 @@
-#if defined(LUMOS_RENDER_API_VULKAN)
+#if defined(HB_RENDER_API_VULKAN)
 
-#include "Platform/Vulkan/VKSwapchain.h"
-#include "Core/Application.h"
+#include "Hubie/Platform/Vulkan/VKSwapchain.h"
+#include "Hubie/Core/Application.h"
 #include "iOSOS.h"
 #include "iOSWindow.h"
 
@@ -9,7 +9,7 @@
 #include <MoltenVK/vk_mvk_moltenvk.h>
 #endif
 
-namespace Lumos
+namespace Hubie
 {
 	VkSurfaceKHR Graphics::VKSwapchain::CreatePlatformSurface(VkInstance vkInstance, Window* window)
 	{

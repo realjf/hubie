@@ -1,7 +1,7 @@
 #pragma once
 #include "VK.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

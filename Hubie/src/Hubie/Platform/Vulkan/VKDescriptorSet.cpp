@@ -10,13 +10,13 @@
 #define MAX_IMAGE_INFOS 32
 #define MAX_WRITE_DESCTIPTORS 32
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
         VKDescriptorSet::VKDescriptorSet(const DescriptorInfo& info)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             VkDescriptorSetAllocateInfo descriptorSetAllocateInfo;
             descriptorSetAllocateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
             descriptorSetAllocateInfo.descriptorPool = static_cast<Graphics::VKPipeline*>(info.pipeline)->GetDescriptorPool();
@@ -40,19 +40,19 @@ namespace Lumos
 
         void VKDescriptorSet::Update(std::vector<BufferInfo>& bufferInfos)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             UpdateInternal(nullptr, &bufferInfos);
         }
 
         void VKDescriptorSet::Update(std::vector<ImageInfo>& imageInfos)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             UpdateInternal(&imageInfos, nullptr);
         }
 
         void VKDescriptorSet::Update(std::vector<ImageInfo>& imageInfos, std::vector<BufferInfo>& bufferInfos)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             UpdateInternal(&imageInfos, &bufferInfos);
         }
 
@@ -68,7 +68,7 @@ namespace Lumos
 
         void VKDescriptorSet::UpdateInternal(std::vector<ImageInfo>* imageInfos, std::vector<BufferInfo>* bufferInfos)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_Dynamic = false;
             int descriptorWritesCount = 0;
 

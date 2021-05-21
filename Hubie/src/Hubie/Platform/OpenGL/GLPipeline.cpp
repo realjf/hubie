@@ -5,7 +5,7 @@
 
 #include <glad/glad.h>
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

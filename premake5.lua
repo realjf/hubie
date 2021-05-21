@@ -56,6 +56,10 @@ startproject "Sandbox"
 
         require("Hubie/Deps/imgui_premake5")
 
+        require("Hubie/Deps/lua_premake5")
+
+        require("Hubie/Deps/freetype_premake5")
+
         require("Hubie/Deps/meshoptimizer_premake5")
 
         if not os.istarget(premake.IOS) and not os.istarget(premake.ANDROID) then

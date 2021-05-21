@@ -1,8 +1,8 @@
 #pragma once
 #include "VK.h"
-#include "Graphics/API/CommandBuffer.h"
+#include "Hubie/Graphics/API/CommandBuffer.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

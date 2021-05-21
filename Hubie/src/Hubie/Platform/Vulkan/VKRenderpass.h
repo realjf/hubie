@@ -1,9 +1,9 @@
 #pragma once
 
 #include "VKDevice.h"
-#include "Graphics/API/RenderPass.h"
+#include "Hubie/Graphics/API/RenderPass.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

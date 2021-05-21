@@ -1,14 +1,14 @@
 #include "Precompiled.h"
 #include "ALManager.h"
 #include "ALSoundNode.h"
-#include "Maths/Maths.h"
-#include "Graphics/Camera/Camera.h"
-#include "Utilities/TimeStep.h"
-#include "Scene/Component/SoundComponent.h"
+#include "Hubie/Maths/Maths.h"
+#include "Hubie/Graphics/Camera/Camera.h"
+#include "Hubie/Utilities/TimeStep.h"
+#include "Hubie/Scene/Component/SoundComponent.h"
 
 #include <imgui/imgui.h>
 
-namespace Lumos
+namespace Hubie
 {
     namespace Audio
     {
@@ -30,16 +30,16 @@ namespace Lumos
 
         void ALManager::OnInit()
         {
-            LUMOS_PROFILE_FUNCTION();
-            LUMOS_LOG_INFO("Creating SoundSystem!");
-            LUMOS_LOG_INFO("Found the following devices: {0}", alcGetString(nullptr, ALC_DEVICE_SPECIFIER));
+            HB_PROFILE_FUNCTION();
+            HB_INFO("Creating SoundSystem!");
+            HB_INFO("Found the following devices: {0}", alcGetString(nullptr, ALC_DEVICE_SPECIFIER));
 
             m_Device = alcOpenDevice(nullptr);
 
             if(!m_Device)
-                LUMOS_LOG_INFO("Failed to create SoundSystem! (No valid device!)");
+                HB_INFO("Failed to create SoundSystem! (No valid device!)");
 
-            LUMOS_LOG_INFO("SoundSystem created with device: {0}", alcGetString(m_Device, ALC_DEVICE_SPECIFIER)); //Outputs used OAL device!
+            HB_INFO("SoundSystem created with device: {0}", alcGetString(m_Device, ALC_DEVICE_SPECIFIER)); //Outputs used OAL device!
 
             m_Context = alcCreateContext(m_Device, nullptr);
 
@@ -49,7 +49,7 @@ namespace Lumos
 
         void ALManager::OnUpdate(const TimeStep& dt, Scene* scene)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             auto& registry = scene->GetRegistry();
             auto cameraView = registry.view<Camera>();
             if(!cameraView.empty())
@@ -68,7 +68,7 @@ namespace Lumos
         //Pass Cameras transform
         void ALManager::UpdateListener()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(m_Listener)
             {
                 Maths::Vector3 worldPos; // = m_Listener->GetPosition();
@@ -93,7 +93,7 @@ namespace Lumos
 
         void ALManager::OnImGui()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             ImGui::TextUnformatted("OpenAL Audio");
 
             ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(2, 2));

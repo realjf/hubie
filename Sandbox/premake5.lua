@@ -20,7 +20,9 @@ IncludeDir2["tinyobjloader"] = "../Hubie/Deps/tinyobjloader"
 IncludeDir2["meshoptimizer"] = "../Hubie/Deps/meshoptimizer/src"
 IncludeDir2["volk"] = "../Hubie/Deps/volk"
 IncludeDir2["glm"] = "../Hubie/Deps/glm"
-
+IncludeDir2["lua"] = "../Hubie/Deps/lua/src"
+IncludeDir2["freetype"] = "../Hubie/Deps/freetype/include"
+IncludeDir2["OpenAL"] = "../Hubie/Deps/OpenAL/include"
 
 project "Sandbox"
     kind "WindowedApp"
@@ -49,6 +51,9 @@ project "Sandbox"
         "%{IncludeDir2.tinyobjloader}",
         "%{IncludeDir2.meshoptimizer}",
         "%{IncludeDir2.glm}",
+        "%{IncludeDir2.lua}",
+        "%{IncludeDir2.freetype}",
+        "%{IncludeDir2.OpenAL}",
     }
 
     sysincludedirs
@@ -66,6 +71,8 @@ project "Sandbox"
 
     links
     {
+        "lua",
+        "freetype",
         "Hubie",
         "box2d",
         "imgui",
@@ -79,23 +86,61 @@ project "Sandbox"
         "SPDLOG_COMPILED_LIB"
     }
 
+    filter { "files:Deps/**"}
+		warnings "Off"
+
+	filter 'architecture:x86_64'
+		defines { "HB_SSE" ,"USE_VMA_ALLOCATOR"}
+
     filter "system:windows"
         systemversion "latest"
+        staticruntime "On"
+		systemversion "latest"
+		entrypoint "WinMainCRTStartup"
 
         defines
         {
             "HB_PLATFORM_WINDOWS",
-            "_CRT_SECURE_NO_WARNINGS"
+            "HB_RENDER_API_OPENGL",
+			"HB_RENDER_API_VULKAN",
+			"VK_USE_PLATFORM_WIN32_KHR",
+			"WIN32_LEAN_AND_MEAN",
+			"_CRT_SECURE_NO_WARNINGS",
+			"_DISABLE_EXTENDED_ALIGNED_STORAGE",
+			"_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING",
+			"HB_ROOT_DIR="  .. root_dir,
+			"HB_VOLK"
         }
+
+        -- libdirs
+		-- {
+		-- 	"../Hubie/Deps/OpenAL/libs/Win32"
+		-- }
+
+        links
+		{
+			"glfw",
+			"OpenGL32",
+			"OpenAL32"
+		}
+
+		disablewarnings { 4307 }
 
     filter "system:linux"
         cppdialect "C++17"
+        staticruntime "On"
         systemversion "latest"
 
         defines
         {
             "HB_PLATFORM_LINUX",
-            "HB_PLATFORM_UNIX"
+            "HB_PLATFORM_UNIX",
+            "HB_RENDER_API_OPENGL",
+			"HB_RENDER_API_VULKAN",
+			"VK_USE_PLATFORM_XCB_KHR",
+			"HB_IMGUI",
+			"HB_ROOT_DIR="  .. root_dir,
+			"HB_VOLK"
         }
 
         buildoptions
@@ -114,14 +159,22 @@ project "Sandbox"
 
 		links { "X11", "pthread", "dl", "atomic", "stdc++fs"}
 
+        linkoptions { "-L%{cfg.targetdir}", "-Wl,-rpath=\\$$ORIGIN" }
+
+		filter {'system:linux', 'architecture:x86_64'}
+			buildoptions
+			{
+				"-msse4.1",
+			}
+
     filter "configurations:Debug"
-        defines { "HB_DEBUG" }
+        defines { "HB_DEBUG", "_DEBUG","TRACY_ENABLE","HB_PROFILE"}
         symbols "On"
         runtime "Debug"
         optimize "Off"
 
     filter "configurations:Release"
-        defines { "HB_RELEASE" }
+        defines { "HB_RELEASE","TRACY_ENABLE","HB_PROFILE", }
         symbols "On"
         runtime "Release"
         optimize "Speed"

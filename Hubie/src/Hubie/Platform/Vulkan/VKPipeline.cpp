@@ -5,10 +5,10 @@
 #include "VKRenderpass.h"
 #include "VKShader.h"
 #include "VKTools.h"
-#include "Graphics/API/DescriptorSet.h"
+#include "Hubie/Graphics/API/DescriptorSet.h"
 #include "VKInitialisers.h"
 
-namespace Lumos
+namespace Hubie
 {
     static constexpr uint32_t MAX_DESCRIPTOR_SET_COUNT = 1500;
 

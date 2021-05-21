@@ -216,7 +216,7 @@ namespace Hubie
 		m_Data.Width = w;
 		m_Data.Height = h;
 
-#ifdef LUMOS_RENDER_API_OPENGL
+#ifdef HB_RENDER_API_OPENGL
 		if (m_Data.m_RenderAPI == Graphics::RenderAPI::OPENGL)
 			glfwMakeContextCurrent(m_Handle);
 #endif
@@ -226,7 +226,7 @@ namespace Hubie
 		if (glfwRawMouseMotionSupported())
 			glfwSetInputMode(m_Handle, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 
-#ifdef LUMOS_PLATFORM_WINDOWS
+#ifdef HB_PLATFORM_WINDOWS
 		SetIcon("//Textures/icon.png", "//Textures/icon32.png");
 #endif
 

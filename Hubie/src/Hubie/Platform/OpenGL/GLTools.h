@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

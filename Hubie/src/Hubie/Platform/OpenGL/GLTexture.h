@@ -1,7 +1,7 @@
 #pragma once
-#include "Graphics/API/Texture.h"
+#include "Hubie/Graphics/API/Texture.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

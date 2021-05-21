@@ -7,7 +7,7 @@
 
 #include <Tracy/TracyVulkan.hpp>
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -32,7 +32,7 @@ namespace Lumos
 
         bool VKCommandBuffer::Init(bool primary)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_Primary = primary;
 
             VkCommandBufferAllocateInfo cmdBufferCI {};
@@ -51,7 +51,7 @@ namespace Lumos
 
         bool VKCommandBuffer::Init(bool primary, VkCommandPool commandPool)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_Primary = primary;
 
             VkCommandBufferAllocateInfo cmdBufferCI {};
@@ -69,14 +69,14 @@ namespace Lumos
 
         void VKCommandBuffer::Unload()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             vkFreeCommandBuffers(VKDevice::Get().GetDevice(), m_CommandPool, 1, &m_CommandBuffer);
         }
 
         void VKCommandBuffer::BeginRecording()
         {
-            LUMOS_PROFILE_FUNCTION();
-            LUMOS_ASSERT(m_Primary, "BeginRecording() called from a secondary command buffer!");
+            HB_PROFILE_FUNCTION();
+            HB_ASSERT(m_Primary, "BeginRecording() called from a secondary command buffer!");
 
             m_State = CommandBufferState::Recording;
             VkCommandBufferBeginInfo beginCI {};
@@ -87,8 +87,8 @@ namespace Lumos
 
         void VKCommandBuffer::BeginRecordingSecondary(RenderPass* renderPass, Framebuffer* framebuffer)
         {
-            LUMOS_PROFILE_FUNCTION();
-            LUMOS_ASSERT(!m_Primary, "BeginRecordingSecondary() called from a primary command buffer!");
+            HB_PROFILE_FUNCTION();
+            HB_ASSERT(!m_Primary, "BeginRecordingSecondary() called from a primary command buffer!");
             m_State = CommandBufferState::Recording;
 
             VkCommandBufferInheritanceInfo inheritanceInfo {};
@@ -107,16 +107,16 @@ namespace Lumos
 
         void VKCommandBuffer::EndRecording()
         {
-            LUMOS_PROFILE_FUNCTION();
-            LUMOS_ASSERT(m_State == CommandBufferState::Recording, "CommandBuffer ended before started recording");
+            HB_PROFILE_FUNCTION();
+            HB_ASSERT(m_State == CommandBufferState::Recording, "CommandBuffer ended before started recording");
             VK_CHECK_RESULT(vkEndCommandBuffer(m_CommandBuffer));
             m_State = CommandBufferState::Ended;
         }
 
         void VKCommandBuffer::Execute(bool waitFence)
         {
-            LUMOS_PROFILE_FUNCTION();
-            LUMOS_ASSERT(m_State == CommandBufferState::Ended, "CommandBuffer executed before ended recording");
+            HB_PROFILE_FUNCTION();
+            HB_ASSERT(m_State == CommandBufferState::Ended, "CommandBuffer executed before ended recording");
 
             ExecuteInternal(VkPipelineStageFlags(), VK_NULL_HANDLE, VK_NULL_HANDLE, waitFence);
             m_State = CommandBufferState::Submitted;
@@ -124,9 +124,9 @@ namespace Lumos
 
         void VKCommandBuffer::ExecuteInternal(VkPipelineStageFlags flags, VkSemaphore waitSemaphore, VkSemaphore signalSemaphore, bool waitFence)
         {
-            LUMOS_PROFILE_FUNCTION();
-            LUMOS_ASSERT(m_Primary, "Used Execute on secondary command buffer!");
-            LUMOS_ASSERT(m_State == CommandBufferState::Ended, "CommandBuffer executed before ended recording");
+            HB_PROFILE_FUNCTION();
+            HB_ASSERT(m_Primary, "Used Execute on secondary command buffer!");
+            HB_ASSERT(m_State == CommandBufferState::Ended, "CommandBuffer executed before ended recording");
             uint32_t waitSemaphoreCount = waitSemaphore ? 1 : 0, signalSemaphoreCount = signalSemaphore ? 1 : 0;
 
             VkSubmitInfo submitInfo = {};
@@ -146,8 +146,8 @@ namespace Lumos
 
         void VKCommandBuffer::ExecuteSecondary(CommandBuffer* primaryCmdBuffer)
         {
-            LUMOS_PROFILE_FUNCTION();
-            LUMOS_ASSERT(!m_Primary, "Used ExecuteSecondary on primary command buffer!");
+            HB_PROFILE_FUNCTION();
+            HB_ASSERT(!m_Primary, "Used ExecuteSecondary on primary command buffer!");
             m_State = CommandBufferState::Submitted;
 
             vkCmdExecuteCommands(static_cast<VKCommandBuffer*>(primaryCmdBuffer)->GetHandle(), 1, &m_CommandBuffer);
@@ -155,7 +155,7 @@ namespace Lumos
 
         void VKCommandBuffer::UpdateViewport(uint32_t width, uint32_t height)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             VkViewport viewport = {};
             viewport.x = 0.0f;
             viewport.y = 0.0f;
@@ -174,7 +174,7 @@ namespace Lumos
 
         void VKCommandBuffer::Reset()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             VK_CHECK_RESULT(vkResetCommandBuffer(m_CommandBuffer, 0));
         }
 

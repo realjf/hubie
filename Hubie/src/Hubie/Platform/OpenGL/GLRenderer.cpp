@@ -1,17 +1,17 @@
 #include "Precompiled.h"
 #include "GLRenderer.h"
-#include "Graphics/API/Shader.h"
-#include "Core/OS/Window.h"
-#include "Core/Engine.h"
+#include "Hubie/Graphics/API/Shader.h"
+#include "Hubie/Core/OS/Window.h"
+#include "Hubie/Core/Engine.h"
 #include "GLDebug.h"
 
 #include "GL.h"
 #include "GLTools.h"
-#include "Graphics/Mesh.h"
+#include "Hubie/Graphics/Mesh.h"
 #include "GLDescriptorSet.h"
-#include "Graphics/Material.h"
+#include "Hubie/Graphics/Material.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -42,7 +42,7 @@ namespace Lumos
 
         void GLRenderer::InitInternal()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glEnable(GL_DEPTH_TEST));
             GLCall(glEnable(GL_STENCIL_TEST));
             GLCall(glEnable(GL_CULL_FACE));
@@ -51,7 +51,7 @@ namespace Lumos
             GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
             GLCall(glBlendEquation(GL_FUNC_ADD));
 
-#ifndef LUMOS_PLATFORM_MOBILE
+#ifndef HB_PLATFORM_MOBILE
             GLCall(glEnable(GL_DEPTH_CLAMP));
             GLCall(glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS));
 #endif
@@ -79,7 +79,7 @@ namespace Lumos
 
         void GLRenderer::SetDepthTestingInternal(bool enabled)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(enabled)
             {
                 GLCall(glEnable(GL_DEPTH_TEST));
@@ -92,13 +92,13 @@ namespace Lumos
 
         void GLRenderer::SetDepthMaskInternal(bool enabled)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glDepthMask(enabled ? GL_TRUE : GL_FALSE));
         }
 
         void GLRenderer::SetPixelPackType(const PixelPackType type)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             switch(type)
             {
             case PixelPackType::PACK:
@@ -112,7 +112,7 @@ namespace Lumos
 
         void GLRenderer::SetBlendInternal(bool enabled)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(enabled)
             {
                 GLCall(glEnable(GL_BLEND));
@@ -125,18 +125,18 @@ namespace Lumos
 
         void GLRenderer::SetBlendFunctionInternal(RendererBlendFunction source, RendererBlendFunction destination)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glBlendFunc(GLTools::RendererBlendFunctionToGL(source), GLTools::RendererBlendFunctionToGL(destination)));
         }
 
         void GLRenderer::SetBlendEquationInternal(RendererBlendFunction blendEquation)
         {
-            LUMOS_ASSERT(false, "Not implemented");
+            HB_ASSERT(false, "Not implemented");
         }
 
         void GLRenderer::SetViewportInternal(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glViewport(x, y, width, height));
         }
 
@@ -147,8 +147,8 @@ namespace Lumos
 
         void GLRenderer::SetRenderModeInternal(RenderMode mode)
         {
-            LUMOS_PROFILE_FUNCTION();
-#ifndef LUMOS_PLATFORM_MOBILE
+            HB_PROFILE_FUNCTION();
+#ifndef HB_PLATFORM_MOBILE
             switch(mode)
             {
             case RenderMode::FILL:
@@ -167,7 +167,7 @@ namespace Lumos
 
         void GLRenderer::SetCullingInternal(bool enabled, bool front)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(enabled)
             {
                 GLCall(glEnable(GL_CULL_FACE));
@@ -181,7 +181,7 @@ namespace Lumos
 
         void GLRenderer::SetStencilTestInternal(bool enabled)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(enabled)
             {
                 GLCall(glEnable(GL_STENCIL_TEST));
@@ -194,32 +194,32 @@ namespace Lumos
 
         void GLRenderer::SetStencilFunctionInternal(const StencilType type, uint32_t ref, uint32_t mask)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             glStencilFunc(GLTools::StencilTypeToGL(type), ref, mask);
         }
 
         void GLRenderer::SetStencilOpInternal(const StencilType fail, const StencilType zfail, const StencilType zpass)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             glStencilOp(GLTools::StencilTypeToGL(fail), GLTools::StencilTypeToGL(zfail), GLTools::StencilTypeToGL(zpass));
         }
 
         void GLRenderer::SetColourMaskInternal(bool r, bool g, bool b, bool a)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             glColorMask(r, g, b, a);
         }
 
         void GLRenderer::DrawInternal(CommandBuffer* commandBuffer, const DrawType type, uint32_t count, DataType dataType, void* indices) const
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             Engine::Get().Statistics().NumDrawCalls++;
             GLCall(glDrawElements(GLTools::DrawTypeToGL(type), count, GLTools::DataTypeToGL(dataType), indices));
         }
 
         void GLRenderer::DrawIndexedInternal(CommandBuffer* commandBuffer, const DrawType type, uint32_t count, uint32_t start) const
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             Engine::Get().Statistics().NumDrawCalls++;
             GLCall(glDrawElements(GLTools::DrawTypeToGL(type), count, GLTools::DataTypeToGL(DataType::UNSIGNED_INT), nullptr));
             //GLCall(glDrawArrays(GLTools::DrawTypeToGL(type), start, count));
@@ -227,7 +227,7 @@ namespace Lumos
 
         void GLRenderer::BindDescriptorSetsInternal(Graphics::Pipeline* pipeline, Graphics::CommandBuffer* cmdBuffer, uint32_t dynamicOffset, std::vector<Graphics::DescriptorSet*>& descriptorSets)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             for(auto descriptor : descriptorSets)
             {
                 if(descriptor)

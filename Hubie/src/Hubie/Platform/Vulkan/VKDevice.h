@@ -1,11 +1,11 @@
 #pragma once
-#include "Utilities/TSingleton.h"
+#include "Hubie/Utilities/TSingleton.h"
 #include "VK.h"
 #include "VKContext.h"
 #include "VKCommandPool.h"
 
 #ifdef USE_VMA_ALLOCATOR
-#ifdef LUMOS_DEBUG
+#ifdef HB_DEBUG
 #define VMA_DEBUG_MARGIN 16
 #define VMA_DEBUG_DETECT_CORRUPTION 1
 #endif
@@ -14,11 +14,11 @@
 
 #include <unordered_set>
 
-#if defined(LUMOS_PROFILE) && defined(TRACY_ENABLE)
+#if defined(HB_PROFILE) && defined(TRACY_ENABLE)
 #include <Tracy/TracyVulkan.hpp>
 #endif
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -112,7 +112,7 @@ namespace Lumos
                 return m_PipelineCache;
             }
 
-#if defined(LUMOS_PROFILE) && defined(TRACY_ENABLE)
+#if defined(HB_PROFILE) && defined(TRACY_ENABLE)
             tracy::VkCtx* GetTracyContext()
             {
                 return m_TracyContext;
@@ -147,7 +147,7 @@ namespace Lumos
 
             static uint32_t s_GraphicsQueueFamilyIndex;
 
-#if defined(LUMOS_PROFILE) && defined(TRACY_ENABLE)
+#if defined(HB_PROFILE) && defined(TRACY_ENABLE)
             tracy::VkCtx* m_TracyContext = nullptr;
 #endif
 

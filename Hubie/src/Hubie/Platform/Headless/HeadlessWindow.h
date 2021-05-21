@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Core/OS/Window.h"
+#include "Hubie/Core/OS/Window.h"
 
-namespace Lumos
+namespace Hubie
 {
-    class LUMOS_EXPORT HeadlessWindow : public Window
+    class HB_EXPORT HeadlessWindow : public Window
     {
     public:
         HeadlessWindow(const WindowProperties& properties);

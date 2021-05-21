@@ -4,7 +4,7 @@
 #include "GLRenderer.h"
 #include "GLTexture.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -35,7 +35,7 @@ namespace Lumos
             case TextureFormat::DEPTH:
                 return GL_DEPTH24_STENCIL8;
             default:
-                LUMOS_ASSERT(false, "[Texture] Unsupported TextureFormat");
+                HB_ASSERT(false, "[Texture] Unsupported TextureFormat");
                 return 0;
             }
         }
@@ -44,7 +44,7 @@ namespace Lumos
         {
             switch(wrap)
             {
-#ifndef LUMOS_PLATFORM_MOBILE
+#ifndef HB_PLATFORM_MOBILE
             case TextureWrap::CLAMP:
                 return GL_CLAMP;
             case TextureWrap::CLAMP_TO_BORDER:
@@ -57,7 +57,7 @@ namespace Lumos
             case TextureWrap::MIRRORED_REPEAT:
                 return GL_MIRRORED_REPEAT;
             default:
-                LUMOS_ASSERT(false, "[Texture] Unsupported TextureWrap");
+                HB_ASSERT(false, "[Texture] Unsupported TextureWrap");
                 return 0;
             }
         }
@@ -102,7 +102,7 @@ namespace Lumos
                 return GL_LUMINANCE_ALPHA;
 
             default:
-                LUMOS_ASSERT(false, "[Texture] Unsupported Texture Format");
+                HB_ASSERT(false, "[Texture] Unsupported Texture Format");
                 return 0;
             }
         }
@@ -124,7 +124,7 @@ namespace Lumos
             case StencilType::ALWAYS:
                 return GL_ALWAYS;
             default:
-                LUMOS_ASSERT(false, "Unsupported StencilType");
+                HB_ASSERT(false, "Unsupported StencilType");
                 return 0;
             }
         }
@@ -171,7 +171,7 @@ namespace Lumos
             case DataType::UNSIGNED_BYTE:
                 return GL_UNSIGNED_BYTE;
             default:
-                LUMOS_LOG_ERROR("Unsupported DataType");
+                HB_ERROR("Unsupported DataType");
                 break;
             }
             return 0;
@@ -188,7 +188,7 @@ namespace Lumos
             case DrawType::TRIANGLE:
                 return GL_TRIANGLES;
             default:
-                LUMOS_LOG_ERROR("Unsupported DrawType");
+                HB_ERROR("Unsupported DrawType");
                 break;
             }
             return 0;

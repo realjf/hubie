@@ -1,8 +1,8 @@
 #include "Precompiled.h"
 #include "GLShaderUniform.h"
-#include "Graphics/API/Shader.h"
+#include "Hubie/Graphics/API/Shader.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

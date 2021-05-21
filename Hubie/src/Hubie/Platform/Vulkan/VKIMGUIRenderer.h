@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Graphics/API/IMGUIRenderer.h"
+#include "Hubie/Graphics/API/IMGUIRenderer.h"
 #include "VK.h"
 
 #include "VKCommandBuffer.h"
 
 struct ImGui_ImplVulkanH_Window;
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -22,7 +22,7 @@ namespace Lumos
 
             void Init() override;
             void NewFrame() override;
-            void Render(Lumos::Graphics::CommandBuffer* commandBuffer) override;
+            void Render(Hubie::Graphics::CommandBuffer* commandBuffer) override;
             void OnResize(uint32_t width, uint32_t height) override;
             void Clear() override;
 

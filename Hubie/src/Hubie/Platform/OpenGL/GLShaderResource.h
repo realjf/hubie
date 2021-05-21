@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Graphics/API/ShaderResource.h"
+#include "Hubie/Graphics/API/ShaderResource.h"
 #include "GLShaderUniform.h"
 #include "GLDebug.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

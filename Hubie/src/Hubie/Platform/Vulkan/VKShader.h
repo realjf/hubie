@@ -1,10 +1,10 @@
 #pragma once
 
 #include "VK.h"
-#include "Graphics/API/Shader.h"
-#include "Graphics/API/DescriptorSet.h"
+#include "Hubie/Graphics/API/Shader.h"
+#include "Hubie/Graphics/API/DescriptorSet.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -39,7 +39,7 @@ namespace Lumos
 
             PushConstant* GetPushConstant(uint32_t index) override
             {
-                LUMOS_ASSERT(index < m_PushConstants.size(), "Push constants out of bounds");
+                HB_ASSERT(index < m_PushConstants.size(), "Push constants out of bounds");
                 return &m_PushConstants[index];
             }
 

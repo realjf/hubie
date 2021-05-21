@@ -8,7 +8,7 @@
 #define GETVAL(k, v) \
 CFDictionaryGetValueIfPresent(dict, CFSTR(k), (const void **)v)
 
-namespace Lumos
+namespace Hubie
 {
     MacOSPower::MacOSPower() :
         m_NumberSecondsLeft(-1),

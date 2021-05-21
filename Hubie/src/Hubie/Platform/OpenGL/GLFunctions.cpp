@@ -16,7 +16,7 @@
 #include "GLUniformBuffer.h"
 #include "GLVertexBuffer.h"
 
-void Lumos::Graphics::GL::MakeDefault()
+void Hubie::Graphics::GL::MakeDefault()
 {
     GLCommandBuffer::MakeDefault();
     GLContext::MakeDefault();

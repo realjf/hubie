@@ -1,13 +1,13 @@
 #pragma once
 #include "VK.h"
 #include "VKBuffer.h"
-#include "Graphics/API/UniformBuffer.h"
+#include "Hubie/Graphics/API/UniformBuffer.h"
 
 #ifdef USE_VMA_ALLOCATOR
 #include <vulkan/vk_mem_alloc.h>
 #endif
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

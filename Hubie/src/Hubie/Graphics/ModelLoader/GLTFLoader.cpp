@@ -367,10 +367,10 @@ namespace Hubie::Graphics
         auto name = node.name;
 
 #ifdef DEBUG_PRINT_GLTF_LOADING
-        HB_LOG_INFO("asset.copyright : {0}", model.asset.copyright);
-        HB_LOG_INFO("asset.generator : {0}", model.asset.generator);
-        HB_LOG_INFO("asset.version : {0}", model.asset.version);
-        HB_LOG_INFO("asset.minVersion : {0}", model.asset.minVersion);
+        HB_INFO("asset.copyright : {0}", model.asset.copyright);
+        HB_INFO("asset.generator : {0}", model.asset.generator);
+        HB_INFO("asset.version : {0}", model.asset.version);
+        HB_INFO("asset.minVersion : {0}", model.asset.minVersion);
 #endif
 
         Maths::Transform transform;
@@ -459,17 +459,17 @@ namespace Hubie::Graphics
 
         if(!err.empty())
         {
-            HB_LOG_ERROR(err);
+            HB_ERROR(err);
         }
 
         if(!warn.empty())
         {
-            HB_LOG_ERROR(warn);
+            HB_ERROR(warn);
         }
 
         if(!ret)
         {
-            HB_LOG_ERROR("Failed to parse glTF");
+            HB_ERROR("Failed to parse glTF");
         }
 
         auto LoadedMaterials = LoadMaterials(model);

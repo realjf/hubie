@@ -1,8 +1,8 @@
 #include "MacOSOS.h"
 #include "MacOSPower.h"
-#include "Platform/GLFW/GLFWWindow.h"
-#include "Core/CoreSystem.h"
-#include "Core/Application.h"
+#include "Hubie/Platform/GLFW/GLFWWindow.h"
+#include "Hubie/Core/CoreSystem.h"
+#include "Hubie/Core/Application.h"
 
 #include <mach-o/dyld.h>
 
@@ -11,9 +11,9 @@
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
 
-extern Lumos::Application* Lumos::CreateApplication();
+extern Hubie::Application* Hubie::CreateApplication();
 
-namespace Lumos
+namespace Hubie
 {
     void MacOSOS::Run()
     {
@@ -27,14 +27,14 @@ namespace Lumos
 		hours = minutes / 60;
 		minutes = minutes % 60;
 		
-        LUMOS_LOG_INFO("Battery Info - {0}% , Time Left {1}h : {2}m , State : {3}", percentage, hours, minutes, PowerStateToString(state));
+        HB_INFO("Battery Info - {0}% , Time Left {1}h : {2}m , State : {3}", percentage, hours, minutes, PowerStateToString(state));
         
         const std::string root = ROOT_DIR;
 		VFS::Get()->Mount("Meshes", root + "/Assets/meshes");
 		VFS::Get()->Mount("Textures", root + "/Assets/textures");
 		VFS::Get()->Mount("Sounds", root + "/Assets/sounds");
         
-        auto& app = Lumos::Application::Get();
+        auto& app = Hubie::Application::Get();
 
         app.Init();
         app.Run();
@@ -48,7 +48,7 @@ namespace Lumos
 
     void MacOSOS::SetTitleBarColour(const Maths::Vector4& colour, bool dark)
     {
-        auto& app = Lumos::Application::Get();
+        auto& app = Hubie::Application::Get();
 
         NSWindow* window = (NSWindow*)glfwGetCocoaWindow(static_cast<GLFWwindow*>(app.GetWindow()->GetHandle()));
         window.titlebarAppearsTransparent = YES;

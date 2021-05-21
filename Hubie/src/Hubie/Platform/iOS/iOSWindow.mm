@@ -1,17 +1,17 @@
 #include "Precompiled.h"
 #include "iOSWindow.h"
 #include "iOSOS.h"
-#include "Graphics/API/GraphicsContext.h"
+#include "Hubie/Graphics/API/GraphicsContext.h"
 
-#include "Events/ApplicationEvent.h"
-#include "Events/MouseEvent.h"
-#include "Events/KeyEvent.h"
+#include "Hubie/Events/ApplicationEvent.h"
+#include "Hubie/Events/MouseEvent.h"
+#include "Hubie/Events/KeyEvent.h"
 
 #include "iOSKeyCodes.h"
 
 #include <UIKit/UIKit.h>
 
-namespace Lumos
+namespace Hubie
 {
 	iOSWindow::iOSWindow(const WindowProperties& properties)
 	{
@@ -41,7 +41,7 @@ namespace Lumos
 
 	bool iOSWindow::Init(const WindowProperties& properties, const std::string& title)
 	{
-        LUMOS_LOG_INFO("Creating window - Title : {0}, Width : {1}, Height : {2}", properties.Title, properties.Width, properties.Height);
+        HB_INFO("Creating window - Title : {0}, Width : {1}, Height : {2}", properties.Title, properties.Width, properties.Height);
 
         m_Data.Title = properties.Title;
         m_Data.Width = properties.Width;
@@ -81,7 +81,7 @@ namespace Lumos
 		return new iOSWindow(properties);
 	}
 
-    void iOSWindow::OnKeyEvent(Lumos::InputCode::Key key, bool down)
+    void iOSWindow::OnKeyEvent(Hubie::InputCode::Key key, bool down)
     {
         if(down)
         {
@@ -102,12 +102,12 @@ namespace Lumos
         
         if(down)
         {
-            MouseButtonPressedEvent event2((Lumos::InputCode::MouseKey)Lumos::iOSKeyCodes::iOSTouchToLumosMouseKey(count));
+            MouseButtonPressedEvent event2((Hubie::InputCode::MouseKey)Hubie::iOSKeyCodes::iOSTouchToHubieMouseKey(count));
             m_Data.EventCallback(event2);
         }
         else
         {
-            MouseButtonReleasedEvent event2((Lumos::InputCode::MouseKey)Lumos::iOSKeyCodes::iOSTouchToLumosMouseKey(count));
+            MouseButtonReleasedEvent event2((Hubie::InputCode::MouseKey)Hubie::iOSKeyCodes::iOSTouchToHubieMouseKey(count));
             m_Data.EventCallback(event2);
         }
     }

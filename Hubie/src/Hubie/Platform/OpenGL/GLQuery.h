@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Graphics/API/Query.h"
+#include "Hubie/Graphics/API/Query.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

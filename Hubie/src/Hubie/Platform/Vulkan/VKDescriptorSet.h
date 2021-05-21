@@ -1,8 +1,8 @@
 #pragma once
-#include "Graphics/API/DescriptorSet.h"
+#include "Hubie/Graphics/API/DescriptorSet.h"
 #include "VK.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

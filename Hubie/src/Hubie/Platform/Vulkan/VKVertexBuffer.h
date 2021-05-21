@@ -1,9 +1,9 @@
 #pragma once
 
 #include "VKBuffer.h"
-#include "Graphics/API/VertexBuffer.h"
+#include "Hubie/Graphics/API/VertexBuffer.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Graphics/API/Pipeline.h"
-#include "Maths/Maths.h"
-#include "Core/OS/Window.h"
-#include "Graphics/API/Renderer.h"
+#include "Hubie/Graphics/API/Pipeline.h"
+#include "Hubie/Maths/Maths.h"
+#include "Hubie/Core/OS/Window.h"
+#include "Hubie/Graphics/API/Renderer.h"
 #include "GLSwapchain.h"
 
-namespace Lumos
+namespace Hubie
 {
     class Window;
     namespace Graphics
@@ -15,7 +15,7 @@ namespace Lumos
         class CommandBuffer;
         class Shader;
 
-        class LUMOS_EXPORT GLRenderer : public Renderer
+        class HB_EXPORT GLRenderer : public Renderer
         {
         public:
             friend class Window;

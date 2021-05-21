@@ -1,10 +1,10 @@
 
-#include "Audio/AudioManager.h"
+#include "Hubie/Audio/AudioManager.h"
 
 #include <AL/al.h>
 #include <AL/alc.h>
 
-namespace Lumos
+namespace Hubie
 {
     namespace Audio
     {

@@ -1,8 +1,8 @@
 #pragma once
-#include "Core/OS/OS.h"
+#include "Hubie/Core/OS/OS.h"
 #include <CoreFoundation/CoreFoundation.h>
 
-namespace Lumos
+namespace Hubie
 {
     class MacOSPower
     {

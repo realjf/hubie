@@ -1,7 +1,7 @@
 #include "iOSPower.h"
 
 
-namespace Lumos
+namespace Hubie
 {
     iOSPower::iOSPower() :
         m_NumberSecondsLeft(-1),

@@ -46,3 +46,9 @@
 [submodule "Hubie/Deps/volk"]
 	path = Hubie/Deps/volk
 	url = https://github.com/zeux/volk.git
+[submodule "Hubie/Deps/freetype"]
+	path = Hubie/Deps/freetype
+	url = https://github.com/aseprite/freetype2.git
+[submodule "Hubie/Deps/OpenAL"]
+	path = Hubie/Deps/OpenAL
+	url = https://github.com/kcat/openal-soft.git

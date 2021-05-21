@@ -1,7 +1,7 @@
 #pragma once
-#include "Core/OS/OS.h"
+#include "Hubie/Core/OS/OS.h"
 
-namespace Lumos
+namespace Hubie
 {
     class iOSOS : public OS
     {

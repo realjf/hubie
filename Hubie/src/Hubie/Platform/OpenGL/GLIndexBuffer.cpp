@@ -3,7 +3,7 @@
 
 #include "GL.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -25,7 +25,7 @@ namespace Lumos
             : m_Count(count)
             , m_Usage(bufferUsage)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glGenBuffers(1, &m_Handle));
             GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Handle));
             GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint16_t), data, BufferUsageToOpenGL(m_Usage)));
@@ -35,7 +35,7 @@ namespace Lumos
             : m_Count(count)
             , m_Usage(bufferUsage)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glGenBuffers(1, &m_Handle));
             GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Handle));
             GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), data, BufferUsageToOpenGL(m_Usage)));
@@ -43,19 +43,19 @@ namespace Lumos
 
         GLIndexBuffer::~GLIndexBuffer()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glDeleteBuffers(1, &m_Handle));
         }
 
         void GLIndexBuffer::Bind(CommandBuffer* commandBuffer) const
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Handle));
         }
 
         void GLIndexBuffer::Unbind() const
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
         }
 
@@ -66,7 +66,7 @@ namespace Lumos
 
         void* GLIndexBuffer::GetPointerInternal()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             void* result = nullptr;
             if(!m_Mapped)
             {
@@ -75,7 +75,7 @@ namespace Lumos
             }
             else
             {
-                LUMOS_LOG_WARN("Vertex buffer already mapped");
+                HB_WARN("Vertex buffer already mapped");
             }
 
             return result;
@@ -83,7 +83,7 @@ namespace Lumos
 
         void GLIndexBuffer::ReleasePointer()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(m_Mapped)
             {
                 GLCall(glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER));

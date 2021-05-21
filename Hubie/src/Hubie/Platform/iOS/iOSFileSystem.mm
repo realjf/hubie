@@ -1,6 +1,6 @@
 #include "Precompiled.h"
-#include "Core/OS/FileSystem.h"
-#include "Core/StringUtilities.h"
+#include "Hubie/Core/OS/FileSystem.h"
+#include "Hubie/Core/StringUtilities.h"
 #include "iOSOS.h"
 
 #include <stdio.h>
@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 
-namespace Lumos
+namespace Hubie
 {
     std::string NormaliseFilename(const char *filename)
     {

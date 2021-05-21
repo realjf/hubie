@@ -4,25 +4,25 @@
 #include "GLDebug.h"
 #include "GLShader.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
         GLUniformBuffer::GLUniformBuffer()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             glGenBuffers(1, &m_Handle);
         }
 
         GLUniformBuffer::~GLUniformBuffer()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glDeleteBuffers(1, &m_Handle));
         }
 
         void GLUniformBuffer::Init(uint32_t size, const void* data)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_Data = (uint8_t*)data;
             m_Size = size;
             glBindBuffer(GL_UNIFORM_BUFFER, m_Handle);
@@ -31,7 +31,7 @@ namespace Lumos
 
         void GLUniformBuffer::SetData(uint32_t size, const void* data)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_Data = (uint8_t*)data;
             GLvoid* p = nullptr;
 
@@ -39,7 +39,7 @@ namespace Lumos
 
             if(size != m_Size)
             {
-                LUMOS_PROFILE_SCOPE("glMapBuffer");
+                HB_PROFILE_SCOPE("glMapBuffer");
                 p = glMapBuffer(GL_UNIFORM_BUFFER, GL_WRITE_ONLY);
                 m_Size = size;
 
@@ -48,8 +48,8 @@ namespace Lumos
             }
             else
             {
-                LUMOS_PROFILE_SCOPE("glBufferSubData");
-#ifdef LUMOS_PLATFORM_MACOS
+                HB_PROFILE_SCOPE("glBufferSubData");
+#ifdef HB_PLATFORM_MACOS
                 glBufferData(GL_UNIFORM_BUFFER, m_Size, m_Data, GL_DYNAMIC_DRAW);
 #else
                 glBufferSubData(GL_UNIFORM_BUFFER, 0, m_Size, m_Data);
@@ -59,7 +59,7 @@ namespace Lumos
 
         void GLUniformBuffer::SetDynamicData(uint32_t size, uint32_t typeSize, const void* data)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             m_Data = (uint8_t*)data;
             m_Size = size;
             m_Dynamic = true;
@@ -71,7 +71,7 @@ namespace Lumos
 
             if(size != m_Size)
             {
-                LUMOS_PROFILE_SCOPE("glMapBuffer");
+                HB_PROFILE_SCOPE("glMapBuffer");
                 p = glMapBuffer(GL_UNIFORM_BUFFER, GL_WRITE_ONLY);
                 m_Size = size;
 
@@ -80,14 +80,14 @@ namespace Lumos
             }
             else
             {
-                LUMOS_PROFILE_SCOPE("glBufferSubData");
+                HB_PROFILE_SCOPE("glBufferSubData");
                 glBufferSubData(GL_UNIFORM_BUFFER, 0, m_Size, m_Data);
             }
         }
 
         void GLUniformBuffer::Bind(uint32_t slot, GLShader* shader, std::string& name)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             GLCall(glBindBufferBase(GL_UNIFORM_BUFFER, slot, m_Handle));
             shader->BindUniformBuffer(this, slot, name);
             //uint32_t location = glGetUniformBlockIndex(shader->GetHandle(), name.c_str());

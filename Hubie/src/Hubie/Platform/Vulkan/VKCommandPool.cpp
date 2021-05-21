@@ -2,7 +2,7 @@
 #include "VKCommandPool.h"
 #include "VKDevice.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

@@ -4,11 +4,11 @@
 #include "VKShader.h"
 #include "VKSwapchain.h"
 #include "VKCommandPool.h"
-#include "Graphics/API/Texture.h"
-#include "Graphics/API/DescriptorSet.h"
-#include "Graphics/API/Pipeline.h"
+#include "Hubie/Graphics/API/Texture.h"
+#include "Hubie/Graphics/API/DescriptorSet.h"
+#include "Hubie/Graphics/API/Pipeline.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -227,7 +227,7 @@ namespace Lumos
             }
             else
             {
-                LUMOS_LOG_CRITICAL("unsupported layout transition!");
+                HB_CRITICAL("unsupported layout transition!");
             }
 
             // set up destination properties
@@ -268,7 +268,7 @@ namespace Lumos
             }
             else
             {
-                LUMOS_LOG_CRITICAL("unsupported layout transition!");
+                HB_CRITICAL("unsupported layout transition!");
             }
 
             vkCmdPipelineBarrier(
@@ -347,35 +347,35 @@ namespace Lumos
             }
         }
 
-        VkFormat VKTools::FormatToVK(Lumos::Graphics::Format format)
+        VkFormat VKTools::FormatToVK(Hubie::Graphics::Format format)
         {
             switch(format)
             {
-            case Lumos::Graphics::Format::R32G32B32A32_FLOAT:
+            case Hubie::Graphics::Format::R32G32B32A32_FLOAT:
                 return VkFormat::VK_FORMAT_R32G32B32A32_SFLOAT;
-            case Lumos::Graphics::Format::R32G32B32_FLOAT:
+            case Hubie::Graphics::Format::R32G32B32_FLOAT:
                 return VkFormat::VK_FORMAT_R32G32B32_SFLOAT;
-            case Lumos::Graphics::Format::R32G32_FLOAT:
+            case Hubie::Graphics::Format::R32G32_FLOAT:
                 return VkFormat::VK_FORMAT_R32G32_SFLOAT;
-            case Lumos::Graphics::Format::R32_FLOAT:
+            case Hubie::Graphics::Format::R32_FLOAT:
                 return VkFormat::VK_FORMAT_R32_SFLOAT;
-            case Lumos::Graphics::Format::R32G32B32A32_UINT:
+            case Hubie::Graphics::Format::R32G32B32A32_UINT:
                 return VkFormat::VK_FORMAT_R32G32B32A32_UINT;
-            case Lumos::Graphics::Format::R32G32B32_UINT:
+            case Hubie::Graphics::Format::R32G32B32_UINT:
                 return VkFormat::VK_FORMAT_R32G32B32_UINT;
-            case Lumos::Graphics::Format::R32G32_UINT:
+            case Hubie::Graphics::Format::R32G32_UINT:
                 return VkFormat::VK_FORMAT_R32G32_UINT;
-            case Lumos::Graphics::Format::R32_UINT:
+            case Hubie::Graphics::Format::R32_UINT:
                 return VkFormat::VK_FORMAT_R32_UINT;
-            case Lumos::Graphics::Format::R8_UINT:
+            case Hubie::Graphics::Format::R8_UINT:
                 return VkFormat::VK_FORMAT_R8_UINT;
-            case Lumos::Graphics::Format::R32G32B32A32_INT:
+            case Hubie::Graphics::Format::R32G32B32A32_INT:
                 return VkFormat::VK_FORMAT_R32G32B32A32_SINT;
-            case Lumos::Graphics::Format::R32G32B32_INT:
+            case Hubie::Graphics::Format::R32G32B32_INT:
                 return VkFormat::VK_FORMAT_R32G32B32_SINT;
-            case Lumos::Graphics::Format::R32G32_INT:
+            case Hubie::Graphics::Format::R32G32_INT:
                 return VkFormat::VK_FORMAT_R32G32_SINT;
-            case Lumos::Graphics::Format::R32_INT:
+            case Hubie::Graphics::Format::R32_INT:
                 return VkFormat::VK_FORMAT_R32_SINT;
             default:
                 return VkFormat::VK_FORMAT_R32G32B32A32_SFLOAT;
@@ -594,7 +594,7 @@ namespace Lumos
             case TextureWrap::MIRRORED_REPEAT:
                 return VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT;
             default:
-                LUMOS_LOG_CRITICAL("[Texture] Unsupported wrap type!");
+                HB_CRITICAL("[Texture] Unsupported wrap type!");
                 return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
             }
         }
@@ -610,7 +610,7 @@ namespace Lumos
             case TextureFilter::NONE:
                 return VK_FILTER_LINEAR;
             default:
-                LUMOS_LOG_CRITICAL("[Texture] Unsupported TextureFilter type!");
+                HB_CRITICAL("[Texture] Unsupported TextureFilter type!");
                 return VK_FILTER_LINEAR;
             }
         }
@@ -642,7 +642,7 @@ namespace Lumos
                 case TextureFormat::RGBA32:
                     return VK_FORMAT_R32G32B32A32_SFLOAT;
                 default:
-                    LUMOS_LOG_CRITICAL("[Texture] Unsupported image bit-depth!");
+                    HB_CRITICAL("[Texture] Unsupported image bit-depth!");
                     return VK_FORMAT_R8G8B8A8_SRGB;
                 }
             }
@@ -671,7 +671,7 @@ namespace Lumos
                 case TextureFormat::RGBA32:
                     return VK_FORMAT_R32G32B32A32_SFLOAT;
                 default:
-                    LUMOS_LOG_CRITICAL("[Texture] Unsupported image bit-depth!");
+                    HB_CRITICAL("[Texture] Unsupported image bit-depth!");
                     return VK_FORMAT_R8G8B8A8_UNORM;
                 }
             }
@@ -694,12 +694,12 @@ namespace Lumos
             case ShaderType::COMPUTE:
                 return VK_SHADER_STAGE_COMPUTE_BIT;
             default:
-                LUMOS_LOG_CRITICAL("Unknown Shader Type");
+                HB_CRITICAL("Unknown Shader Type");
                 return VK_SHADER_STAGE_VERTEX_BIT;
             }
         }
 
-        VkPolygonMode VKTools::PolygonModeToVk(Lumos::Graphics::PolygonMode mode)
+        VkPolygonMode VKTools::PolygonModeToVk(Hubie::Graphics::PolygonMode mode)
         {
             switch(mode)
             {
@@ -713,13 +713,13 @@ namespace Lumos
                 return VK_POLYGON_MODE_POINT;
                 break;
             default:
-                LUMOS_LOG_CRITICAL("Unknown Polygon Mode");
+                HB_CRITICAL("Unknown Polygon Mode");
                 return VK_POLYGON_MODE_FILL;
                 break;
             }
         }
 
-        VkPrimitiveTopology VKTools::DrawTypeToVk(Lumos::Graphics::DrawType type)
+        VkPrimitiveTopology VKTools::DrawTypeToVk(Hubie::Graphics::DrawType type)
         {
             switch(type)
             {
@@ -733,7 +733,7 @@ namespace Lumos
                 return VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
                 break;
             default:
-                LUMOS_LOG_CRITICAL("Unknown Draw Type");
+                HB_CRITICAL("Unknown Draw Type");
                 return VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
                 break;
             }
@@ -788,7 +788,7 @@ namespace Lumos
                 }
                 else
                 {
-                    LUMOS_LOG_ERROR("Failed to find supported presentation mode.");
+                    HB_ERROR("Failed to find supported presentation mode.");
                 }
             }
             else
@@ -807,7 +807,7 @@ namespace Lumos
                 }
                 else
                 {
-                    LUMOS_LOG_ERROR("Failed to find supported presentation mode.");
+                    HB_ERROR("Failed to find supported presentation mode.");
                 }
             }
 

@@ -5,7 +5,7 @@
 #include "VKInitialisers.h"
 #include "VKTools.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

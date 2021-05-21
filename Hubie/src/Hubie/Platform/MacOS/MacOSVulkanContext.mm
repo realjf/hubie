@@ -1,10 +1,10 @@
-#ifdef LUMOS_RENDER_API_VULKAN
+#ifdef HB_RENDER_API_VULKAN
 
 #import <Cocoa/Cocoa.h>
 #include <QuartzCore/CAMetalLayer.h>
 
-#include "Platform/Vulkan/VKSwapchain.h"
-#include "Core/Application.h"
+#include "Hubie/Platform/Vulkan/VKSwapchain.h"
+#include "Hubie/Core/Application.h"
 #undef _GLFW_REQUIRE_LOADER
 #define GLFW_EXPOSE_NATIVE_COCOA
 #include <GLFW/glfw3.h>
@@ -25,7 +25,7 @@ extern "C" void* GetCAMetalLayer(void* handle)
     return view.layer;
 }
 
-namespace Lumos
+namespace Hubie
 {
 	VkSurfaceKHR Graphics::VKSwapchain::CreatePlatformSurface(VkInstance vkInstance, Window* window)
 	{

@@ -1,7 +1,7 @@
 #include "Precompiled.h"
 #include "GLCommandBuffer.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

@@ -1,14 +1,14 @@
 #pragma once
-#include "Graphics/API/Texture.h"
+#include "Hubie/Graphics/API/Texture.h"
 #include "VK.h"
-#include "Graphics/API/GraphicsContext.h"
+#include "Hubie/Graphics/API/GraphicsContext.h"
 #include "VKContext.h"
 
 #ifdef USE_VMA_ALLOCATOR
 #include <vulkan/vk_mem_alloc.h>
 #endif
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

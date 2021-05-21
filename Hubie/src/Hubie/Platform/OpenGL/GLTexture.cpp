@@ -1,11 +1,11 @@
 #include "Precompiled.h"
 #include "GLTexture.h"
-#include "Platform/OpenGL/GL.h"
-#include "Platform/OpenGL/GLTools.h"
-#include "Platform/OpenGL/GLShader.h"
-#include "Utilities/LoadImage.h"
+#include "Hubie/Platform/OpenGL/GL.h"
+#include "Hubie/Platform/OpenGL/GLTools.h"
+#include "Hubie/Platform/OpenGL/GLShader.h"
+#include "Hubie/Utilities/LoadImage.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -57,7 +57,7 @@ namespace Lumos
             uint32_t format = GLTools::TextureFormatToGL(m_Parameters.format, m_Parameters.srgb);
             GLCall(glTexImage2D(GL_TEXTURE_2D, 0, format, m_Width, m_Height, 0, GLTools::TextureFormatToInternalFormat(format), isHDR ? GL_FLOAT : GL_UNSIGNED_BYTE, data ? data : NULL));
             GLCall(glGenerateMipmap(GL_TEXTURE_2D));
-#ifdef LUMOS_DEBUG
+#ifdef HB_DEBUG
             GLCall(glBindTexture(GL_TEXTURE_2D, 0));
 #endif
 
@@ -120,7 +120,7 @@ namespace Lumos
             if(samplerShadow)
             {
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-#ifndef LUMOS_PLATFORM_MOBILE
+#ifndef HB_PLATFORM_MOBILE
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
                 glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_INTENSITY);
 #endif
@@ -135,7 +135,7 @@ namespace Lumos
             if(m_FileName != "NULL")
             {
                 uint32_t bits;
-                pixels = Lumos::LoadImageFromFile(m_FileName.c_str(), &m_Width, &m_Height, &bits, &isHDR, !m_LoadOptions.flipY);
+                pixels = Hubie::LoadImageFromFile(m_FileName.c_str(), &m_Width, &m_Height, &bits, &isHDR, !m_LoadOptions.flipY);
                 m_Parameters.format = BitsToTextureFormat(bits);
             }
             return pixels;
@@ -153,7 +153,7 @@ namespace Lumos
             glBindTexture(GL_TEXTURE_CUBE_MAP, m_Handle);
             //glTexStorage2D(m_Handle, m_NumMips, GL_RGBA16F, m_Size, m_Size);
 
-#ifndef LUMOS_PLATFORM_MOBILE
+#ifndef HB_PLATFORM_MOBILE
             glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP);
             glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP);
             glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP);
@@ -235,12 +235,12 @@ namespace Lumos
 
             uint32_t width, height, bits;
             bool isHDR = false;
-            uint8_t* xp = Lumos::LoadImageFromFile(xpos, &width, &height, &bits, &isHDR, true);
-            uint8_t* xn = Lumos::LoadImageFromFile(xneg, &width, &height, &bits, &isHDR, true);
-            uint8_t* yp = Lumos::LoadImageFromFile(ypos, &width, &height, &bits, &isHDR, true);
-            uint8_t* yn = Lumos::LoadImageFromFile(yneg, &width, &height, &bits, &isHDR, true);
-            uint8_t* zp = Lumos::LoadImageFromFile(zpos, &width, &height, &bits, &isHDR, true);
-            uint8_t* zn = Lumos::LoadImageFromFile(zneg, &width, &height, &bits, &isHDR, true);
+            uint8_t* xp = Hubie::LoadImageFromFile(xpos, &width, &height, &bits, &isHDR, true);
+            uint8_t* xn = Hubie::LoadImageFromFile(xneg, &width, &height, &bits, &isHDR, true);
+            uint8_t* yp = Hubie::LoadImageFromFile(ypos, &width, &height, &bits, &isHDR, true);
+            uint8_t* yn = Hubie::LoadImageFromFile(yneg, &width, &height, &bits, &isHDR, true);
+            uint8_t* zp = Hubie::LoadImageFromFile(zpos, &width, &height, &bits, &isHDR, true);
+            uint8_t* zn = Hubie::LoadImageFromFile(zneg, &width, &height, &bits, &isHDR, true);
 
             uint32_t result;
             GLCall(glGenTextures(1, &result));
@@ -287,7 +287,7 @@ namespace Lumos
             for(uint32_t m = 0; m < mips; m++)
             {
                 bool isHDR = false;
-                uint8_t* data = Lumos::LoadImageFromFile(m_Files[m], &srcWidth, &srcHeight, &bits, &isHDR, !m_LoadOptions.flipY);
+                uint8_t* data = Hubie::LoadImageFromFile(m_Files[m], &srcWidth, &srcHeight, &bits, &isHDR, !m_LoadOptions.flipY);
                 m_Parameters.format = BitsToTextureFormat(bits);
                 uint32_t stride = bits / 8;
 
@@ -408,7 +408,7 @@ namespace Lumos
             GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
             GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
             GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL));
-#ifndef LUMOS_PLATFORM_MOBILE
+#ifndef HB_PLATFORM_MOBILE
             GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE));
 #endif
             GLCall(glBindTexture(GL_TEXTURE_2D, 0));
@@ -458,7 +458,7 @@ namespace Lumos
             GLCall(glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_REPEAT));
             GLCall(glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
             GLCall(glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-#ifndef LUMOS_PLATFORM_MOBILE
+#ifndef HB_PLATFORM_MOBILE
             GLCall(glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_COMPARE_MODE, GL_NONE));
             //GLCall(glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_DEPTH_TEXTURE_MODE, GL_INTENSITY));
 #endif
@@ -478,7 +478,7 @@ namespace Lumos
             GLCall(glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_REPEAT));
             GLCall(glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
             GLCall(glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-#ifndef LUMOS_PLATFORM_MOBILE
+#ifndef HB_PLATFORM_MOBILE
             GLCall(glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_COMPARE_MODE, GL_NONE));
             GLCall(glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_DEPTH_TEXTURE_MODE, GL_INTENSITY));
 #endif

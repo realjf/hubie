@@ -1,15 +1,15 @@
 #pragma once
-#include "Graphics/API/Framebuffer.h"
-#include "Platform/OpenGL/GL.h"
+#include "Hubie/Graphics/API/Framebuffer.h"
+#include "Hubie/Platform/OpenGL/GL.h"
 #include "GLTexture.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
         enum class Format;
 
-        class LUMOS_EXPORT GLFramebuffer : public Framebuffer
+        class HB_EXPORT GLFramebuffer : public Framebuffer
         {
         public:
             GLFramebuffer();

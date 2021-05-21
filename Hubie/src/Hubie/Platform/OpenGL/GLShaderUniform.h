@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Graphics/API/ShaderUniform.h"
+#include "Hubie/Graphics/API/ShaderUniform.h"
 #include "GLDebug.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -79,7 +79,7 @@ namespace Lumos
             }
             inline const ShaderStruct& GetShaderUniformStruct() const
             {
-                LUMOS_ASSERT(m_Struct, "");
+                HB_ASSERT(m_Struct, "");
                 return *m_Struct;
             }
 
@@ -92,7 +92,7 @@ namespace Lumos
             static std::string TypeToString(Type type);
         };
 
-        struct LUMOS_EXPORT GLShaderUniformField
+        struct HB_EXPORT GLShaderUniformField
         {
             GLShaderUniformDeclaration::Type type;
             std::string name;

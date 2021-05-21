@@ -3,7 +3,7 @@
 #include <vector>
 #include "vulkan/vulkan.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace VKInitialisers
     {

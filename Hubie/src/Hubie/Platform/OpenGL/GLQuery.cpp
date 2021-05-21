@@ -3,7 +3,7 @@
 #include "GL.h"
 #include "GLDebug.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -11,7 +11,7 @@ namespace Lumos
         {
             switch(type)
             {
-#ifndef LUMOS_PLATFORM_MOBILE
+#ifndef HB_PLATFORM_MOBILE
             case QueryType::SAMPLES_PASSED:
                 return GL_SAMPLES_PASSED;
 #endif

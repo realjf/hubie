@@ -25,7 +25,7 @@ static void check_vk_result(VkResult err)
         abort();
 }
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -214,7 +214,7 @@ namespace Lumos
             m_Renderpass->EndRenderpass(Renderer::GetSwapchain()->GetCurrentCommandBuffer());
         }
 
-        void VKIMGUIRenderer::Render(Lumos::Graphics::CommandBuffer* commandBuffer)
+        void VKIMGUIRenderer::Render(Hubie::Graphics::CommandBuffer* commandBuffer)
         {
             FrameRender(&g_WindowData);
         }

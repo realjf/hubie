@@ -1,14 +1,14 @@
 #include "Precompiled.h"
 
-#include "Core/Application.h"
-#include "Core/Version.h"
-#include "Core/StringUtilities.h"
+#include "Hubie/Core/Application.h"
+#include "Hubie/Core/Version.h"
+#include "Hubie/Core/StringUtilities.h"
 
 #include "VKDevice.h"
 #include "VKRenderer.h"
 #include "VKCommandPool.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -41,7 +41,7 @@ namespace Lumos
             vkEnumeratePhysicalDevices(vkInstance, &numGPUs, VK_NULL_HANDLE);
             if(numGPUs == 0)
             {
-                LUMOS_LOG_CRITICAL("ERROR : No GPUs found!");
+                HB_CRITICAL("ERROR : No GPUs found!");
             }
 
             std::vector<VkPhysicalDevice> physicalDevices(numGPUs);
@@ -61,11 +61,11 @@ namespace Lumos
             vkGetPhysicalDeviceProperties(m_PhysicalDevice, &m_PhysicalDeviceProperties);
             vkGetPhysicalDeviceMemoryProperties(m_PhysicalDevice, &m_MemoryProperties);
 
-            LUMOS_LOG_INFO("Vulkan : {0}.{1}.{2}", VK_VERSION_MAJOR(m_PhysicalDeviceProperties.apiVersion), VK_VERSION_MINOR(m_PhysicalDeviceProperties.apiVersion), VK_VERSION_PATCH(m_PhysicalDeviceProperties.apiVersion));
-            LUMOS_LOG_INFO("GPU : {0}", std::string(m_PhysicalDeviceProperties.deviceName));
-            LUMOS_LOG_INFO("Vendor ID : {0}", StringUtilities::ToString(m_PhysicalDeviceProperties.vendorID));
-            LUMOS_LOG_INFO("Device Type : {0}", std::string(TranslateVkPhysicalDeviceTypeToString(m_PhysicalDeviceProperties.deviceType)));
-            LUMOS_LOG_INFO("Driver Version : {0}.{1}.{2}", VK_VERSION_MAJOR(m_PhysicalDeviceProperties.driverVersion), VK_VERSION_MINOR(m_PhysicalDeviceProperties.driverVersion), VK_VERSION_PATCH(m_PhysicalDeviceProperties.driverVersion));
+            HB_INFO("Vulkan : {0}.{1}.{2}", VK_VERSION_MAJOR(m_PhysicalDeviceProperties.apiVersion), VK_VERSION_MINOR(m_PhysicalDeviceProperties.apiVersion), VK_VERSION_PATCH(m_PhysicalDeviceProperties.apiVersion));
+            HB_INFO("GPU : {0}", std::string(m_PhysicalDeviceProperties.deviceName));
+            HB_INFO("Vendor ID : {0}", StringUtilities::ToString(m_PhysicalDeviceProperties.vendorID));
+            HB_INFO("Device Type : {0}", std::string(TranslateVkPhysicalDeviceTypeToString(m_PhysicalDeviceProperties.deviceType)));
+            HB_INFO("Driver Version : {0}.{1}.{2}", VK_VERSION_MAJOR(m_PhysicalDeviceProperties.driverVersion), VK_VERSION_MINOR(m_PhysicalDeviceProperties.driverVersion), VK_VERSION_PATCH(m_PhysicalDeviceProperties.driverVersion));
 
             auto& caps = Renderer::GetCapabilities();
 
@@ -81,7 +81,7 @@ namespace Lumos
 
             uint32_t queueFamilyCount;
             vkGetPhysicalDeviceQueueFamilyProperties(m_PhysicalDevice, &queueFamilyCount, nullptr);
-            LUMOS_ASSERT(queueFamilyCount > 0, "");
+            HB_ASSERT(queueFamilyCount > 0, "");
             m_QueueFamilyProperties.resize(queueFamilyCount);
             vkGetPhysicalDeviceQueueFamilyProperties(m_PhysicalDevice, &queueFamilyCount, m_QueueFamilyProperties.data());
 
@@ -92,11 +92,11 @@ namespace Lumos
                 std::vector<VkExtensionProperties> extensions(extCount);
                 if(vkEnumerateDeviceExtensionProperties(m_PhysicalDevice, nullptr, &extCount, &extensions.front()) == VK_SUCCESS)
                 {
-                    LUMOS_LOG_INFO("Selected physical device has {0} extensions", extensions.size());
+                    HB_INFO("Selected physical device has {0} extensions", extensions.size());
                     for(const auto& ext : extensions)
                     {
                         m_SupportedExtensions.emplace(ext.extensionName);
-                        LUMOS_LOG_INFO("  {0}", ext.extensionName);
+                        HB_INFO("  {0}", ext.extensionName);
                     }
                 }
             }
@@ -237,7 +237,7 @@ namespace Lumos
                 typeBits >>= 1;
             }
 
-            LUMOS_ASSERT(false, "Could not find a suitable memory type!");
+            HB_ASSERT(false, "Could not find a suitable memory type!");
             return UINT32_MAX;
         }
         /////////////////////////
@@ -256,7 +256,7 @@ namespace Lumos
 #ifdef USE_VMA_ALLOCATOR
             vmaDestroyAllocator(m_Allocator);
 #endif
-#if defined(LUMOS_PROFILE) && defined(TRACY_ENABLE)
+#if defined(HB_PROFILE) && defined(TRACY_ENABLE)
             TracyVkDestroy(m_TracyContext);
 #endif
 
@@ -280,7 +280,7 @@ namespace Lumos
                 m_EnableDebugMarkers = true;
             }
 
-#if defined(LUMOS_PLATFORM_MACOS) || defined(LUMOS_PLATFORM_IOS)
+#if defined(HB_PLATFORM_MACOS) || defined(HB_PLATFORM_IOS)
             // https://vulkan.lunarg.com/doc/view/1.2.162.0/mac/1.2-extensions/vkspec.html#VUID-VkDeviceCreateInfo-pProperties-04451
             if(m_PhysicalDevice->IsExtensionSupported("VK_KHR_portability_subset"))
             {
@@ -301,7 +301,7 @@ namespace Lumos
             auto result = vkCreateDevice(m_PhysicalDevice->GetVulkanPhysicalDevice(), &deviceCI, VK_NULL_HANDLE, &m_Device);
             if(result != VK_SUCCESS)
             {
-                LUMOS_LOG_CRITICAL("[VULKAN] vkCreateDevice() failed!");
+                HB_CRITICAL("[VULKAN] vkCreateDevice() failed!");
                 return false;
             }
 
@@ -343,7 +343,7 @@ namespace Lumos
 
             if(vmaCreateAllocator(&allocatorInfo, &m_Allocator) != VK_SUCCESS)
             {
-                LUMOS_LOG_CRITICAL("[VULKAN] Failed to create VMA allocator");
+                HB_CRITICAL("[VULKAN] Failed to create VMA allocator");
             }
 #endif
             m_CommandPool = CreateRef<VKCommandPool>(m_PhysicalDevice->GetGraphicsQueueFamilyIndex(), VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
@@ -372,7 +372,7 @@ namespace Lumos
             VkCommandBuffer tracyBuffer;
             vkAllocateCommandBuffers(m_Device, &allocInfo, &tracyBuffer);
 
-#if defined(LUMOS_PROFILE) && defined(TRACY_ENABLE)
+#if defined(HB_PROFILE) && defined(TRACY_ENABLE)
             m_TracyContext = TracyVkContext(m_PhysicalDevice->GetVulkanPhysicalDevice(), m_Device, m_GraphicsQueue, tracyBuffer);
 #endif
 

@@ -1,6 +1,6 @@
-#include "Core/OS/OS.h"
+#include "Hubie/Core/OS/OS.h"
 
-namespace Lumos
+namespace Hubie
 {
     class MacOSOS : public OS
     {

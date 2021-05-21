@@ -4,7 +4,7 @@
 #include "VKRenderer.h"
 #include "VKTools.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -38,7 +38,7 @@ namespace Lumos
 
         void VKBuffer::Init(VkBufferUsageFlags usage, uint32_t size, const void* data)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
 
             m_UsageFlags = usage;
 
@@ -74,7 +74,7 @@ namespace Lumos
 
         void VKBuffer::SetData(uint32_t size, const void* data)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             Map(size, 0);
             memcpy(m_Mapped, data, size);
             UnMap();
@@ -103,19 +103,19 @@ namespace Lumos
 
         void VKBuffer::Map(VkDeviceSize size, VkDeviceSize offset)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
 #ifdef USE_VMA_ALLOCATOR
             VkResult res = static_cast<VkResult>(vmaMapMemory(VKDevice::Get().GetAllocator(), m_Allocation, &m_Mapped));
 #else
             VkResult res = vkMapMemory(VKDevice::Device(), m_Memory, offset, size, 0, &m_Mapped);
 #endif
             if(res != VK_SUCCESS)
-                LUMOS_LOG_CRITICAL("[VULKAN] Failed to map buffer");
+                HB_CRITICAL("[VULKAN] Failed to map buffer");
         }
 
         void VKBuffer::UnMap()
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
             if(m_Mapped)
             {
 #ifdef USE_VMA_ALLOCATOR
@@ -129,7 +129,7 @@ namespace Lumos
 
         void VKBuffer::Flush(VkDeviceSize size, VkDeviceSize offset)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
 #ifdef USE_VMA_ALLOCATOR
             vmaFlushAllocation(VKDevice::Get().GetAllocator(), m_Allocation, offset, size);
 #else
@@ -143,7 +143,7 @@ namespace Lumos
 
         void VKBuffer::Invalidate(VkDeviceSize size, VkDeviceSize offset)
         {
-            LUMOS_PROFILE_FUNCTION();
+            HB_PROFILE_FUNCTION();
 #ifdef USE_VMA_ALLOCATOR
             vmaInvalidateAllocation(VKDevice::Get().GetAllocator(), m_Allocation, offset, size);
 #else

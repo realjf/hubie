@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Graphics/API/IndexBuffer.h"
+#include "Hubie/Graphics/API/IndexBuffer.h"
 #include "GLDebug.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

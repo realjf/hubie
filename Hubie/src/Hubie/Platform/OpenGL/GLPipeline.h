@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Graphics/API/Pipeline.h"
+#include "Hubie/Graphics/API/Pipeline.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {

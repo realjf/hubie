@@ -1,10 +1,10 @@
 #include "Precompiled.h"
 #include "ALSound.h"
 
-#include "Audio/WavLoader.h"
-#include "Audio/OggLoader.h"
+#include "Hubie/Audio/WavLoader.h"
+#include "Hubie/Audio/OggLoader.h"
 
-namespace Lumos
+namespace Hubie
 {
     ALSound::ALSound(const std::string& fileName, const std::string& format)
         : m_Format(0)

@@ -1,8 +1,8 @@
 #pragma once
-#include "Core/OS/Window.h"
-#include "Core/OS/KeyCodes.h"
+#include "Hubie/Core/OS/Window.h"
+#include "Hubie/Core/OS/KeyCodes.h"
 
-namespace Lumos
+namespace Hubie
 {
     class iOSWindow : public Window
     {
@@ -57,7 +57,7 @@ namespace Lumos
         void SetIcon(const std::string& filePath, const std::string& smallIconFilePath) override {};
         void UpdateCursorImGui() override {};
 
-        void OnKeyEvent(Lumos::InputCode::Key key, bool down);
+        void OnKeyEvent(Hubie::InputCode::Key key, bool down);
         void OnTouchEvent(uint32_t xPos, uint32_t yPos, uint32_t count, bool down);
         void OnMouseMovedEvent(uint32_t xPos, uint32_t yPos);
         void OnResizeEvent(uint32_t width, uint32_t height);

@@ -1,80 +1,80 @@
 #pragma once
 
-#include "Core/OS/KeyCodes.h"
+#include "Hubie/Core/OS/KeyCodes.h"
 #include <map>
 
-namespace Lumos
+namespace Hubie
 {
     namespace iOSKeyCodes
     {
-        inline Lumos::InputCode::Key iOSKeyToLumos(char key)
+        inline Hubie::InputCode::Key iOSKeyToHubie(char key)
         {
-            static std::map<char, Lumos::InputCode::Key> keyMap = {
-                { 'a', Lumos::InputCode::Key::A },
-                { 'b', Lumos::InputCode::Key::B },
-                { 'c', Lumos::InputCode::Key::C },
-                { 'd', Lumos::InputCode::Key::D },
-                { 'e', Lumos::InputCode::Key::E },
-                { 'f', Lumos::InputCode::Key::F },
-                { 'g', Lumos::InputCode::Key::G },
-                { 'h', Lumos::InputCode::Key::H },
-                { 'i', Lumos::InputCode::Key::I },
-                { 'j', Lumos::InputCode::Key::J },
-                { 'k', Lumos::InputCode::Key::K },
-                { 'l', Lumos::InputCode::Key::L },
-                { 'm', Lumos::InputCode::Key::M },
-                { 'n', Lumos::InputCode::Key::N },
-                { 'o', Lumos::InputCode::Key::O },
-                { 'p', Lumos::InputCode::Key::P },
-                { 'q', Lumos::InputCode::Key::Q },
-                { 'r', Lumos::InputCode::Key::R },
-                { 's', Lumos::InputCode::Key::S },
-                { 't', Lumos::InputCode::Key::T },
-                { 'u', Lumos::InputCode::Key::U },
-                { 'v', Lumos::InputCode::Key::V },
-                { 'w', Lumos::InputCode::Key::W },
-                { 'x', Lumos::InputCode::Key::X },
-                { 'y', Lumos::InputCode::Key::Y },
-                { 'z', Lumos::InputCode::Key::Z },
+            static std::map<char, Hubie::InputCode::Key> keyMap = {
+                { 'a', Hubie::InputCode::Key::A },
+                { 'b', Hubie::InputCode::Key::B },
+                { 'c', Hubie::InputCode::Key::C },
+                { 'd', Hubie::InputCode::Key::D },
+                { 'e', Hubie::InputCode::Key::E },
+                { 'f', Hubie::InputCode::Key::F },
+                { 'g', Hubie::InputCode::Key::G },
+                { 'h', Hubie::InputCode::Key::H },
+                { 'i', Hubie::InputCode::Key::I },
+                { 'j', Hubie::InputCode::Key::J },
+                { 'k', Hubie::InputCode::Key::K },
+                { 'l', Hubie::InputCode::Key::L },
+                { 'm', Hubie::InputCode::Key::M },
+                { 'n', Hubie::InputCode::Key::N },
+                { 'o', Hubie::InputCode::Key::O },
+                { 'p', Hubie::InputCode::Key::P },
+                { 'q', Hubie::InputCode::Key::Q },
+                { 'r', Hubie::InputCode::Key::R },
+                { 's', Hubie::InputCode::Key::S },
+                { 't', Hubie::InputCode::Key::T },
+                { 'u', Hubie::InputCode::Key::U },
+                { 'v', Hubie::InputCode::Key::V },
+                { 'w', Hubie::InputCode::Key::W },
+                { 'x', Hubie::InputCode::Key::X },
+                { 'y', Hubie::InputCode::Key::Y },
+                { 'z', Hubie::InputCode::Key::Z },
 
-                { '0', Lumos::InputCode::Key::D0 },
-                { '1', Lumos::InputCode::Key::D1 },
-                { '2', Lumos::InputCode::Key::D2 },
-                { '3', Lumos::InputCode::Key::D3 },
-                { '4', Lumos::InputCode::Key::D4 },
-                { '5', Lumos::InputCode::Key::D5 },
-                { '6', Lumos::InputCode::Key::D6 },
-                { '7', Lumos::InputCode::Key::D7 },
-                { '8', Lumos::InputCode::Key::D8 },
-                { '9', Lumos::InputCode::Key::D9 },
+                { '0', Hubie::InputCode::Key::D0 },
+                { '1', Hubie::InputCode::Key::D1 },
+                { '2', Hubie::InputCode::Key::D2 },
+                { '3', Hubie::InputCode::Key::D3 },
+                { '4', Hubie::InputCode::Key::D4 },
+                { '5', Hubie::InputCode::Key::D5 },
+                { '6', Hubie::InputCode::Key::D6 },
+                { '7', Hubie::InputCode::Key::D7 },
+                { '8', Hubie::InputCode::Key::D8 },
+                { '9', Hubie::InputCode::Key::D9 },
 
-                { '-', Lumos::InputCode::Key::Minus },
-                { 0x75, Lumos::InputCode::Key::Delete },
-                { ' ', Lumos::InputCode::Key::Space },
-                { 0x7B, Lumos::InputCode::Key::Left },
-                { 0x7C, Lumos::InputCode::Key::Right },
-                { 0x7E, Lumos::InputCode::Key::Up },
-                { 0x7D, Lumos::InputCode::Key::Down },
-                { 0x38, Lumos::InputCode::Key::LeftShift },
-                { 0x35, Lumos::InputCode::Key::Escape },
-                { '+', Lumos::InputCode::Key::Equal },
-                { 0x33, Lumos::InputCode::Key::Backspace },
-                { 0x24, Lumos::InputCode::Key::Enter },
-                { ',', Lumos::InputCode::Key::Comma }
+                { '-', Hubie::InputCode::Key::Minus },
+                { 0x75, Hubie::InputCode::Key::Delete },
+                { ' ', Hubie::InputCode::Key::Space },
+                { 0x7B, Hubie::InputCode::Key::Left },
+                { 0x7C, Hubie::InputCode::Key::Right },
+                { 0x7E, Hubie::InputCode::Key::Up },
+                { 0x7D, Hubie::InputCode::Key::Down },
+                { 0x38, Hubie::InputCode::Key::LeftShift },
+                { 0x35, Hubie::InputCode::Key::Escape },
+                { '+', Hubie::InputCode::Key::Equal },
+                { 0x33, Hubie::InputCode::Key::Backspace },
+                { 0x24, Hubie::InputCode::Key::Enter },
+                { ',', Hubie::InputCode::Key::Comma }
             };
 
             return keyMap[key];
         }
 
-        inline Lumos::InputCode::MouseKey iOSTouchToLumosMouseKey(uint32_t count)
+        inline Hubie::InputCode::MouseKey iOSTouchToHubieMouseKey(uint32_t count)
         {
             if(count > 3)
-                return Lumos::InputCode::MouseKey::ButtonLeft;
+                return Hubie::InputCode::MouseKey::ButtonLeft;
 
-            static std::map<uint32_t, Lumos::InputCode::MouseKey> keyMap = {
-                { 0, Lumos::InputCode::MouseKey::ButtonLeft },
-                { 1, Lumos::InputCode::MouseKey::ButtonRight },
-                { 2, Lumos::InputCode::MouseKey::ButtonMiddle }
+            static std::map<uint32_t, Hubie::InputCode::MouseKey> keyMap = {
+                { 0, Hubie::InputCode::MouseKey::ButtonLeft },
+                { 1, Hubie::InputCode::MouseKey::ButtonRight },
+                { 2, Hubie::InputCode::MouseKey::ButtonMiddle }
             };
             return keyMap[count];
         }

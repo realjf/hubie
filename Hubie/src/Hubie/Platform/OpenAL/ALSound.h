@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Audio/Sound.h"
+#include "Hubie/Audio/Sound.h"
 
 #include <AL/al.h>
 
-namespace Lumos
+namespace Hubie
 {
     class ALSound : public Sound
     {

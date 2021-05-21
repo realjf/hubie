@@ -1,11 +1,11 @@
 #include "Precompiled.h"
 #include "VKTexture.h"
 #include "VKDevice.h"
-#include "Utilities/LoadImage.h"
+#include "Hubie/Utilities/LoadImage.h"
 #include "VKTools.h"
 #include "VKBuffer.h"
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
@@ -26,7 +26,7 @@ namespace Lumos
             VkImageView imageView;
             if(vkCreateImageView(VKDevice::Get().GetDevice(), &viewInfo, nullptr, &imageView) != VK_SUCCESS)
             {
-                LUMOS_LOG_ERROR("Failed to create texture image view!");
+                HB_ERROR("Failed to create texture image view!");
             }
 
             return imageView;
@@ -55,7 +55,7 @@ namespace Lumos
 
             if(vkCreateSampler(VKDevice::Get().GetDevice(), &samplerInfo, nullptr, &sampler) != VK_SUCCESS)
             {
-                LUMOS_LOG_ERROR("Failed to create texture sampler!");
+                HB_ERROR("Failed to create texture sampler!");
             }
 
             return sampler;
@@ -263,7 +263,7 @@ namespace Lumos
 
             if(!(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT))
             {
-                LUMOS_LOG_ERROR("Texture image format does not support linear blitting!");
+                HB_ERROR("Texture image format does not support linear blitting!");
             }
 
             VkCommandBuffer commandBuffer = VKTools::BeginSingleTimeCommands();
@@ -371,7 +371,7 @@ namespace Lumos
             uint8_t* pixels;
 
             if(m_Data == nullptr)
-                pixels = Lumos::LoadImageFromFile(m_FileName, &m_Width, &m_Height, &bits);
+                pixels = Hubie::LoadImageFromFile(m_FileName, &m_Width, &m_Height, &bits);
             else
             {
                 bits = 32;
@@ -387,7 +387,7 @@ namespace Lumos
 
             if(!pixels)
             {
-                LUMOS_LOG_CRITICAL("failed to load texture image!");
+                HB_CRITICAL("failed to load texture image!");
             }
 
             m_MipLevels = static_cast<uint32_t>(std::floor(std::log2(Maths::Max(m_Width, m_Height)))) + 1;
@@ -492,7 +492,7 @@ namespace Lumos
 
             for(uint32_t m = 0; m < mips; m++)
             {
-                uint8_t* data = Lumos::LoadImageFromFile(m_Files[m], &srcWidth, &srcHeight, &bits, &isHDR, !m_LoadOptions.flipY);
+                uint8_t* data = Hubie::LoadImageFromFile(m_Files[m], &srcWidth, &srcHeight, &bits, &isHDR, !m_LoadOptions.flipY);
                 m_Parameters.format = BitsToTextureFormat(bits);
                 uint32_t stride = bits / 8;
 

@@ -3,21 +3,21 @@
 #include "VK.h"
 #include "VKContext.h"
 #include "VKSwapchain.h"
-#include "Graphics/API/DescriptorSet.h"
-#include "Graphics/API/RenderPass.h"
+#include "Hubie/Graphics/API/DescriptorSet.h"
+#include "Hubie/Graphics/API/RenderPass.h"
 #include "VKUniformBuffer.h"
 #include "VKDescriptorSet.h"
-#include "Graphics/API/Renderer.h"
+#include "Hubie/Graphics/API/Renderer.h"
 
 #define NUM_SEMAPHORES 10
 
-namespace Lumos
+namespace Hubie
 {
     namespace Graphics
     {
         class CommandBuffer;
 
-        class LUMOS_EXPORT VKRenderer : public Renderer
+        class HB_EXPORT VKRenderer : public Renderer
         {
         public:
             VKRenderer(uint32_t width, uint32_t height)
@@ -55,7 +55,7 @@ namespace Lumos
             static Renderer* CreateFuncVulkan(uint32_t width, uint32_t height);
 
         private:
-            Lumos::Graphics::VKContext* m_Context;
+            Hubie::Graphics::VKContext* m_Context;
 
             uint32_t m_CurrentSemaphoreIndex = 0;
 
