@@ -37,3 +37,9 @@
 [submodule "Hubie/Deps/tracy"]
 	path = Hubie/Deps/tracy
 	url = https://github.com/wolfpld/tracy.git
+[submodule "Hubie/Deps/tinygltf"]
+	path = Hubie/Deps/tinygltf
+	url = https://github.com/syoyo/tinygltf.git
+[submodule "Hubie/Deps/tinyobjloader"]
+	path = Hubie/Deps/tinyobjloader
+	url = https://github.com/tinyobjloader/tinyobjloader.git

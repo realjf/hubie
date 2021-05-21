@@ -10,6 +10,10 @@ IncludeDir["spdlog"] = "./Deps/spdlog/include"
 IncludeDir["cereal"] = "./Deps/cereal/include"
 IncludeDir["entt"] = "./Deps/entt/src"
 IncludeDir["sol2"] = "./Deps/sol2/include"
+IncludeDir["openfbx"] = "./Deps/OpenFBX/src"
+IncludeDir["tinygltf"] = "./Deps/tinygltf"
+IncludeDir["tinyobjloader"] = "./Deps/tinyobjloader"
+IncludeDir["meshoptimizer"] = "./Deps/meshoptimizer/src"
 IncludeDir["glm"] = "./Deps/glm"
 IncludeDir["Hubie"] = "src"
 
@@ -35,6 +39,10 @@ project "Hubie"
         "%{IncludeDir.entt}",
         "%{IncludeDir.sol2}",
         "%{IncludeDir.stb}",
+        "%{IncludeDir.openfbx}",
+        "%{IncludeDir.tinygltf}",
+        "%{IncludeDir.tinyobjloader}",
+        "%{IncludeDir.meshoptimizer}",
     }
 
     sysincludedirs
